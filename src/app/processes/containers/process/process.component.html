@@ -1,0 +1,19 @@
+<main class="o-wrapper" *ngIf="process$ | async as process">
+
+  <header>
+    <h1>{{ process.name }}</h1>
+  </header>
+
+  <nav mat-tab-nav-bar>
+    <a mat-tab-link
+      *ngFor="let link of navLinks"
+      [routerLink]="link.link"
+      routerLinkActive
+      #rla="routerLinkActive"
+      [active]="rla.isActive">
+      {{link.label}}
+    </a>
+  </nav>
+  
+  <router-outlet></router-outlet>
+</main>

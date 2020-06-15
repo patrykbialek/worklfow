@@ -8,13 +8,17 @@ import { ProcessesHttpService } from '../services/processes-http.service';
 })
 export class ProcessesComponent implements OnInit {
 
-  processes$ = this.processesService.getProcesses();
+  processes;
 
   constructor(
     private processesService: ProcessesHttpService,
   ) { }
 
   ngOnInit() {
+    this.processesService.getProcesses().subscribe(
+      response => {
+        this.processes = response;
+      });
   }
 
 }

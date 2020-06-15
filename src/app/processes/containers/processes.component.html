@@ -1,7 +1,21 @@
-<main *ngIf="processes$ | async as processes">
-  <pre>
-    {{ processes | json }}
-  </pre>
+<main  class="o-wrapper">
+
+  <mat-list>
+    <div mat-subheader>Obecne procesy</div>
+    <ng-container *ngFor="let process of processes">
+      <mat-list-item>
+        <a matLine [routerLink]="['/processes/', process.id]">
+          <p matLine>{{ process.name }}</p>
+        </a>
+        <button mat-icon-button (click)="onRemove()">
+          <mat-icon>keyboard_arrow_right</mat-icon>
+        </button>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+
+    </ng-container>
+  </mat-list>
+
 </main>
 
 <router-outlet></router-outlet>
