@@ -1,1 +1,20 @@
-<p>list works!</p>
+<mat-list *ngIf="tasks$ | async as tasks">
+  <div style="margin-bottom: 48px" *ngFor="let item of tasks">
+    <div mat-subheader>{{ item.section }}</div>
+    <ng-container *ngFor="let task of item.tasks">
+      <mat-list-item>
+        <!-- <div matLine [routerLink]="['/processes/']">
+          <p matLine>{{ task.name }}</p>
+        </div> -->
+        <mat-icon mat-list-icon *ngIf="task.isCompleted" style="color: green">check_circle_outline</mat-icon>
+        <mat-icon mat-list-icon *ngIf="!task.isCompleted">panorama_fish_eye</mat-icon>
+        <div mat-line>{{ task.name }}</div>
+        <div mat-line>Termin: {{ task.endDate | date:'dd/MM/yyyy' }} </div>
+        <button mat-icon-button (click)="onRemove()">
+          <mat-icon>keyboard_arrow_right</mat-icon>
+        </button>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+    </ng-container>
+  </div>
+</mat-list>

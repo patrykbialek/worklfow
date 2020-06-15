@@ -2,51 +2,167 @@ import { Injectable } from "@angular/core";
 import { Observable, of } from 'rxjs';
 import { Task } from '../models';
 
-
+const tasks: Task[] = [
+  {
+    id: '6454dgdfgd',
+    assignee: 'Janusz Popanusz',
+    endDate: '2020-06-30T12:00',
+    startDate: '2020-06-15T12:00',
+    processes: ['6454dgdfgd11', '6454dgdfgd11'],
+    priority: 'high',
+    description: 'no description',
+    isCompleted: false,
+    subtasks: [],
+    name: 'Przygotować zestawienie CIT',
+    section: 'Dział Rozliczeń CIT',
+  },
+  {
+    id: '33fdfeer',
+    assignee: 'Janusz Popanusz',
+    endDate: '2020-06-30T12:00',
+    startDate: '2020-06-15T12:00',
+    processes: ['6454dgdfgd11', '6454dgdfgd11'],
+    priority: 'high',
+    description: 'no description',
+    isCompleted: true,
+    subtasks: [],
+    name: 'Sprawdzić faktury',
+    section: 'Dział Rozliczeń CIT',
+  },
+  {
+    id: '444454dgdfgd',
+    assignee: 'Janusz Popanusz',
+    endDate: '2020-06-30T12:00',
+    startDate: '2020-06-15T12:00',
+    processes: ['6454dgdfgd11', '6454dgdfgd11'],
+    priority: 'high',
+    description: 'no description',
+    isCompleted: false,
+    subtasks: [],
+    name: 'Przygotować zestawienie VAT',
+    section: 'Dział Rozliczeń VAT',
+  },
+  {
+    id: 'sdfs2323',
+    assignee: 'Janusz Popanusz',
+    endDate: '2020-06-30T12:00',
+    startDate: '2020-06-15T12:00',
+    processes: ['6454dgdfgd11', '6454dgdfgd11'],
+    priority: 'high',
+    description: 'no description',
+    isCompleted: false,
+    subtasks: [],
+    name: 'Sprawdzić faktury',
+    section: 'Dział Rozliczeń VAT',
+  },
+  {
+    id: '5454554dgdfgd',
+    assignee: 'Janusz Popanusz',
+    endDate: '2020-06-30T12:00',
+    startDate: '2020-06-15T12:00',
+    processes: ['6454dgdfgd11', '6454dgdfgd11'],
+    priority: 'high',
+    description: 'no description',
+    isCompleted: false,
+    subtasks: [],
+    name: 'Przygotować listę płac',
+    section: 'Dział Kadr',
+  },
+];
 @Injectable({
   providedIn: 'root'
 })
 export class TasksHttpService {
 
-  getTasks(): Observable<Task[]> {
-    const tasks: Task[] = [
+  getAllTasks(): Observable<Task[]> {
+    const allTasks = tasks;
+    return of(allTasks);
+  }
+
+  getAllTasksBySections(): Observable<any[]> {
+    const tasksBySections = [
       {
-        id: '6454dgdfgd',
-        assignee: 'Janusz Popanusz',
-        endDate: '2020-06-30T12:00',
-        startDate: '2020-06-15T12:00',
-        processes: ['6454dgdfgd11', '6454dgdfgd11'],
-        priority: 'high',
-        description: 'no description',
-        isCompleted: false,
-        subtasks: [],
-        name: 'Przygotować zestawienie CIT',
+        section: 'Dział Rozliczeń CIT',
+        tasks: [
+          {
+            id: '6454dgdfgd',
+            assignee: 'Janusz Popanusz',
+            endDate: '2020-06-30T12:00',
+            startDate: '2020-06-15T12:00',
+            processes: ['6454dgdfgd11', '6454dgdfgd11'],
+            priority: 'high',
+            description: 'no description',
+            isCompleted: true,
+            subtasks: [],
+            name: 'Przygotować zestawienie CIT',
+            section: 'Dział Rozliczeń CIT',
+          },
+          {
+            id: '33fdfeer',
+            assignee: 'Janusz Popanusz',
+            endDate: '2020-06-30T12:00',
+            startDate: '2020-06-15T12:00',
+            processes: ['6454dgdfgd11', '6454dgdfgd11'],
+            priority: 'high',
+            description: 'no description',
+            isCompleted: false,
+            subtasks: [],
+            name: 'Sprawdzić faktury',
+            section: 'Dział Rozliczeń CIT',
+          },
+        ]
       },
       {
-        id: '444454dgdfgd',
-        assignee: 'Janusz Popanusz',
-        endDate: '2020-06-30T12:00',
-        startDate: '2020-06-15T12:00',
-        processes: ['6454dgdfgd11', '6454dgdfgd11'],
-        priority: 'high',
-        description: 'no description',
-        isCompleted: false,
-        subtasks: [],
-        name: 'Przygotować zestawienie VAT',
+        section: 'Dział Rozliczeń VAT',
+        tasks: [
+          {
+            id: '444454dgdfgd',
+            assignee: 'Janusz Popanusz',
+            endDate: '2020-06-30T12:00',
+            startDate: '2020-06-15T12:00',
+            processes: ['6454dgdfgd11', '6454dgdfgd11'],
+            priority: 'high',
+            description: 'no description',
+            isCompleted: false,
+            subtasks: [],
+            name: 'Przygotować zestawienie VAT',
+            section: 'Dział Rozliczeń VAT',
+          },
+          {
+            id: 'sdfs2323',
+            assignee: 'Janusz Popanusz',
+            endDate: '2020-06-30T12:00',
+            startDate: '2020-06-15T12:00',
+            processes: ['6454dgdfgd11', '6454dgdfgd11'],
+            priority: 'high',
+            description: 'no description',
+            isCompleted: false,
+            subtasks: [],
+            name: 'Sprawdzić faktury',
+            section: 'Dział Rozliczeń VAT',
+          },
+        ]
       },
       {
-        id: '5454554dgdfgd',
-        assignee: 'Janusz Popanusz',
-        endDate: '2020-06-30T12:00',
-        startDate: '2020-06-15T12:00',
-        processes: ['6454dgdfgd11', '6454dgdfgd11'],
-        priority: 'high',
-        description: 'no description',
-        isCompleted: false,
-        subtasks: [],
-        name: 'Przygotować listę płac',
+        section: 'Dział Kadr',
+        tasks: [
+          {
+            id: '5454554dgdfgd',
+            assignee: 'Janusz Popanusz',
+            endDate: '2020-06-30T12:00',
+            startDate: '2020-06-15T12:00',
+            processes: ['6454dgdfgd11', '6454dgdfgd11'],
+            priority: 'high',
+            description: 'no description',
+            isCompleted: false,
+            subtasks: [],
+            name: 'Przygotować listę płac',
+            section: 'Dział Kadr',
+          },
+        ]
       },
     ];
-    return of(tasks);
+
+    return of(tasksBySections);
   }
 }
