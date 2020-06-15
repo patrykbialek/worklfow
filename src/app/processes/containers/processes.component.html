@@ -1,3 +1,7 @@
-<p>processes works!</p>
+<main *ngIf="processes$ | async as processes">
+  <pre>
+    {{ processes | json }}
+  </pre>
+</main>
 
 <router-outlet></router-outlet>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ProcessesHttpService } from '../services/processes-http.service';
 
 @Component({
   selector: 'app-processes',
@@ -7,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProcessesComponent implements OnInit {
 
-  constructor() { }
+  processes$ = this.processesService.getProcesses();
+
+  constructor(
+    private processesService: ProcessesHttpService,
+  ) { }
 
   ngOnInit() {
   }

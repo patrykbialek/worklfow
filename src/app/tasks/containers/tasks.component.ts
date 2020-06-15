@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TasksHttpService } from '../services/tasks-http.service';
 
 @Component({
   selector: 'app-tasks',
@@ -7,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TasksComponent implements OnInit {
 
-  constructor() { }
+  tasks$ = this.tasksService.getTasks();
+  
+  constructor(
+    private tasksService: TasksHttpService,
+  ) { }
 
   ngOnInit() {
   }

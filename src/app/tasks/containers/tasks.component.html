@@ -1,3 +1,7 @@
-<p>tasks works!</p>
+<main *ngIf="tasks$ | async as tasks">
+  <pre>
+    {{ tasks | json }}
+  </pre>
+</main>
 
 <router-outlet></router-outlet>
