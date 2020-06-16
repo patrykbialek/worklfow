@@ -12,7 +12,7 @@ th, td {
 }
 
 .mat-column-index {
-  width: 40px;
+  width: 32px;
 }
 
 .c-header-cell,
@@ -68,7 +68,19 @@ th, td {
   background-color: whitesmoke;
 }
 
+.u-is-open {
+  .c-mat-drawer__content {
+    transition: opacity 250ms ease-in-out;
+    transition-delay: 250ms;
+    opacity: 1;
+  }
+}
+
+
 .c-mat-drawer {
+  &__content {
+    opacity: 0;
+  }
   &__header,
   &__body,
   &__footer {
