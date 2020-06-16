@@ -1,0 +1,130 @@
+/* ==========================================================================
+   #DATEPICKERS
+   ========================================================================== */
+
+/**
+ * This is an example component. Extend inuitcss by building your own components
+ * that make up your UI. Component classes are prefixed with a `c-datepicker-container`.
+ */
+
+/* Basic style
+   ========================================================================== */
+ 
+.c-datepicker-container {
+  position: relative;
+  input,
+  input:focus,
+  input:active { 
+    background: transparent; 
+    cursor: pointer;
+    z-index: 10;
+  }
+  input:-webkit-autofill, 
+  textarea:-webkit-autofill, 
+  select:-webkit-autofill {
+    background: transparent; 
+  }
+  &:before {
+    position: absolute;
+    background: $white_1000;
+    border-radius: $global-radius;
+    bottom: 0;
+    content: '';
+    display: block;
+    height: 42px;
+    left: 0;
+    width: 100%;
+  }
+  &:after {
+    background-image: url("data:image/svg+xml,%3Csvg fill='%23616161' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z'/%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3C/svg%3E");    content: 'dfdfd';
+    display: inline-block;
+    height: 24px;
+    opacity: 1;
+    overflow: hidden;
+    position: absolute;
+    right: 6px;
+    text-indent: 200%;
+    white-space: nowrap;
+    width: 24px;
+    top: 30px;
+    transition: transform 250ms ease-in-out;
+    z-index: 1;
+  }
+}
+
+// Daterangepicker custom
+// ------------------------------------------
+
+.daterangepicker {
+  font-family: 'Roboto', sans-serif;
+  position: absolute;
+  color: inherit;
+  background-color: #fff;
+  border-radius: $global-radius;
+  padding: 4px;
+  margin-top: 1px;
+  top: 100px;
+  left: 20px;
+  
+  td.start-date.end-date {
+      border-radius: $global-radius;
+  }
+
+  td, .daterangepicker th {
+      text-align: center;
+      width: 20px;
+      height: 20px;
+      border-radius: $global-radius;
+      border: 1px solid transparent;
+      white-space: nowrap;
+      cursor: pointer;
+  }
+
+  td.active, .daterangepicker td.active:hover {
+      background-color: #1565C0;
+      border-color: transparent;
+      color: #fff;
+  }
+  
+  .calendar-table {
+    padding: 0;
+    border-radius: $global-radius;
+  }
+  
+ .calendar {
+    max-width: 270px;
+    padding: 4px;
+  }
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  display: none;
+  float: left;
+  min-width: 160px;
+  padding: 5px 0;
+  margin: 2px 0 0;
+  font-size: 14px;
+  text-align: left;
+  list-style: none;
+  background-color: #fff;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  border: none;
+  border: none;
+  border-radius: $global-radius;
+  box-shadow: 0 3px 3px -2px rgba(0, 0, 0, .2), 0 3px 4px 0 rgba(0, 0, 0, .14), 0 1px 8px 0 rgba(0, 0, 0, .12)
+}
+
+@media (min-width: 564px) {
+  .daterangepicker.ltr .calendar.left .calendar-table {
+      padding-right: 0;
+  }
+}
+
+
+
+

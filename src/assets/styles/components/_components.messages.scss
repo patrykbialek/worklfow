@@ -1,0 +1,122 @@
+/* ==========================================================================
+   #MESSAGES
+   ========================================================================== */
+
+
+/* HTML tags
+   --------------------------------------------------------------------------
+
+    <div class="c-message c-message--info c-message--icon">
+      Here you can enter Your internal company information (HR Id, or other information).
+    </div>
+
+    <div class="c-message c-message--error c-message--icon">
+      Here you can enter Your internal company information (HR Id, or other information).
+    </div>
+
+    <div class="c-message c-message--success c-message--icon">
+      Here you can enter Your internal company information (HR Id, or other information).
+    </div>
+
+*/
+
+$padding: 12px;
+$background-color: $grey_200;
+
+.c-message {
+  align-items: center;
+  background-color: $background-color;
+  border-radius: .3rem;
+  display: flex;
+  font-size: 1.3rem;
+  line-height: 1;
+  margin-bottom: 16px;
+  min-height: 24px;
+  padding: $padding;
+  position: relative;
+  transition: all .3s ease;
+
+  
+  // Colors
+  &--info    { color: $blue-500;   }
+  &--success { color: $green-500;  }
+  &--warn    { color: $orange-500; }
+  &--warning { color: $orange-500; }
+  &--error   { color: $red-500;    }
+  
+
+  // Icons
+  &--icon {
+    padding-left: $padding + 32px;
+    &:before {
+      background-position: 0px;
+      bottom: 0;
+      content: "";
+      display: block;
+      position: absolute;
+      height: 24px;
+      left: $padding;
+      margin: auto;
+      overflow: auto;
+      padding: 0;
+      position: absolute;
+      top: 0;
+      width: 24px;
+    }
+    &.c-message--info {
+      &:before {
+        background-image: url("data:image/svg+xml,%3Csvg fill='%232196F3' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z'/%3E%3C/svg%3E");
+      }
+    }
+    &.c-message--error {
+      &:before {
+        background-image: url("data:image/svg+xml,%3Csvg fill='%23F44336' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z'/%3E%3C/svg%3E");
+      }
+    }
+    &.c-message--warning,
+    &.c-message--warn {
+      &:before {
+        background-image: url("data:image/svg+xml,%3Csvg fill='%23FF9800' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z'/%3E%3C/svg%3E");
+      }
+    }
+    &.c-message--success {
+      &:before {
+        background-image: url("data:image/svg+xml,%3Csvg fill='%234CAF50' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z'/%3E%3C/svg%3E");
+      }
+    }
+  } 
+
+  
+  // Padding modifier
+  $tiny-size:   6px;
+  $small-size:  $tiny-size   * 2;
+  $normal-size: $small-size  * 2;
+  $large-size:  $normal-size * 2;
+  $huge-size:   $large-size  * 2;
+
+  &--icon.u-padding-tiny,
+  &--icon.u-padding-left-tiny  { padding-left: $tiny-size   + 32px!important;
+    &:before { left: $tiny-size!important;   }
+  }
+  
+  &--icon.u-padding-small,
+  &--icon.u-padding-left-small { padding-left: $small-size  + 32px!important;
+    &:before { left: $small-size!important;  }
+  }
+
+  &--icon.u-padding,
+  &--icon.u-padding-left       { padding-left: $normal-size + 32px!important;
+    &:before { left: $normal-size!important; }
+  }
+
+  &--icon.u-padding-large,
+  &--icon.u-padding-left-large { padding-left: $large-size  + 32px!important;
+    &:before { left: $large-size!important;  }
+  }
+
+  &--icon.u-padding-huge,
+  &--icon.u-padding-left-huge  { padding-left: $huge-size   + 32px!important;
+    &:before { left: $huge-size!important;   }
+  }
+
+}

@@ -1,0 +1,195 @@
+$border-radius: 1.2rem;
+
+.c-section-card,
+.c-feed-card,
+.c-case-study-card {
+  background-color: #fff;
+  border-radius: $border-radius;
+  border: .05vw solid #F5F5F5;
+
+  position: relative;
+
+  padding: 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  opacity: 0;
+
+  $basicAnimationDuration: 550ms;
+
+  $dotAnimationDelay: 10ms;
+  $lineAnimationDelay: $dotAnimationDelay + $basicAnimationDuration - 450;
+  $boxAnimationDelay: $lineAnimationDelay + $basicAnimationDuration - 600;
+
+  animation-name: fadein, showBoxTop;
+  animation-duration: 250ms, $basicAnimationDuration;
+  animation-delay: 200ms, 300ms;
+  animation-iteration-count: 1;
+  animation-fill-mode: both;
+
+  transform-origin: top;
+
+  &:before {
+    content: ' ';
+    display: block;
+    position: absolute;
+    box-shadow: 0 0 2.2vw 0 rgba(6,0,35,.05);
+    border-radius: $border-radius;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    z-index: -1;
+  }
+
+  // Elements
+
+  &__row {
+    display: flex;
+    flex-direction: row;
+  }
+
+  &__column {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__media {
+    text-align: left;
+    z-index: 100;
+  }
+
+  &__image {
+    border-radius: $border-radius;
+    transition: all 250ms ease-in-out;
+    background-repeat: no-repeat;
+    background-position: 0 center;
+  }
+
+  &__action {
+    height: 42px;
+    width: 100%;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    z-index: 2;
+
+    .c-btn {
+      font-size: 1.8rem;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+
+    position: absolute;
+    left: 12px;
+    bottom: 12px;
+
+    a,
+    i,
+    div,
+    span {
+      // width: 24px;
+      height: 24px;
+    }
+
+    a:visited {
+      color: inherit;
+    }
+  }
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: -24px;
+
+    position: relative;
+    width: 100%;
+
+    background-color: #f5f5f5;
+    border-radius: 0 $border-radius $border-radius 0;
+
+    z-index: 100;
+  }
+
+  &__name {
+    color: #424242;
+    font-size: 2.2rem;
+  }
+
+  &__separator {
+    margin: 16px 0;
+    width: 15%;
+    border-bottom: solid 2px #0091ea !important;
+  }
+
+  &__position {
+    font-size: 1.4rem;
+  }
+
+  &__bio {
+    opacity: 0;
+    transition: all 250ms ease-in-out;
+    overflow: hidden;
+    margin-left: -42px;
+    cursor: default;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 1.2rem;
+
+    border-radius: 0 $border-radius $border-radius 0;
+
+    transform: scale(0, 1) translate(10%, 0);
+    transform-origin: right;
+  }
+
+  .u-is-shown {
+    &.c-section-card__bio {
+      opacity: 1;
+      background-color: #f5f5f5;
+      z-index: 9;
+      transform: scale(1) translate(0);
+    }
+    &.c-section-card__image {
+      background-position: -20px center;
+    }
+    &.c-section-card__text {
+      margin-left: -24px;
+    }
+  }
+
+  .c-help:hover .c-section-card__bio {
+    opacity: 1;
+    background-color: #f5f5f5;
+    z-index: 9;
+  }
+
+  // Modifiers
+
+  &--white,
+  &--white .c-section-card__text {
+    background-color: #fff !important;
+  }
+
+  &--person {
+    .c-section-card__image {
+      border-radius: $border-radius 0 0 $border-radius;
+      height: 256px;
+      width: 192px;
+    }
+  }
+}

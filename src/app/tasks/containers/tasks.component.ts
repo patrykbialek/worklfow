@@ -8,7 +8,7 @@ import { TasksHttpService } from '../services/tasks-http.service';
 })
 export class TasksComponent implements OnInit {
 
-  tasks$ = this.tasksService.getTasks();
+  tasks$ = this.tasksService.getAllTasks();
   
   constructor(
     private tasksService: TasksHttpService,

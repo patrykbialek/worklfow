@@ -1,0 +1,286 @@
+/* ==========================================================================
+   #SELECTION-CONTROLS
+   ========================================================================== */
+
+
+/**
+ * This is an example component. Extend inuitcss by building your own components
+ * that make up your UI. Component classes are prefixed with a `c-input-container__radio-group` `c-input-container__checkbox`.
+ *
+ *  Examples:
+
+    <div class="c-checkbox-group u-flex-direction-column">
+      <label for="gender" class="c-checkbox-group__label">Color</label>
+      <div class="c-checkbox">
+        <input class="c-checkbox__input" type="checkbox" id="blue">
+        <label class="c-checkbox__label" for="blue">Blue</label>
+      </div>
+    </div>
+
+    <div class="c-radio-group u-flex-direction-column">
+      <label for="gender" class="c-radio-group__label">Gender</label>
+      <div class="c-radio">
+        <input class="c-radio__input" type="radio" id="female" name="gender">
+        <label class="c-radio__label" for="female">Female</label>
+      </div>
+    </div>
+
+ */
+
+/* to display it correctly in IE image must be encoded [http://meyerweb.com/eric/tools/dencoder/] */
+/* icons taken from material design [https://material.io/icons/] */
+
+
+$background-color: $grey_800;
+$color: $grey_500;
+$control-background-color: $color--primary;
+
+// Container
+.c-radio-container,
+.c-checkbox-container {
+  font-family: inherit;
+  display: flex;
+  flex-direction: column;
+
+  &__label {
+    margin-bottom: 4px;
+    order: 1;
+    color: $grey-500;
+    font-size: 1.2rem;
+    line-height: 16px;
+    min-height: 16px;
+    display: inline-block;
+    font-family: inherit;
+  }
+}
+.c-checkbox-group,
+.c-radio-group {
+  font-family: inherit;
+  display: flex;
+  order: 2;
+  // padding: 8px 0 0 0;
+}
+
+// Checkbox
+// Radio
+.c-radio,
+.c-checkbox {
+  order: 2;
+  &__input {
+    opacity: 0;
+    position: absolute;
+  }
+
+
+  &__label {
+    align-items: center;
+    color: $grey-500;
+    cursor: pointer;
+    display: flex;
+    font-size: 1.6rem;
+    line-height: 2;
+    padding-left: 36px;
+    position: relative;
+    @extend .transition;
+    margin-right: 24px;
+  }
+
+
+  input[type="radio"]:not(:checked):hover~label:after,
+  input[type="radio"]:checked:hover~label:after,
+  input[type="checkbox"]:checked:hover~label:after,
+  input[type="checkbox"]:not(:checked):hover~label:after {
+    border: 1px solid $control-background-color;
+    @extend .border-transition;
+  }
+
+  input[type="checkbox"][disabled]~label,
+  input[type="radio"][disabled]~label {
+    cursor: default;
+  }
+
+  &__input:checked~label {
+    color: $grey-900;
+  }
+
+  input[type="radio"]:not(:checked)~label:before,
+  input[type="checkbox"]:not(:checked)~label:before {
+    transform: scale(0);
+  }
+
+  input[type="radio"][disabled]:checked:hover~label:before,
+  input[type="radio"][disabled]:checked:hover~label:after,
+  input[type="radio"][disabled]:not(:checked):hover~label:before,
+  input[type="radio"][disabled]:not(:checked):hover~label:after,
+  input[type="checkbox"][disabled]:checked:hover~label:before,
+  input[type="checkbox"][disabled]:checked:hover~label:after,
+  input[type="checkbox"][disabled]:not(:checked):hover~label:before,
+  input[type="checkbox"][disabled]:not(:checked):hover~label:after {
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    cursor: default;
+    pointer-events: none;
+  }
+
+  &.u-error {
+    .c-radio__label,
+    .c-radio__helper,
+    .c-checkbox__label,
+    .c-checkbox__helper {
+      color: $red-500;
+    }
+    .c-radio__input,
+    .c-checkbox__input {
+      border: 1px solid $red-500;
+      &:focus {
+        border: 1px solid $red-500;
+      }
+    }
+    input[type="radio"]~label:after,
+    input[type="checkbox"]~label:after {
+      border: 1px solid $red-500!important;
+    }
+  }
+}
+
+
+// Checkbox
+.c-checkbox {
+
+  input[type="checkbox"]:not(:checked)~label:before,
+  input[type="checkbox"]:not(:checked)~label:after,
+  input[type="checkbox"]:checked~label:before,
+  input[type="checkbox"]:checked~label:after,
+  &__label:before,
+  &__input:checked~label:before {
+    content: '';
+    display: inline-block;
+    height: 24px;
+    width: 24px;
+    margin-right: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+
+    position: absolute;
+    left: 0;
+    top: 4px;
+
+    @extend .transition;
+  }
+
+  input[type="checkbox"]:not(:checked)~label:before {
+    background-position: center center;
+    background-size: 20px;
+    @extend .transition;
+  }
+
+  input[type="checkbox"]:not(:checked)~label:after {
+    background-color: $white_1000;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: $global-radius;
+    @extend .transition;
+  }
+
+  input[type="checkbox"]:checked~label:before {
+    background-color: $white_1000;
+    background-image: url("data:image/svg+xml,%3Csvg fill='%231565C0' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3Cpath d='M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z'/%3E%3C/svg%3E");
+    background-position: center center;
+    background-size: 20px;
+    border-radius: $global-radius;
+    @extend .transition;
+  }
+
+  input[type="checkbox"]:checked~label:after {
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: $global-radius;
+    @extend .transition;
+  }
+
+  input[type="checkbox"]:checked~label:before {
+    transform: scale(0.90);
+    z-index: 100;
+  }
+
+  input[type="checkbox"][disabled]:checked~label:before {
+    transform: scale(0.90);
+  }
+
+  input[type="checkbox"][disabled]:checked~label:after {
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    cursor: default;
+    pointer-events: none;
+  }
+  input[type="checkbox"][disabled]:checked~label:before {
+    background-image: url("data:image/svg+xml,%3Csvg fill='%239E9E9E' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3Cpath d='M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z'/%3E%3C/svg%3E");
+    cursor: default;
+    pointer-events: none;
+  }
+
+  input[type="checkbox"][disabled]:not(:checked)~label:after {
+    background-color: $grey-100;
+  }
+}
+
+
+// Radio
+.c-radio {
+  input[type="radio"]:not(:checked)~label:before,
+  input[type="radio"]:not(:checked)~label:after,
+  input[type="radio"]:checked~label:before,
+  input[type="radio"]:checked~label:after {
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 50%;
+    content: '';
+    display: inline-block;
+    height: 24px;
+    margin-right: 8px;
+    left: 0;
+    overflow: hidden;
+    position: absolute;
+    top: 4px;
+    white-space: nowrap;
+    width: 24px;
+    @extend .transition;
+    background-color: $white_1000;
+  }
+
+  input[type="radio"]:checked~label:after {
+    background: $white_1000;
+  }
+
+  input[type="radio"]:not(:checked)~label:before,
+  input[type="radio"]:checked~label:before {
+    background-color: $control-background-color;
+    border: none;
+  }
+  input[type="radio"]:not(:checked):hover~label:after,
+  input[type="radio"]:checked:hover~label:after {
+    border: 1px solid $control-background-color;
+  }
+  input[type="radio"][disabled]:checked~label:after {
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    pointer-events: none;
+  }
+
+  input[type="radio"]:checked~label:before {
+    transform: scale(0.55);
+    z-index: 100;
+  }
+
+  input[type="radio"][disabled]:checked~label:before {
+    border: none;
+    background-color: $grey-500;
+    transform: scale(0.50);
+  }
+
+  input[type="radio"][disabled]:not(:checked)~label:after {
+    background-color: $grey-100;
+  }
+}
+
+.border-transition {
+  transition: border 300ms ease;
+}
+
+.transition {
+  transition: border 300ms ease, transform 400ms ease, color 300ms ease;
+}

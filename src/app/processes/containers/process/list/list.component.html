@@ -1,5 +1,5 @@
 <mat-list *ngIf="tasks$ | async as tasks">
-  <div style="margin-bottom: 48px" *ngFor="let item of tasks">
+  <div  class="u-margin-bottom-large" *ngFor="let item of tasks">
     <div mat-subheader>{{ item.section }}</div>
     <ng-container *ngFor="let task of item.tasks">
       <mat-list-item>
@@ -7,7 +7,7 @@
           <p matLine>{{ task.name }}</p>
         </div> -->
         <mat-icon mat-list-icon *ngIf="task.isCompleted" style="color: green">check_circle_outline</mat-icon>
-        <mat-icon mat-list-icon *ngIf="!task.isCompleted">panorama_fish_eye</mat-icon>
+        <mat-icon mat-list-icon *ngIf="!task.isCompleted" (click)="onSetAsCompleted(task)">panorama_fish_eye</mat-icon>
         <div mat-line>{{ task.name }}</div>
         <div mat-line>Termin: {{ task.endDate | date:'dd/MM/yyyy' }} </div>
         <button mat-icon-button (click)="onRemove()">

@@ -1,0 +1,311 @@
+/* ==========================================================================
+   #TABLES
+   ========================================================================== */
+
+/**
+ * This is an example component. Extend inuitcss by building your own components
+ * that make up your UI. Component classes are prefixed with a `c-table`.
+ *
+ *  Examples:
+
+    <table class="c-table c-table--striped c-table--hovered">
+      <thead>
+        <tr class="c-table__row">
+          <th class="c-table__column-header">Name</th>
+          <th class="c-table__column-header">Added in version</th>
+          <th class="c-table__column-header">UI status</th>
+          <th class="c-table__column-header">Angular status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="c-table__row" *ngFor="let item of componentStatusList">
+          <td class="c-table__cell">{{ item.name }}</td>
+          <td class="c-table__cell">{{ item.version }}</td>
+          <td class="c-table__cell">{{ item.uiStatus }}</td>
+          <td class="c-table__cell">{{ item.angularStatus }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+ */
+
+.c-table {
+  table-layout: fixed;
+  margin-bottom: 0;
+  width: 100%;
+  &__row {
+    border-bottom: 1px solid $grey_300;
+  }
+  &__column-header,
+  &__cell {
+    padding: 0 16px;
+    display: table-cell;
+    vertical-align: middle;
+    text-align: left;
+    text-overflow: ellipsis;
+    font-weight: normal;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  &__column-header {
+    color: $grey_500;
+    font-size: 1.2rem;
+    line-height: 56px;
+    height: 56px;
+  }
+  &__cell {
+    color: $grey_700;
+    font-size: 1.4rem;
+    line-height: 48px;
+    height: 48px;
+  }
+}
+
+/**
+ * Select variant.
+ *
+ *   .c-table .c-table--select
+ */
+
+// TODO: review that code (c-data-table, etc)
+.c-table--select {
+  position: relative;
+  table-layout: fixed;
+  .c-table__body,
+  .c-data-table__body {
+    .u-is-selected,
+    .c-table__row,
+    .c-data-table__row {
+      cursor: pointer;
+      &:hover {
+        background-color: $grey_200;
+      }
+    }
+    .c-table__row.u-is-selected,
+    .c-data-table__row.u-is-selected {
+      background-color: $grey_200;
+    }
+  }
+  .c-data-table__header .c-data-table__row,
+  .c-data-table__content {
+    padding: 0;
+  }
+  .c-data-table__header .c-data-table__row:after,
+  .c-data-table__content:after {
+    content: '';
+    background-image: none;
+    padding: 0;
+    margin: 0;
+  }
+  &__row {
+    cursor: pointer;
+  }
+  &__cell {
+    position: absolute;
+    height: 48px;
+    padding: 0;
+    padding-left: 16px;
+    .c-input-container.u-no-label {
+      margin-bottom: 0;
+      height: 48px;
+    }
+    .c-input-container__checkbox {
+      height: 48px;
+    }
+  }
+}
+
+.c-table--select__cell .c-input-container__checkbox input[type=checkbox]:checked~label:after,
+.c-table--select__cell .c-input-container__checkbox input[type=checkbox]:checked~label:before,
+.c-table--select__cell .c-input-container__checkbox input[type=checkbox]:not(:checked)~label:after,
+.c-table--select__cell .c-input-container__checkbox input[type=checkbox]:not(:checked)~label:before {
+  top: 4px;
+}
+
+/**
+ * Striped variant.
+ *
+ * Apply transparent background on even row cells
+ * and white background on odd row cells
+ *
+ *   .c-table .c-table--striped
+ */
+
+.c-table--striped {
+  tbody .c-table__row:nth-child(odd) {
+    background-color: $white_1000;
+  }
+  tbody .c-table__row:nth-child(even) {
+    background-color: transparent;
+  }
+}
+
+/**
+ * Hovered variant.
+ *
+ * Apply background on cell (row) on hover
+ *
+ *   .c-table .c-table--hovered
+ */
+
+.c-table--hovered {
+  tbody .c-table__row:hover .c-table__cell {
+    background-color: $grey_100;
+  }
+}
+
+/**
+ * Icons.
+ *
+ * Set correct font-size of icons in the cell
+ *
+ *   .c-table__cell-icon
+ */
+
+.c-table__cell-icon {
+  font-size: 24px;
+}
+
+/**
+ * Sorting.
+ *
+ * Classes for header sorting styling
+ *
+ *    <th class="c-table__column-header c-sort c-sort--active">
+ *      <div>Name</div>
+ *    </th>
+ */
+
+.c-sort {
+  color: $grey_600;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.c-sort--active {
+  color: $grey_900 !important;
+}
+
+.c-sort div:after {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg fill='%23000000' height='16' viewBox='0 0 24 24' width='16' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h24v24H0V0z' fill='none'/%3E%3Cpath d='M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z'/%3E%3C/svg%3E");
+  content: "";
+  color: inherit;
+  display: inline-block;
+  font-size: 16px;
+  margin-left: 5px;
+  opacity: 0;
+  transition: all .3s ease-in-out;
+  width: 16px;
+  height: 16px;
+}
+
+.c-sort div:after,
+.c-sort>* {
+  vertical-align: middle;
+}
+
+.c-sort--active div:after {
+  color: inherit !important;
+  opacity: 1;
+}
+
+.c-sort--1 div:after {
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+
+.c-sort--active:hover {
+  color: inherit;
+  opacity: 1;
+}
+
+.c-table__column-header.c-sort {
+  padding: 0 16px;
+}
+
+.c-table__column-header.c-sort div {
+  display: flex;
+  align-items: center;
+}
+
+.c-sort div:hover:after {
+  color: $grey_500;
+  opacity: 1;
+}
+
+.c-sort {
+  color: $grey_600 !important;
+  font-weight: 500;
+}
+
+.c-sort--active {
+  color: $grey_900 !important;
+}
+
+// .c-data-table__column {
+//   font-size: 12px;
+//   color: #757575;
+//   line-height: 56px;
+// }
+// .c-data-table__column {
+//   font-size: 12px;
+//   color: #757575;
+//   line-height: 56px;
+// }
+// .c-data-table__column {
+//   font-size: 12px;
+//   color: #757575;
+//   line-height: 56px;
+// }
+// .c-table--select {
+//   position: relative
+// }
+// .c-table--select .c-data-table__body .c-data-table__row,
+// .c-table--select .c-data-table__body .u-is-selected,
+// .c-table--select .c-table__body .c-data-table__row,
+// .c-table--select .c-table__body .u-is-selected {
+//   cursor: pointer
+// }
+// .c-table--select .c-data-table__body .c-data-table__row.u-is-selected,
+// .c-table--select .c-data-table__body .c-data-table__row:hover,
+// .c-table--select .c-data-table__body .c-table__row.u-is-selected,
+// .c-table--select .c-data-table__body .u-is-selected:hover,
+// .c-table--select .c-table__body .c-data-table__row.u-is-selected,
+// .c-table--select .c-table__body .c-data-table__row:hover,
+// .c-table--select .c-table__body .c-table__row.u-is-selected,
+// .c-table--select .c-table__body .u-is-selected:hover {
+//   background-color: #eee
+// }
+// .c-table--select .c-data-table__content,
+// .c-table--select .c-data-table__header .c-data-table__row {
+//   padding: 0
+// }
+// .c-table--select .c-data-table__content:after,
+// .c-table--select .c-data-table__header .c-data-table__row:after {
+//   content: "";
+//   background-image: none;
+//   padding: 0;
+//   margin: 0
+// }
+// .c-table--select__row {
+//   cursor: pointer
+// }
+// .c-table--select__cell {
+//   position: absolute;
+//   height: 48px;
+//   padding: 0;
+//   padding-left: 16px
+// }
+// .c-table--select__cell .c-input-container.u-no-label {
+//   margin-bottom: 0;
+//   height: 48px
+// }
+// .c-table--select__cell .c-input-container__checkbox {
+//   height: 48px
+// }
+// .c-table--select__cell .c-input-container__checkbox input[type=checkbox]:checked~label:after,
+// .c-table--select__cell .c-input-container__checkbox input[type=checkbox]:checked~label:before,
+// .c-table--select__cell .c-input-container__checkbox input[type=checkbox]:not(:checked)~label:after,
+// .c-table--select__cell .c-input-container__checkbox input[type=checkbox]:not(:checked)~label:before {
+//   top: 4px
+// }

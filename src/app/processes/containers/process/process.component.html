@@ -1,7 +1,8 @@
 <main class="o-wrapper" *ngIf="process$ | async as process">
 
-  <header>
-    <h1>{{ process.name }}</h1>
+  <header class="c-title u-margin-bottom">
+    <h4 class="u-margin-right-small">{{ process.name }}</h4>
+    <button mat-icon-button color="accent"><mat-icon>info</mat-icon></button>
   </header>
 
   <nav mat-tab-nav-bar style="margin-bottom: 24px">

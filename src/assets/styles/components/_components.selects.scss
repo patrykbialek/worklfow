@@ -1,0 +1,256 @@
+/* ==========================================================================
+   #SELECTS
+   ========================================================================== */
+
+$height: 42px;
+$max-height: calc(5 * #{$height});
+
+.c-select {
+  display: flex;
+  flex-direction: column;
+
+  border: none;
+  box-shadow: none;
+
+  * {
+    cursor: pointer;
+    outline: none;
+  }
+
+  // Select
+  &__select {
+    box-shadow: none;
+    position: relative;
+    order: 2;
+
+    &:focus {
+      ~ .c-select__label {
+        color: $color--primary;
+      }
+      .c-select__trigger-value {
+        background-color: $white_1000;
+        border: 1px solid $color--primary;
+      }
+    }
+  }
+
+
+  // Label, helper
+  &__label {
+    cursor: pointer;
+    margin-bottom: 4px;
+    order: 1;
+  }
+  &__helper {
+    margin-bottom: -4px;
+    margin-top: 4px;
+    order: 3;
+  }
+  &__label,
+  &__helper {
+    color: $grey_500;
+    font-size:   12px;
+    line-height: 16px;
+    min-height:  16px;
+  }
+
+
+  // Placeholder
+  &__placeholder {
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    border: 1px solid transparent;
+    color: $grey-500;
+  }
+
+  &__placeholder,
+  &__trigger-value {
+    border-radius: .3rem;
+    padding: 8px;
+    padding-right: 32px;
+    height: $height;
+    width: 100%;
+    transition: all .3s ease-in-out;
+    font-family: Lato, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    text-align: left;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+
+  // Options
+  &__options {
+    position: absolute;
+    top: 100%;
+    width: 100%;
+    z-index: 11001;
+
+    display: flex;
+    flex-direction: column;
+
+    max-height: $max-height;
+    overflow-y: auto;
+    box-sizing: border-box;
+
+    background-color: $white_1000;
+    border-radius: .3rem;
+    box-shadow: 0 3px 5px -1px rgba(0, 0, 0, .2),
+                0 5px 8px 0 rgba(0, 0, 0, .14),
+                0 1px 14px 0 rgba(0, 0, 0, .12);
+    list-style: none;
+
+    padding-top: 8px;
+    padding-bottom: 8px;
+
+    min-width: 170px;
+
+    transition: transform 0s ease, opacity .15s ease;
+    will-change: transform;
+
+  }
+
+
+  // Items
+  &__items {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+
+  // Item
+  &__item {
+    border: none;
+    background: transparent;
+
+    min-height: 48px;
+    padding: 8px 12px;
+    width: 100%;
+
+    color: $grey_700;
+    font-size: 1.6rem;
+    text-align: left;
+    text-decoration: none;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    user-select: none;
+
+    transition: background-color 50ms ease-in;
+
+    // Hover
+    &:hover {
+      background-color: $grey_100;
+    }
+    &:focus {
+      background-color: $grey_300;
+    }
+
+    a,
+    div,
+    span {
+      align-items: center;
+      display: flex;
+      justify-content: flex-start;
+      transition: color .3s ease
+    }
+  }
+
+
+  // Backdrop
+  &__backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10001;
+
+    width: 100%;
+    height: 100%;
+
+    background-color: $grey_200;
+    opacity: 0;
+  }
+
+
+  // Trigger
+  &__trigger {
+    box-sizing: border-box;
+    order: 2;
+    position: relative;
+
+    &.u-is-disabled {
+      cursor: default;
+      pointer-events: none;
+      user-select: none;
+    }
+    &-value {
+      position: relative;
+
+      background-color: $white_1000;
+      border: 1px solid rgba(0, 0, 0, .12);
+      color: $grey_700;
+
+      &.u-is-open {
+          border: solid 1px $color--primary;
+          border-bottom-left-radius: 0;
+          border-bottom-right-radius: 0;
+      }
+      &[disabled] {
+          border-width: 1px;
+          color: $grey_700;
+          cursor: default;
+          pointer-events: none;
+          user-select: none;
+          background-color:   $grey_100;
+          border-top-color:   $grey_100;
+          border-left-color:  $grey_100;
+          border-right-color: $grey_100
+      }
+    }
+  }
+
+
+  // Arrow
+  &__arrow-wrapper {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    margin-top: -2px;
+    vertical-align: middle;
+    &[disabled] {
+        cursor: default;
+    }
+  }
+
+  &__arrow {
+      height: 0;
+      width: 0;
+      margin: 0 4px;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 5px solid;
+      color: rgba(0, 0, 0, .54);
+  }
+}
+
+.u-is-active-option {
+  color: #009ee3;
+  background-color: #fff;
+}
+
+
+.c-error:not([disabled]) ~ .c-select__label {
+  color: $red_500!important;
+}
+.c-error:not([disabled]) .c-select__trigger-value {
+  border-color: $red_500!important;
+}
+

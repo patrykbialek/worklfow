@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TasksHttpService } from 'src/app/tasks/services/tasks-http.service';
+import { Task } from 'src/app/processes/models';
 
 @Component({
   selector: 'app-list',
@@ -15,6 +16,10 @@ export class ListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+  }
+
+  onSetAsCompleted(task: Task) {
+    task.isCompleted = true;
   }
 
 }

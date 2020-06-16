@@ -1,0 +1,141 @@
+/* ==========================================================================
+   #DIALOGS
+   ========================================================================== */
+
+
+/**
+ * This is an example component. Extend inuitcss by building your own components
+ * that make up your UI. Dialog component is prefixed with a `c-dialog`.
+ *
+ *  Examples:
+
+    <aside class="c-dialog">
+      <div class="c-dialog__container">
+        <header class="c-dialog__header">
+          <h4>Success</h4>
+        </header>
+
+        <section class="c-dialog__body">
+          <p class="u-margin-bottom-tiny">Data saved into database.</p>
+        </section>
+
+        <footer class="c-dialog__footer">
+          <a class="c-btn c-btn--flat c-btn--primary" (click)="closeDialog()">
+            <span>Close</span>
+          </a>
+        </footer>
+      </div>
+      <div class="c-dialog__backdrop" tabindex="-1" (click)="closeDialog()"></div>
+    </aside>
+
+ */
+
+.c-dialog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  z-index: 1002;
+
+  &__container {
+    display: block;
+    box-sizing: border-box;
+    overflow: auto;
+    outline: 0;
+    color: rgba(0, 0, 0, .87);
+    background-color: #fafafa;
+    // .u-elevation-z5
+    // box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 5px 8px 0px rgba(0, 0, 0, 0.14), 0px 1px 14px 0px rgba(0, 0, 0, 0.12);
+
+    // .u-elevation-z10
+    box-shadow: 0px 6px 6px -3px rgba(0, 0, 0, 0.2), 0px 10px 14px 1px rgba(0, 0, 0, 0.14), 0px 4px 18px 3px rgba(0, 0, 0, 0.12);
+
+    border-radius: .3rem;
+
+    min-width: 640px;
+    max-width: 840px;
+
+    animation:
+      hide 0s ease,
+      show 100ms ease-in,
+      scale 150ms ease-in;
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    padding: 24px;
+  }
+  &__body {
+    font-size: 1.6rem;
+    line-height: 1.5;
+    font-weight: 400;
+    padding: 0 24px 24px;
+  }
+  &__footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 8px;
+
+    .c-btn {
+      margin-left: 8px;
+      font-weight: 500;
+    }
+  }
+
+  &__backdrop {
+    background: rgba($black_1000, .32);
+    z-index: -1;
+    position: fixed;
+    top: 0;
+    left: 0;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    animation:
+      hide 0s ease,
+      show 200ms ease-in;
+  }
+}
+
+@media (max-width: 640px) {
+  .c-dialog__container {
+    width: calc(100% - 30px);
+    min-width: 280px;
+    max-width: 840px;
+  }
+}
+
+@keyframes hide {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes show {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes scale {
+  0% {
+    transform: scale(.95);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

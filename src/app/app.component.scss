@@ -1,0 +1,14 @@
+.c-app-header {
+  box-shadow: 0 .75vw 1.5vw 0 rgba(6,0,35,.05)!important;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  background-color: #fafafa;
+  height: 72px;
+  z-index: 1000;
+  transition: all 250ms ease-in;
+}

@@ -1,0 +1,422 @@
+/* ==========================================================================
+   #BUTTONS
+   ========================================================================== */
+
+/**
+ * This is an example component. Extend inuitcss by building your own components
+ * that make up your UI. Component classes are prefixed with a `c-`btn.
+ */
+
+/* Basic style
+   ========================================================================== */
+
+$btn-font-size: $font-size * 1.4;
+$btn-font-size-small: $btn-font-size * 0.85;
+$btn-font-size-large: $btn-font-size * 1.25;
+$btn-font-size-link: $btn-font-size;
+%no-outline {
+  &:active,
+  &:hover,
+  &:focus {
+    outline: 0;
+  }
+}
+
+.c-btn {
+  background: transparent;
+  // border: solid 1px $grey-200;
+  border: none;
+  border-radius: $global-radius;
+  box-sizing: border-box;
+  color: $grey-800;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: $btn-font-size;
+  font-style: inherit;
+  font-weight: 400;
+  font-variant: normal;
+  letter-spacing: .04em;
+  line-height: 36px;
+  margin: 0px;
+  line-height: 36px;
+  outline: 0;
+  overflow: hidden;
+  padding: 0px 16px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  align-items: center;
+  vertical-align: middle;
+  user-select: none;
+  transition: $global-transition;
+  white-space: nowrap;
+  @extend %no-outline;
+  &:hover {
+    text-decoration: none;
+    background-color: $grey-50;
+    color: $grey-900;
+  }
+  &:active {
+    box-shadow: $btn-box-shadow-active;
+  }
+}
+
+
+/* Style variants
+   ========================================================================== */
+
+.c-btn {
+  
+  
+  // Themes
+  &.c-btn--primary,
+  &.c-btn--secondary,
+  &.c-btn--accent {
+    color: $grey-200;
+    &:hover {
+      color: $white-1000;
+      text-decoration: none;
+    }
+    &:active {
+      box-shadow: $btn-box-shadow-active;
+    }
+  }
+  &.c-btn--primary {
+    background-color: $background-color--primary;
+    border-color: $background-color--primary;
+  }
+  &.c-btn--secondary {
+    background-color: $background-color--secondary;
+    border-color: $background-color--secondary;
+  }
+  &.c-btn--accent {
+    background-color: $background-color--accent;
+    border-color: $background-color--accent;
+  } 
+  
+  
+  // Flat
+  &.c-btn--flat {
+    background-color: transparent;
+    border: solid 1px transparent;
+    color: $grey-900;
+    min-width: 66px;
+    padding: 0px 8px;
+    &:hover {
+      background-color: $grey-200;
+      text-decoration: none;
+    }
+    &:visited {
+      text-decoration: none;
+    } 
+    
+    
+    // Flat themes
+    &.c-btn--primary,
+    &.c-btn--secondary,
+    &.c-btn--accent {
+      &:hover,
+      &:focus { color: $white-1000; }
+    }
+    &.c-btn--primary {
+      color: $background-color--primary;
+      &:hover,
+      &:focus { color: $background-color-active--primary;   }
+    }
+    &.c-btn--secondary {
+      color: $background-color--secondary;
+      &:hover,
+      &:focus { color: $background-color-active--secondary; }
+    }
+    &.c-btn--accent {
+      color: $background-color--accent;
+      &:hover,
+      &:focus { color: $background-color-active--accent;    }
+    }
+  }
+
+
+  // Outline
+  &.c-btn--outline {
+    background-color: transparent;
+    border: solid 1px $grey-300;
+    padding: 0px 14px;
+    line-height: 34px;
+    &:hover {
+      background-color: $grey-200;
+      text-decoration: none;
+    }
+    &:visited {
+      text-decoration: none;
+    }
+
+    
+    // Outline themes
+    &.c-btn--primary,
+    &.c-btn--secondary,
+    &.c-btn--accent {
+      &:hover,
+      &:focus { color: $white-1000; }
+    }
+    &.c-btn--primary {
+      color: $background-color--primary;
+      border: solid 1px $background-color--primary;
+      &:hover,
+      &:focus { color: $background-color-active--primary;   }
+    }
+    &.c-btn--secondary {
+      color: $background-color--secondary;
+      border: solid 1px $background-color--secondary;
+      &:hover,
+      &:focus { color: $background-color-active--secondary; }
+    }
+    &.c-btn--accent {
+      color: $background-color--accent;
+      border: solid 1px $background-color--accent;
+      &:hover,
+      &:focus { color: $background-color-active--accent;    }
+    }
+  }
+}
+
+
+/* Size variants
+   ========================================================================== */
+
+.c-btn\@small {
+  font-size: $btn-font-size-small;
+  line-height: 1;
+  min-height: 0;
+  padding: ($btn-font-size-small * 0.50) ($btn-font-size-small * 0.75);
+}
+
+.c-btn\@large {
+  font-size: $btn-font-size-large;
+  line-height: 1;
+  padding: 1.4rem 1.2rem;
+  padding: ($btn-font-size-small * 1.25) ($btn-font-size-small * 1.75);
+}
+
+
+/* State variants
+   ========================================================================== */
+
+.c-btn,
+.c-btn--flat.c-btn--primary,
+.c-btn--flat.c-btn--secondary,
+.c-btn--flat.c-btn--accent,
+.c-btn--primary,
+.c-btn--secondary,
+.c-btn--accent {
+  &.c-btn--disabled {
+    background-color: $grey-300;
+    border: solid 1px $grey-300;
+    box-shadow: none;
+    color: $grey-600;
+    cursor: default;
+    pointer-events: none;
+  }
+}
+
+
+/* Layout variants
+   ========================================================================== */
+
+.c-btn\@block {
+  display: block;
+  margin: 0 0 10px 0;
+  width: 100%;
+}
+
+
+/* Link
+   ========================================================================== */
+
+$bottom: -5px;
+$background-color-active--secondary: $blue_500;
+$background-color--secondary: $blue_500;
+$border-bottom-solid : 1px solid $background-color-active--secondary;
+$border-bottom-dotted: 1px dotted $background-color-active--secondary;
+%style-like-link {
+  background-color: transparent;
+  border-color: transparent;
+  cursor: pointer;
+  outline: 0;
+  padding: 0;
+  text-decoration: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+.c-btn-link,
+.c-link {
+  color: $background-color--secondary;
+  font-size: $btn-font-size-link;
+  position: relative;
+  @extend %style-like-link;
+  @extend %no-outline;
+  &:hover {
+    color: $background-color-active--secondary;
+  }
+  :focus,
+  :active,
+  :focus,
+  :active {
+    @extend %style-like-link;
+  }
+  &:hover::before {
+    left: 50%;
+    right: 0;
+    border-bottom: $border-bottom-solid;
+  }
+  &:hover::after {
+    left: 0;
+    right: 50%;
+    border-bottom: $border-bottom-solid;
+  }
+  &:before {
+    content: "";
+    bottom: $bottom;
+    border-bottom: $border-bottom-solid;
+    left: 50%;
+    position: absolute;
+    right: 100%;
+    transition: right 0.5s ease-out;
+  }
+  &:after {
+    content: "";
+    bottom: $bottom;
+    border-bottom: $border-bottom-solid;
+    left: 100%;
+    position: absolute;
+    right: 50%;
+    transition: left .5s ease-out;
+  }
+}
+
+
+/* Icon
+   ========================================================================== */
+
+.c-btn-icon {
+  border-radius: 50%;
+  color: $grey-900;
+  display: inline-block;
+  height: 42px;
+  line-height: $line-height;
+  min-width: 0;
+  padding: ($line-height / 3);
+  transition: $global-transition;
+  text-decoration: none;
+  width: 40px;
+  cursor: pointer;
+  i,
+  span {
+    margin: auto;
+    background-repeat: no-repeat;
+    display: inline-block;
+    vertical-align: middle;
+    fill: currentColor;
+    height: 24px;
+    width: 24px;
+    min-height: 24px;
+    min-width: 24px;
+  }
+  &:hover {
+    background-color: $grey-200;
+  }
+  background: transparent;
+  background-clip: padding-box;
+  border: none;
+  color: #373a3c;
+  height: 56px;
+  line-height: 56px;
+  min-width: 0;
+  outline: 0;
+  overflow: hidden;
+  padding: 0;
+  transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);
+  width: 56px;
+  vertical-align: middle;
+  -webkit-appearance: none;
+}
+
+.c-btn-icon--primary {
+  background: transparent;
+  background-clip: padding-box;
+  border: none;
+  color: #0275d8;
+  height: 56px;
+  line-height: 56px;
+  min-width: 0;
+  outline: 0;
+  overflow: hidden;
+  padding: 0;
+  transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);
+  width: 56px;
+  vertical-align: middle;
+  -webkit-appearance: none;
+}
+
+.c-btn-icon--accent {
+  background: transparent;
+  background-clip: padding-box;
+  border: none;
+  color: #d9534f;
+  height: 56px;
+  line-height: 56px;
+  min-width: 0;
+  outline: 0;
+  overflow: hidden;
+  padding: 0;
+  transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);
+  width: 56px;
+  vertical-align: middle;
+  -webkit-appearance: none;
+}
+
+.c-btn-icon--primary.is-disabled,
+.c-btn-icon--primary:disabled {
+  color: #818a91;
+  background-color: transparent;
+  border-color: transparent;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.c-btn--outline.c-btn--disabled,
+.c-btn--outline.is-disabled,
+.c-btn--outline.disabled {
+  color: #BDBDBD !important;
+  background: transparent !important;
+  border: 1px solid currentColor !important;
+}
+
+
+/* With icon
+   ========================================================================== */
+
+.c-btn {
+  i {
+    vertical-align: middle;
+    margin-right: 8px;
+    margin-left: -4px;
+    height: 24px;
+    width: 24px;
+    display: inline-block;
+    font-size: 24px;
+  }
+  &.c-icon--right {
+    padding-right: 0;
+    i {
+      margin: 0;
+      height: 28px;
+      vertical-align: middle;
+    }
+  }
+}

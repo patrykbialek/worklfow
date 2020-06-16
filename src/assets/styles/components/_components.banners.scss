@@ -1,0 +1,56 @@
+/* ==========================================================================
+   #BANNERS
+   ========================================================================== */
+
+
+/**
+ * This is an example component. Extend inuitcss by building your own components
+ * that make up your UI. Component classes are prefixed with a `c-banner`.
+ *
+ *  Examples:
+
+    <div class="c-banner">
+      <div class="c-banner__icon">
+        <i class="material-icons">alarm_on</i>
+      </div>
+      <div class="c-banner__text">
+        New version arrived. Reload page to apply changes.
+      </div>
+      <div class="c-banner__actions">
+        <button class="c-btn c-btn--primary c-btn--flat">Continue work</button>
+        <button class="c-btn c-btn--primary c-btn--flat">Reload page</button>
+      </div>
+    </div>
+
+ */
+
+$color: $color--secondary;
+$amount: 42%;
+.c-banner {
+  display: flex;
+  align-items: center;
+  background-color: #E5F2F8; // lighten($color, $amount);
+  min-height: 52px;
+  padding: 8px 0;
+  &__icon {
+    margin: 8px 0 8px 16px;
+    color: $color--primary;
+    i {
+      font-size: 40px;
+    }
+  }
+  &__text {
+    color: $grey_900;
+    font-size: 1.4rem;
+    line-height: 1.5;
+    margin-left: 24px;
+  }
+  &__actions {
+    align-self: flex-end;
+    flex-shrink: 0;
+    flex-grow: 1;
+    text-align: right;
+    margin-left: 90px;
+    margin-right: 8px;
+  }
+}

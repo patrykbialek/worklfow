@@ -1,20 +1,42 @@
 <main  class="o-wrapper">
 
-  <mat-list>
-    <div mat-subheader>Obecne procesy</div>
+  <header class="c-title u-margin-bottom">
+    <h4 class="u-margin-right-small">Wszystkie procesy</h4>
+  </header>
+
+  <mat-nav-list class="u-margin-bottom-large">
+    <h3 matSubheader>Aktualne procesy</h3>
     <ng-container *ngFor="let process of processes">
-      <mat-list-item>
-        <a matLine [routerLink]="['/processes/', process.id]">
-          <p matLine>{{ process.name }}</p>
-        </a>
-        <button mat-icon-button (click)="onRemove()">
+      <a mat-list-item [routerLink]="['/processes/', process.id]">
+        <span matLine>{{ process.name }}</span>
+        <span matLine>W trakcie (40%)</span>
+        <button mat-icon-button (click)="onRemove($event)">
           <mat-icon>keyboard_arrow_right</mat-icon>
         </button>
-      </mat-list-item>
+      </a>
       <mat-divider></mat-divider>
-
     </ng-container>
-  </mat-list>
+    <a mat-list-item [routerLink]="['/processes/', 'add']">
+      <span matLine>Nowy process</span>
+      <button mat-icon-button (click)="onRemove($event)">
+        <mat-icon>add</mat-icon>
+      </button>
+    </a>
+  </mat-nav-list>
+
+  <mat-nav-list>
+    <h3 matSubheader>Zarchiwizowane procesy</h3>
+    <ng-container *ngFor="let process of processes">
+      <a mat-list-item [routerLink]="['/processes/', process.id]">
+        <span matLine>{{ process.name }}</span>
+        <span matLine>W trakcie (40%)</span>
+        <button mat-icon-button (click)="onRemove($event)">
+          <mat-icon>keyboard_arrow_right</mat-icon>
+        </button>
+      </a>
+      <mat-divider></mat-divider>
+    </ng-container>
+  </mat-nav-list>
 
 </main>
 

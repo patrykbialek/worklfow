@@ -9,6 +9,7 @@ import { TimelineComponent } from './containers/process/timeline/timeline.compon
 import { CalendarComponent } from './containers/process/calendar/calendar.component';
 import { ProcessComponent } from './containers/process/process.component';
 import { AngularMaterial } from '../angular-material.module';
+import { DetailComponent } from './containers/process/detail/detail.component';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import { AngularMaterial } from '../angular-material.module';
     TimelineComponent,
     CalendarComponent,
     ProcessComponent,
+    DetailComponent,
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,146 @@
+$border-radius: 1.2rem;
+
+.c-blog-feed-card,
+.c-case-study-card {
+  background-color: #fff;
+  border-radius: $border-radius;
+  border: .05vw solid #F5F5F5;
+
+  position: relative;
+  
+  padding: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  opacity: 0;
+
+  $basicAnimationDuration: 550ms;
+
+  $dotAnimationDelay: 10ms;
+  $lineAnimationDelay: $dotAnimationDelay + $basicAnimationDuration - 450;
+  $boxAnimationDelay: $lineAnimationDelay + $basicAnimationDuration - 600;
+
+  animation-name: fadein, showBoxTop;
+  animation-duration: 250ms, $basicAnimationDuration;
+  animation-delay: 200ms, 300ms;
+  animation-iteration-count: 1;
+  animation-fill-mode: both;
+
+  transform-origin: top;
+  
+  &:before {
+    content: ' ';
+    display: block;
+    position: absolute;
+    box-shadow: 0 0 2.2vw 0 rgba(6,0,35,.05);
+    border-radius: $border-radius;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    z-index: -1;
+  }
+
+  @mixin text-color {
+    color: #424242;
+  }
+  @mixin padding-y-24 {
+    padding: 0 24px;
+  }
+
+  &__media {    
+    border-radius: $border-radius $border-radius 0 0;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 50% 50% !important;
+    
+    height: 256px;
+
+    z-index: 1;
+
+    &.c-case-study-card--detail {
+      border-radius: 0 $border-radius 0 0;
+      height: 384px;
+    }
+  }
+
+  &__title {
+    @include text-color;
+    font-weight: 500;
+    line-height: 2.8rem;
+
+    @include padding-y-24;
+  }
+
+  &--detail {
+    height: 384px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  &__description {
+    @include text-color;
+    font-size: 1.6rem;
+    line-height: 2.4rem;
+    letter-spacing: 0.01em;
+
+    @include padding-y-24;
+  }
+
+  &__author {
+    @include text-color;
+    font-size: 1.4rem;
+    line-height: 2.0rem;
+    letter-spacing: 0.01em;
+
+    @include padding-y-24;
+  }
+
+  &__action {
+    height: 42px;
+    width: 100%;
+    @include padding-y-24;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    z-index: 2;
+
+    .c-btn {
+      font-size: 1.6rem;
+    }
+  }
+}
+
+
+@mixin horizontal-separator {
+  margin-bottom: 16px;
+  border-bottom: solid 2px #0091EA !important;
+}
+.c-horizontal-separator {
+  &-5 {
+    @include horizontal-separator();
+    width: 5%;
+  }
+  &-10 {
+    @include horizontal-separator();
+    width: 10%;
+  }
+  &-15 {
+    @include horizontal-separator();
+    width: 15%;
+  }
+}
+
+@keyframes fadein {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}

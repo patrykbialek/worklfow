@@ -1,0 +1,100 @@
+/* ==========================================================================
+   #SNACKBARS
+   ========================================================================== */
+
+
+/**
+ * This is an example component. Extend inuitcss by building your own components
+ * that make up your UI. Component classes are prefixed with a `c-snackbar`.
+ *
+ *  Examples:
+
+    <div class="c-snackbar">
+      <div class="c-snackbar__text">
+        Data saved to database.
+      </div>
+      <div class="c-snackbar__actions">
+        <button class="c-btn c-btn--flat">CLOSE</button>
+      </div>
+    </div>
+
+ */
+
+$background-color: $grey-800;
+$color: $grey_50;
+.c-snackbar {
+  display:          flex;
+  align-items:      center;
+  justify-content:  space-between;
+
+  padding:     16px;
+  min-width:  288px;
+  max-width:  344px;
+  min-height:  48px;
+
+  border-radius:    .3rem;
+  background-color: $background-color;
+
+  // u-elevation-z3 {
+  box-shadow: 0px 3px 3px -2px rgba(0,0,0,.2 ),
+              0px 3px 4px  0px rgba(0,0,0,.14),
+              0px 1px 8px  0px rgba(0,0,0,.12);
+
+  position: fixed;
+  left:     24px;
+  right:    auto;
+  bottom:   24px;
+  z-index:  100001;
+
+  transform:      translateY(200%);
+
+  pointer-events: none;
+  will-change:    transform;
+
+  // Text
+  &__text {
+    color:       $grey_50;
+    font-size:   1.4rem;
+    line-height: 1.5;
+
+    transition: opacity .25s cubic-bezier(.4,0,1,1) 0ms;
+    opacity:    0;
+  }
+
+  // Actions
+  &__actions {
+    margin-left:    8px;
+    margin-top:    -8px;
+    margin-right:  -8px;
+    margin-bottom: -8px;
+    .c-btn {
+      background-color: transparent;
+      border:           none;
+      color:            $color--accent;
+      &:hover,
+      &:active,
+      &:focus {
+        background-color: transparent;
+        border:           none;
+        color:            $color--accent;
+      }
+    }
+  }
+
+  // Modifier
+  &--active {
+    transform:  translate(0);
+    transition: transform .25s cubic-bezier(0,0,.2,1) 0ms;
+
+    pointer-events: auto;
+
+    .c-snackbar__text {
+      transition: opacity .50s cubic-bezier(.4,0,1,1) 0ms;
+      opacity:    1;
+    }
+  }
+
+  &--transition {
+    transition:   transform .25s cubic-bezier(.4,0,1,1) 0ms;
+  }
+}

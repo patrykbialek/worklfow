@@ -1,0 +1,130 @@
+///* ========================================================================
+//   #GLOBAL
+//   ======================================================================== */
+
+// The global settings file contains any project-wide variables; things that
+// need to be made available to the entire codebase.
+
+
+
+// Standardise some UI treatments.
+
+html, body {
+  font-family: Ubuntu, sans-serif;
+  background-color: $grey_50;
+  color: $grey_700;
+  -webkit-font-smoothing: antialiased;
+  -moz-font-smoothing: antialiased;
+}
+
+html {
+ overflow-y: unset!important;
+}
+
+// body {
+//   background: url("../images/background_main_10.svg") no-repeat;
+//   background-position: right top;
+//   position: relative;
+// }
+
+// .u-body-background {
+//   background: url("../images/background_main_30.svg") no-repeat;
+//   background-position: right top;
+// }
+
+button, input, optgroup, select, textarea {
+  font-family: Ubuntu, sans-serif;
+  margin: 0;
+}
+
+
+$global-radius: 0.3rem !default;
+$global-transition: (1/3)+s !default;
+$btn-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .26);
+$btn-box-shadow-active: 0 4px 8px 0 rgba(0, 0, 0, .4);
+
+
+
+
+
+// Colors settings
+
+$inuit-global-color:            $grey_800;
+$inuit-global-background-color: $grey_50;
+
+
+$color--primary:    $light_blue_A700;
+$color--secondary:  $deep_purple_700;
+$color--accent:     $red_A400;
+
+
+$background-color--primary:         $color--primary;
+$background-color-active--primary:  darken($color--primary,5%);
+
+
+$background-color--secondary:         $color--secondary;
+$background-color-active--secondary:  darken($color--secondary,5%);
+
+
+$background-color--accent:        $color--accent;
+$background-color-active--accent: darken($color--accent,5%);
+
+
+*::selection {
+    background-color: $background-color--primary;
+    color: $grey-50;
+}
+
+
+
+// Responsive breakpoints
+
+$mq-breakpoints: (
+    mobile:  360px,
+    tablet:  1024px,
+    desktop: 1280px,
+    wide:    1440px,
+
+    // Tweakpoints
+    desktopAd: 810px,
+    mobileLandscape: 600px
+);
+
+
+.c-main-section__title {
+  position: relative;
+
+  opacity: 0;
+
+  animation-name: fadein;
+  animation-duration: 350ms;
+  animation-delay: 0ms;
+  animation-iteration-count: 1;
+  animation-fill-mode: both;
+}
+
+.o-grid__cell-middle {
+  display: flex;
+  justify-content: center;
+}
+
+.c-dev-mode-label {
+  color: red !important;
+  font-size: 1.8rem !important;
+  font-weight: normal !important;
+  text-align: center;
+
+  left: 0;
+  position: fixed;
+  top: 80px;
+  width: 100%;
+  
+  &:hover {
+    color: red !important;
+  }
+}
+
+.u-app-header-elevation {
+  box-shadow: 0 0.75vw 1.5vw 0 rgba(6,0,35,.05)!important;
+  background-color: #fff !important;
+}
