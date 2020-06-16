@@ -3,6 +3,7 @@ import { TasksHttpService } from 'src/app/tasks/services/tasks-http.service';
 import { Task } from 'src/app/processes/models';
 import { TasksComponent } from 'src/app/tasks/containers/tasks.component';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { ProcessesStoreService } from 'src/app/processes/services/processes-store.service';
 
 @Component({
   selector: 'app-board',
@@ -11,10 +12,10 @@ import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 })
 export class BoardComponent implements OnInit {
 
-  tasks$ = this.tasksHttpService.getAllTasksBySections();
+  tasks$ = this.processesStoreService.process$;
   
   constructor(
-    private tasksHttpService: TasksHttpService,
+    private processesStoreService: ProcessesStoreService,
   ) { }
 
   ngOnInit() {
@@ -30,8 +31,6 @@ export class BoardComponent implements OnInit {
     task.assignee = assignee;
   }
   addEvent(event: MatDatepickerInputEvent<Date>, task: Task) {
-    // this.events.push(`${type}: ${event.value}`);
-    console.log(event)
     task.endDate = event.value.toISOString();
   }
 
