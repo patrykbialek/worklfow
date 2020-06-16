@@ -44,7 +44,7 @@ const tasks: Task[] = [
   },
   {
     id: 'sdfs2323',
-    assignee: 'Janusz Popanusz',
+    assignee: null,
     endDate: '2020-06-30T12:00',
     startDate: '2020-06-15T12:00',
     processes: ['6454dgdfgd11', '6454dgdfgd11'],
@@ -148,8 +148,8 @@ export class TasksHttpService {
         tasks: [
           {
             id: '5454554dgdfgd',
-            assignee: 'Janusz Popanusz',
-            endDate: '2020-06-30T12:00',
+            assignee: null,
+            endDate: null,
             startDate: '2020-06-15T12:00',
             processes: ['6454dgdfgd11', '6454dgdfgd11'],
             priority: 'high',

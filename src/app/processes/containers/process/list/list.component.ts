@@ -12,7 +12,7 @@ export class ListComponent implements OnInit {
   tasks$ = this.tasksHttpService.getAllTasksBySections();
   
   constructor(
-    private tasksHttpService: TasksHttpService
+    private tasksHttpService: TasksHttpService,
   ) { }
 
   ngOnInit() {

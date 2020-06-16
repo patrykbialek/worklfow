@@ -1,0 +1,81 @@
+.mat-card-header .mat-card-title {
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+}
+
+::ng-deep {
+  .mat-card-header-text {
+    margin: 0 !important;
+  }
+  .mat-card-footer {
+    margin: 0 !important;
+  }
+}
+
+.u-is-completed{
+  .c-card-title__caption {
+    text-decoration: line-through;
+  }
+  color: #616161;
+}
+
+
+::ng-deep .c-task-assignee,
+::ng-deep .c-task-enddate {
+  display: flex;
+  align-items: center;
+  margin-left: -16px;
+
+  .mat-button-focus-overlay {
+    background: transparent !important;
+  }
+}
+
+.u-no-assignee,
+.u-no-enddate {
+  color: #9E9E9E;
+}
+
+::ng-deep .mat-card-header-text {
+  width: 100% !important;
+}
+
+::ng-deep .c-card-title {
+  align-items: flex-start !important;
+
+  &__caption {
+    flex-grow: 1;
+  }
+  &__actions {
+    margin-top: -8px;
+    margin-right: -8px;
+  }
+}
+
+::ng-deep .u-hidden-datepicker {
+  width: 1px;
+  visibility: hidden;
+  position: absolute !important;
+  z-index: -1;
+}
+
+.c-board {
+  display: flex;
+  flex-direction: row;
+
+  // width: 100vw;
+  height: 100%;
+  overflow: auto;
+  &__column {
+    box-sizing: border-box;
+    display: flex;
+    flex: 0 0 304px;
+    flex-direction: column;
+    height: 100%;
+    max-width: 304px;
+    padding: 0 12px;
+    position: relative;
+    width: 304px;
+  }
+}
