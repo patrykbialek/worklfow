@@ -2,6 +2,13 @@ import { Injectable } from "@angular/core";
 import { Observable, of } from 'rxjs';
 import { Task } from '../models';
 
+import {
+  AngularFireDatabase,
+  AngularFireObject,
+  AngularFireList,
+} from '@angular/fire/database';
+import { tap, map } from 'rxjs/operators';
+
 const tasks: Task[] = [
   {
     id: '6454dgdfgd',
@@ -73,6 +80,10 @@ const tasks: Task[] = [
   providedIn: 'root'
 })
 export class TasksHttpService {
+
+  constructor(
+    private db: AngularFireDatabase,
+  ) {}
 
   getAllTasks(): Observable<Task[]> {
     const allTasks = tasks;

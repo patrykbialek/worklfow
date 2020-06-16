@@ -2,24 +2,12 @@ import { Injectable } from "@angular/core";
 import { Observable, of } from 'rxjs';
 import { Process } from '../models';
 
-const processes: Process[] = [
-  {
-    id: '44rdf2323',
-    name: 'Zamknięcie miesiąca kwiecień 2020',
-    startDate: '2020-05-15T12:00',
-    endDate: '2020-05-30T12:00',
-    team: null,
-    description: null,
-  },
-  {
-    id: '6454dgdfgd',
-    name: 'Zamknięcie miesiąca maj 2020',
-    startDate: '2020-06-15T12:00',
-    endDate: '2020-06-30T12:00',
-    team: null,
-    description: null,
-  },
-];
+import {
+  AngularFireDatabase,
+  AngularFireObject,
+  AngularFireList,
+} from '@angular/fire/database';
+import { map, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -28,14 +16,44 @@ export class ProcessesHttpService {
 
   private processes = [];
 
-  getProcesses(): Observable<Process[]> {
-    this.processes = processes;
+  constructor(
+    private db: AngularFireDatabase,
+  ) { }
 
-    return of(processes);
+  createProcess(newProcess: Process): Promise<any> {
+    const db: AngularFireList<Process> = this.db.list(`/processes`);
+    return db.push(newProcess);
   }
 
-  getProcessById(id: string) {
-    const process = processes.find(item => item.id === id);
-    return process;
+  getProcesses() {
+    const db: AngularFireList<any> = this.db.list(`/processes`);
+
+    return db.snapshotChanges().pipe(
+      map((changes) =>
+        changes.map((change) => ({ key: change.payload.key, ...change.payload.val() }))
+      ),
+    );
+  }
+
+  getProcessTemplates() {
+    const db: AngularFireList<any> = this.db.list(`/processTemplates`);
+
+    return db.snapshotChanges().pipe(
+      map((changes) =>
+        changes.map((change) => ({ key: change.payload.key, ...change.payload.val() }))
+      ),
+    );
+  }
+
+  getProcessByKey(key: string) {
+    const db: AngularFireObject<any> = this.db.object(`/processes/${key}`);
+
+    return db.snapshotChanges()
+      .pipe(
+        map((change) => ({ key: change.payload.key, ...change.payload.val() })),
+        tap(response => {
+          // console.log('one', response);
+        }),
+      );
   }
 }

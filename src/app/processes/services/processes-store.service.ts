@@ -14,11 +14,15 @@ export class ProcessesStoreService {
 
   constructor(
     private processesHttpService: ProcessesHttpService,
-  ) {}
+  ) { }
 
   setProcess(id: string) {
-    const process = this.processesHttpService.getProcessById(id);
+    this.processesHttpService
+      .getProcessByKey(id)
+      .subscribe(process => this.processSubject.next(process));
+  }
 
-    this.processSubject.next(process);
+  getProcessTemplates() {
+    return this.processesHttpService.getProcessTemplates();
   }
 }

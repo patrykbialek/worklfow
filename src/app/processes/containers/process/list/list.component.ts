@@ -4,6 +4,7 @@ import { Task, Process } from 'src/app/processes/models';
 import { MatTableDataSource } from '@angular/material/table';
 import { tap } from 'rxjs/operators';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { ProcessesStoreService } from 'src/app/processes/services/processes-store.service';
 
 @Component({
   selector: 'app-list',
@@ -46,6 +47,7 @@ export class ListComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private tasksHttpService: TasksHttpService,
+    private processesStoreService: ProcessesStoreService,
   ) { }
 
   @HostListener('document:keydown.escape', ['$event'])
@@ -59,10 +61,10 @@ export class ListComponent implements OnInit {
         tap(response => this.dataSourceAllTasks = response),
       ).subscribe();
 
-    this.tasksBySections$ = this.tasksHttpService.getAllTasksBySections()
+    this.tasksBySections$ = this.processesStoreService
+      .process$
       .pipe(
-        tap(console.log),
-        tap(response => this.dataSourceTasksBySections = response),
+        tap(response => this.dataSourceTasksBySections = response.sections),
       ).subscribe();
 
     this.taskForm = this.formBuilder.group({

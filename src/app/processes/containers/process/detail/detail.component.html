@@ -1,1 +1,54 @@
-<p>detail works!</p>
+<h1 mat-dialog-title>Nowy proces</h1>
+<div mat-dialog-content>
+
+  <section class="u-margin-bottom">
+    <header>
+      <h6>Wybierz proces z szablonu</h6>
+    </header>
+    <ng-container *ngFor="let template of processTemplates">
+      <mat-card class="u-text-normal" (click)="onSelectProcessTemplate(template)">{{ template.name }}</mat-card>
+    </ng-container>
+  </section>
+
+  <mat-divider class="u-margin-bottom"></mat-divider>
+
+  <form [formGroup]="processForm" class="u-text-normal">
+    <div class="o-grid">
+      <div class="o-grid__cell u-1/1">
+        <mat-form-field appearance="outline" style="width: 100%;">
+          <mat-label>Nazwa</mat-label>
+          <input matInput formControlName="name">
+        </mat-form-field>
+      </div>
+
+      <div class="o-grid__cell u-1/2">
+        <mat-form-field appearance="outline" style="width: 100%;">
+          <mat-label>Właściciel</mat-label>
+          <input matInput formControlName="owner">
+          <mat-icon matSuffix>account_circle</mat-icon>
+        </mat-form-field>
+      </div>
+
+      <div class="o-grid__cell u-1/2">
+        <mat-form-field appearance="outline" style="width: 100%;">
+          <mat-label>Termin</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="endDate">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <div class="o-grid__cell u-1/1">
+        <mat-form-field appearance="outline" style="width: 100%;">
+          <mat-label>Opis</mat-label>
+          <textarea matInput formControlName="description" rows="5"></textarea>
+        </mat-form-field>
+      </div>
+
+    </div>
+  </form>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="onNoClick()">Anuluj</button>
+  <button mat-raised-button color="primary" cdkFocusInitial (click)="onOkClick()" tabindex="-1">Zapisz</button>
+</div>

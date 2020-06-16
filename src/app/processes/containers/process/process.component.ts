@@ -35,12 +35,13 @@ export class ProcessComponent implements OnInit {
   ];
   activeLinkIndex = -1;
 
-  process$  = this.processesService.process$.pipe(tap(console.log));
+  process$ = this.processesService.process$.pipe(tap(console.log));
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private processesService: ProcessesStoreService,
+    private processesHttpService: ProcessesHttpService,
   ) { }
 
   ngOnInit(): void {
