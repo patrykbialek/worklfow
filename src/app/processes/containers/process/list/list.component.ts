@@ -35,8 +35,8 @@ export class ListComponent implements OnInit {
       ).subscribe();
   }
 
-  onSetAsCompleted(task: Task) {
-    task.isCompleted = true;
+  onToggleCompleted(task: Task) {
+    task.isCompleted = !task.isCompleted;
   }
 
 }

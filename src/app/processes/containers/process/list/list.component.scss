@@ -15,10 +15,25 @@ th, td {
   width: 40px;
 }
 
-.c-header-cell {
+.c-header-cell,
+.c-row-cell {
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-right: 8px;
+  // padding-right: 8px;
+}
+
+.mat-icon.mat-green {
+  color: #4CAF50;
+}
+
+.mat-icon.mat-gray {
+  color: #616161;
+}
+
+::ng-deep .u-is-completed {
+  &.mat-column-name {
+    text-decoration: line-through !important;
+  }
 }

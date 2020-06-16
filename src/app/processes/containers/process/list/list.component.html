@@ -1,5 +1,5 @@
 <section class="o-block o-block--right u-margin-bottom-small">
-  <button mat-button [matMenuTriggerFor]="filterMenu" class="u-margin-left-small">
+  <button mat-button color="accent" [matMenuTriggerFor]="filterMenu" class="u-margin-left-small">
     <mat-icon class="u-margin-right-tiny">filter_list</mat-icon>
     Filtruj</button>
   <mat-menu #filterMenu="matMenu">
@@ -7,7 +7,7 @@
     <button mat-menu-item>Tylko moje</button>
     <button mat-menu-item>Przeterminowane</button>
   </mat-menu>
-  <button mat-button [matMenuTriggerFor]="sortMenu" class="u-margin-left-small">
+  <button mat-button color="accent" [matMenuTriggerFor]="sortMenu" class="u-margin-left-small">
     <mat-icon class="u-margin-right-tiny">swap_vert</mat-icon>
     Sortuj</button>
   <mat-menu #sortMenu="matMenu">
@@ -16,7 +16,7 @@
     <button mat-menu-item>Termin</button>
     <button mat-menu-item>Priorytet</button>
   </mat-menu>
-  <button mat-button [matMenuTriggerFor]="sortMenu" class="u-margin-left-small">
+  <button mat-button color="accent" [matMenuTriggerFor]="sortMenu" class="u-margin-left-small">
     <mat-icon class="u-margin-right-tiny">view_columns</mat-icon>
     Kolumny</button>
   <mat-menu #sortMenu="matMenu">
@@ -33,51 +33,73 @@
       <th mat-header-cell *matHeaderCellDef> #</th>
     </ng-container>
     <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef> Nazwa zadania</th>
-    </ng-container>
-    <ng-container matColumnDef="assignee">
       <th mat-header-cell *matHeaderCellDef>
         <div class="c-header-cell">
-          <span>Priorytet</span>
+          <span>Nazwa zadania</span>
+        </div>
+      </th>
+    </ng-container>
+    <ng-container matColumnDef="assignee">
+      <th mat-header-cell *matHeaderCellDef class="u-border-left u-padding-left-small u-padding-right-small">
+        <div class="c-header-cell">
+          <span>Osoba przypisana</span>
           <div>
-            <button mat-icon-button [matMenuTriggerFor]="prorityMenu">
+            <button mat-icon-button [matMenuTriggerFor]="headerCellMenu">
               <mat-icon>more_vert</mat-icon>
             </button>
-            <mat-menu #prorityMenu="matMenu">
+            <mat-menu #headerCellMenu="matMenu">
               <button mat-menu-item>Sortuj</button>
               <button mat-menu-item>Usuń z tabeli</button>
+              <button mat-menu-item [matMenuTriggerFor]="widths">Ustaw szerokość</button>
+            </mat-menu>
+            
+            <mat-menu #widths="matMenu">
+              <button mat-menu-item>Wąska</button>
+              <button mat-menu-item>Szeroka</button>
             </mat-menu>
           </div>
         </div>
       </th>
     </ng-container>
     <ng-container matColumnDef="endDate">
-      <th mat-header-cell *matHeaderCellDef>
+      <th mat-header-cell *matHeaderCellDef class="u-border-left u-padding-left-small u-padding-right-small">
         <div class="c-header-cell">
           <span>Termin</span>
           <div>
-            <button mat-icon-button [matMenuTriggerFor]="prorityMenu">
+            <button mat-icon-button [matMenuTriggerFor]="headerCellMenu">
               <mat-icon>more_vert</mat-icon>
             </button>
-            <mat-menu #prorityMenu="matMenu">
+            <mat-menu #headerCellMenu="matMenu">
               <button mat-menu-item>Sortuj</button>
               <button mat-menu-item>Usuń z tabeli</button>
+              <button mat-menu-item [matMenuTriggerFor]="widths">Ustaw szerokość</button>
+            </mat-menu>
+            
+            <mat-menu #widths="matMenu">
+              <button mat-menu-item>Wąska</button>
+              <button mat-menu-item>Szeroka</button>
             </mat-menu>
           </div>
         </div>
       </th>
     </ng-container>
     <ng-container matColumnDef="priority">
-      <th mat-header-cell *matHeaderCellDef> 
+      <th mat-header-cell *matHeaderCellDef class="u-border-left u-padding-left-small u-padding-right-small"> 
         <div class="c-header-cell">
           <span>Priorytet</span>
           <div>
-            <button mat-icon-button [matMenuTriggerFor]="prorityMenu">
+            <button mat-icon-button [matMenuTriggerFor]="headerCellMenu">
               <mat-icon>more_vert</mat-icon>
             </button>
-            <mat-menu #prorityMenu="matMenu">
+            <mat-menu #headerCellMenu="matMenu">
               <button mat-menu-item>Sortuj</button>
               <button mat-menu-item>Usuń z tabeli</button>
+              <button mat-menu-item [matMenuTriggerFor]="widths">Ustaw szerokość</button>
+            </mat-menu>
+            
+            <mat-menu #widths="matMenu">
+              <button mat-menu-item>Wąska</button>
+              <button mat-menu-item>Szeroka</button>
             </mat-menu>
           </div>
         </div>
@@ -98,19 +120,35 @@
       </ng-container>
 
       <ng-container matColumnDef="name">
-        <td mat-cell *matCellDef="let element"> {{ element.name }} </td>
+        <td mat-cell
+          *matCellDef="let element"
+          class="u-border-right"
+          [ngClass]="{ 'u-is-completed': element.isCompleted }">
+          <div class="c-row-cell">
+            <span>
+              <button mat-icon-button (click)="onToggleCompleted(element)">
+                <mat-icon [color]="element.isCompleted ? 'green' : 'gray'">check_circle_outline</mat-icon>
+              </button>
+              {{ element.name }}</span>
+            <div>
+              <button mat-icon-button>
+                <mat-icon>chevron_right</mat-icon>
+              </button>
+            </div>
+          </div>
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="assignee">
-        <td mat-cell *matCellDef="let element"> {{ element.assignee }} </td>
+        <td mat-cell *matCellDef="let element" class="u-border-left u-padding-left-small u-padding-right-small"> {{ element.assignee }} </td>
       </ng-container>
 
       <ng-container matColumnDef="endDate">
-        <td mat-cell *matCellDef="let element"> {{ element.endDate | date:'dd/MM/yyyy' }} </td>
+        <td mat-cell *matCellDef="let element" class="u-border-left u-padding-left-small u-padding-right-small"> {{ element.endDate | date:'dd/MM/yyyy' }} </td>
       </ng-container>
 
       <ng-container matColumnDef="priority">
-        <td mat-cell *matCellDef="let element"> {{ element.priority }} </td>
+        <td mat-cell *matCellDef="let element" class="u-border-left u-padding-left-small u-padding-right-small"> {{ element.priority }} </td>
       </ng-container>
 
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

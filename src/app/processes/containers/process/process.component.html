@@ -1,11 +1,11 @@
-<main class="o-wrapper" *ngIf="process$ | async as process">
+<main class="o-wrapper u-padding-bottom-huge" *ngIf="process$ | async as process">
 
   <header class="c-title u-margin-bottom">
     <h4 class="u-margin-right-small">{{ process.name }}</h4>
     <button mat-icon-button color="accent"><mat-icon>info</mat-icon></button>
   </header>
 
-  <nav mat-tab-nav-bar class="u-margin-bottom-large">
+  <nav mat-tab-nav-bar class="u-margin-bottom">
     <a mat-tab-link
       *ngFor="let link of navLinks"
       [routerLink]="link.link"
