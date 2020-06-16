@@ -24,6 +24,7 @@ th, td {
   // padding-right: 8px;
 }
 
+.mat-button-base.mat-green,
 .mat-icon.mat-green {
   color: #4CAF50;
 }
@@ -35,5 +36,56 @@ th, td {
 ::ng-deep .u-is-completed {
   &.mat-column-name {
     text-decoration: line-through !important;
+  }
+}
+
+.c-mat-drawer {
+  background-color: #fff;
+  border-left: 1px solid #e8ecee;
+  border-top: 1px solid #e8ecee;
+  bottom: 0;
+  box-shadow: 0 5px 20px 0 rgba(21,27,38,.08);
+  display: flex;
+  flex-direction: column;
+  right: 0;
+  max-width: 640px;
+  position: absolute;
+  top: 0;
+  transition: .2s ease-in;
+  width: 60%;
+  z-index: 600;
+  transform: scale(0, 1);
+  transform-origin: right;
+
+  transition: transform 250ms ease-in-out;
+
+  &.u-is-open {
+    transform: scale(1,1);
+  }
+}
+
+.u-is-selected {
+  background-color: whitesmoke;
+}
+
+.c-mat-drawer {
+  &__header,
+  &__body,
+  &__footer {
+    padding: 16px;
+  }
+  &__header {
+    display: flex;
+    align-items: center;
+  }
+  &__header-actions--right,
+  &__footer-actions--right {
+    flex-grow: 1;
+  }
+}
+
+.u-text {
+  &-bold {
+    font-weight: 600;
   }
 }

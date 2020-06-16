@@ -10,6 +10,7 @@ import { CalendarComponent } from './containers/process/calendar/calendar.compon
 import { ProcessComponent } from './containers/process/process.component';
 import { AngularMaterial } from '../angular-material.module';
 import { DetailComponent } from './containers/process/detail/detail.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -26,7 +27,7 @@ import { DetailComponent } from './containers/process/detail/detail.component';
     CommonModule,
     ProcessesRoutingModule,
     AngularMaterial,
-
+    ReactiveFormsModule,
   ]
 })
 export class ProcessesModule { }

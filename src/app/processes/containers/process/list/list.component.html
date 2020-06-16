@@ -1,157 +1,248 @@
-<section class="o-block o-block--right u-margin-bottom-small">
-  <button mat-button color="accent" [matMenuTriggerFor]="filterMenu" class="u-margin-left-small">
-    <mat-icon class="u-margin-right-tiny">filter_list</mat-icon>
-    Filtruj</button>
-  <mat-menu #filterMenu="matMenu">
-    <button mat-menu-item>Wszystkie</button>
-    <button mat-menu-item>Tylko moje</button>
-    <button mat-menu-item>Przeterminowane</button>
-  </mat-menu>
-  <button mat-button color="accent" [matMenuTriggerFor]="sortMenu" class="u-margin-left-small">
-    <mat-icon class="u-margin-right-tiny">swap_vert</mat-icon>
-    Sortuj</button>
-  <mat-menu #sortMenu="matMenu">
-    <button mat-menu-item>Nazwa</button>
-    <button mat-menu-item>Osoba przypisana</button>
-    <button mat-menu-item>Termin</button>
-    <button mat-menu-item>Priorytet</button>
-  </mat-menu>
-  <button mat-button color="accent" [matMenuTriggerFor]="sortMenu" class="u-margin-left-small">
-    <mat-icon class="u-margin-right-tiny">view_columns</mat-icon>
-    Kolumny</button>
-  <mat-menu #sortMenu="matMenu">
-    <button mat-menu-item>Nazwa</button>
-    <button mat-menu-item>Osoba przypisana</button>
-    <button mat-menu-item>Termin</button>
-    <button mat-menu-item>Priorytet</button>
-  </mat-menu>
-</section>
+<main class="u-padding-top" style="position: relative;">
 
-<section class="u-margin-bottom">
-  <table mat-table [dataSource]="dataSourceAllTasks">
-    <ng-container matColumnDef="index">
-      <th mat-header-cell *matHeaderCellDef> #</th>
-    </ng-container>
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef>
-        <div class="c-header-cell">
-          <span>Nazwa zadania</span>
-        </div>
-      </th>
-    </ng-container>
-    <ng-container matColumnDef="assignee">
-      <th mat-header-cell *matHeaderCellDef class="u-border-left u-padding-left-small u-padding-right-small">
-        <div class="c-header-cell">
-          <span>Osoba przypisana</span>
-          <div>
-            <button mat-icon-button [matMenuTriggerFor]="headerCellMenu">
-              <mat-icon>more_vert</mat-icon>
-            </button>
-            <mat-menu #headerCellMenu="matMenu">
-              <button mat-menu-item>Sortuj</button>
-              <button mat-menu-item>Usuń z tabeli</button>
-              <button mat-menu-item [matMenuTriggerFor]="widths">Ustaw szerokość</button>
-            </mat-menu>
-            
-            <mat-menu #widths="matMenu">
-              <button mat-menu-item>Wąska</button>
-              <button mat-menu-item>Szeroka</button>
-            </mat-menu>
-          </div>
-        </div>
-      </th>
-    </ng-container>
-    <ng-container matColumnDef="endDate">
-      <th mat-header-cell *matHeaderCellDef class="u-border-left u-padding-left-small u-padding-right-small">
-        <div class="c-header-cell">
-          <span>Termin</span>
-          <div>
-            <button mat-icon-button [matMenuTriggerFor]="headerCellMenu">
-              <mat-icon>more_vert</mat-icon>
-            </button>
-            <mat-menu #headerCellMenu="matMenu">
-              <button mat-menu-item>Sortuj</button>
-              <button mat-menu-item>Usuń z tabeli</button>
-              <button mat-menu-item [matMenuTriggerFor]="widths">Ustaw szerokość</button>
-            </mat-menu>
-            
-            <mat-menu #widths="matMenu">
-              <button mat-menu-item>Wąska</button>
-              <button mat-menu-item>Szeroka</button>
-            </mat-menu>
-          </div>
-        </div>
-      </th>
-    </ng-container>
-    <ng-container matColumnDef="priority">
-      <th mat-header-cell *matHeaderCellDef class="u-border-left u-padding-left-small u-padding-right-small"> 
-        <div class="c-header-cell">
-          <span>Priorytet</span>
-          <div>
-            <button mat-icon-button [matMenuTriggerFor]="headerCellMenu">
-              <mat-icon>more_vert</mat-icon>
-            </button>
-            <mat-menu #headerCellMenu="matMenu">
-              <button mat-menu-item>Sortuj</button>
-              <button mat-menu-item>Usuń z tabeli</button>
-              <button mat-menu-item [matMenuTriggerFor]="widths">Ustaw szerokość</button>
-            </mat-menu>
-            
-            <mat-menu #widths="matMenu">
-              <button mat-menu-item>Wąska</button>
-              <button mat-menu-item>Szeroka</button>
-            </mat-menu>
-          </div>
-        </div>
-      </th>
-    </ng-container>
-    <tr mat-header-row *matHeaderRowDef="displayedColumns;"></tr>
-  </table>
-</section>
+  <section class="o-block o-block--right u-margin-bottom-small">
+    <button mat-button color="accent" [matMenuTriggerFor]="filterMenu" class="u-margin-left-small">
+      <mat-icon class="u-margin-right-tiny">filter_list</mat-icon>
+      Filtruj</button>
+    <mat-menu #filterMenu="matMenu">
+      <button mat-menu-item>Wszystkie</button>
+      <button mat-menu-item>Tylko moje</button>
+      <button mat-menu-item>Przeterminowane</button>
+    </mat-menu>
+    <button mat-button color="accent" [matMenuTriggerFor]="sortMenu" class="u-margin-left-small">
+      <mat-icon class="u-margin-right-tiny">swap_vert</mat-icon>
+      Sortuj</button>
+    <mat-menu #sortMenu="matMenu">
+      <button mat-menu-item>Nazwa</button>
+      <button mat-menu-item>Osoba przypisana</button>
+      <button mat-menu-item>Termin</button>
+      <button mat-menu-item>Priorytet</button>
+    </mat-menu>
+    <button mat-button color="accent" [matMenuTriggerFor]="sortMenu" class="u-margin-left-small">
+      <mat-icon class="u-margin-right-tiny">view_columns</mat-icon>
+      Kolumny</button>
+    <mat-menu #sortMenu="matMenu">
+      <button mat-menu-item>Nazwa</button>
+      <button mat-menu-item>Osoba przypisana</button>
+      <button mat-menu-item>Termin</button>
+      <button mat-menu-item>Priorytet</button>
+    </mat-menu>
+  </section>
 
-<ng-container *ngFor="let item of dataSourceTasksBySections">
-  <section class="u-margin-bottom-large">
-    <header class="u-margin-bottom-small">
-      <h5>{{ item.section }}</h5>
-    </header>
-    <table mat-table [dataSource]="item.tasks">
+  <section class="u-margin-bottom">
+    <table mat-table [dataSource]="dataSourceAllTasks">
       <ng-container matColumnDef="index">
-        <td mat-cell *matCellDef="let element; let index = index"> {{ index + 1 }} </td>
+        <th mat-header-cell *matHeaderCellDef> #</th>
       </ng-container>
-
       <ng-container matColumnDef="name">
-        <td mat-cell
-          *matCellDef="let element"
-          class="u-border-right"
-          [ngClass]="{ 'u-is-completed': element.isCompleted }">
-          <div class="c-row-cell">
-            <span>
-              <button mat-icon-button (click)="onToggleCompleted(element)">
-                <mat-icon [color]="element.isCompleted ? 'green' : 'gray'">check_circle_outline</mat-icon>
-              </button>
-              {{ element.name }}</span>
+        <th mat-header-cell *matHeaderCellDef>
+          <div class="c-header-cell">
+            <span>Nazwa zadania</span>
+          </div>
+        </th>
+      </ng-container>
+      <ng-container matColumnDef="assignee">
+        <th mat-header-cell *matHeaderCellDef class="u-border-left u-padding-left-small u-padding-right-small">
+          <div class="c-header-cell">
+            <span>Osoba przypisana</span>
             <div>
-              <button mat-icon-button>
-                <mat-icon>chevron_right</mat-icon>
+              <button mat-icon-button [matMenuTriggerFor]="headerCellMenu">
+                <mat-icon>more_vert</mat-icon>
               </button>
+              <mat-menu #headerCellMenu="matMenu">
+                <button mat-menu-item>Sortuj</button>
+                <button mat-menu-item>Usuń z tabeli</button>
+                <button mat-menu-item [matMenuTriggerFor]="widths">Ustaw szerokość</button>
+              </mat-menu>
+              
+              <mat-menu #widths="matMenu">
+                <button mat-menu-item>Wąska</button>
+                <button mat-menu-item>Szeroka</button>
+              </mat-menu>
             </div>
           </div>
-        </td>
+        </th>
       </ng-container>
-
-      <ng-container matColumnDef="assignee">
-        <td mat-cell *matCellDef="let element" class="u-border-left u-padding-left-small u-padding-right-small"> {{ element.assignee }} </td>
-      </ng-container>
-
       <ng-container matColumnDef="endDate">
-        <td mat-cell *matCellDef="let element" class="u-border-left u-padding-left-small u-padding-right-small"> {{ element.endDate | date:'dd/MM/yyyy' }} </td>
+        <th mat-header-cell *matHeaderCellDef class="u-border-left u-padding-left-small u-padding-right-small">
+          <div class="c-header-cell">
+            <span>Termin</span>
+            <div>
+              <button mat-icon-button [matMenuTriggerFor]="headerCellMenu">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #headerCellMenu="matMenu">
+                <button mat-menu-item>Sortuj</button>
+                <button mat-menu-item>Usuń z tabeli</button>
+                <button mat-menu-item [matMenuTriggerFor]="widths">Ustaw szerokość</button>
+              </mat-menu>
+              
+              <mat-menu #widths="matMenu">
+                <button mat-menu-item>Wąska</button>
+                <button mat-menu-item>Szeroka</button>
+              </mat-menu>
+            </div>
+          </div>
+        </th>
       </ng-container>
-
       <ng-container matColumnDef="priority">
-        <td mat-cell *matCellDef="let element" class="u-border-left u-padding-left-small u-padding-right-small"> {{ element.priority }} </td>
+        <th mat-header-cell *matHeaderCellDef class="u-border-left u-padding-left-small u-padding-right-small"> 
+          <div class="c-header-cell">
+            <span>Priorytet</span>
+            <div>
+              <button mat-icon-button [matMenuTriggerFor]="headerCellMenu">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #headerCellMenu="matMenu">
+                <button mat-menu-item>Sortuj</button>
+                <button mat-menu-item>Usuń z tabeli</button>
+                <button mat-menu-item [matMenuTriggerFor]="widths">Ustaw szerokość</button>
+              </mat-menu>
+              
+              <mat-menu #widths="matMenu">
+                <button mat-menu-item>Wąska</button>
+                <button mat-menu-item>Szeroka</button>
+              </mat-menu>
+            </div>
+          </div>
+        </th>
       </ng-container>
-
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns;"></tr>
     </table>
   </section>
-</ng-container>
+
+  <ng-container *ngFor="let item of dataSourceTasksBySections">
+    <section class="u-margin-bottom-large">
+      <header class="u-margin-bottom-small">
+        <h5>{{ item.section }}</h5>
+      </header>
+      <table mat-table [dataSource]="item.tasks">
+        <ng-container matColumnDef="index">
+          <td mat-cell *matCellDef="let element; let index = index"
+            [ngClass]="{ 'u-is-selected': element.id === selectedTask?.id }"> {{ index + 1 }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+          <td mat-cell
+            *matCellDef="let element"
+            class="u-border-right"
+            [ngClass]="{ 'u-is-completed': element.isCompleted, 'u-is-selected': element.id === selectedTask?.id  }">
+            <div class="c-row-cell">
+              <span>
+                <button mat-icon-button (click)="onToggleCompleted(element)">
+                  <mat-icon [color]="element.isCompleted ? 'green' : 'gray'">check_circle_outline</mat-icon>
+                </button>
+                {{ element.name }}</span>
+              <div>
+                <button mat-icon-button (click)="onDisplayTaskDetail(element)"
+                  matTooltip="Szczegóły" matTooltipPosition="left">
+                  <mat-icon>chevron_right</mat-icon>
+                </button>
+              </div>
+            </div>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="assignee">
+          <td mat-cell
+            *matCellDef="let element"
+            class="u-border-left u-padding-left-small u-padding-right-small"
+            [ngClass]="{ 'u-is-selected': element.id === selectedTask?.id }"> {{ element.assignee }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="endDate">
+          <td mat-cell
+            *matCellDef="let element"
+            class="u-border-left u-padding-left-small u-padding-right-small"
+            [ngClass]="{ 'u-is-selected': element.id === selectedTask?.id }"> {{ element.endDate | date:'dd/MM/yyyy' }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="priority">
+          <td mat-cell
+          *matCellDef="let element"
+          class="u-border-left u-padding-left-small u-padding-right-small"
+          [ngClass]="{ 'u-is-selected': element.id === selectedTask?.id }"> {{ element.priority }} </td>
+        </ng-container>
+
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </section>
+  </ng-container>
+
+  <aside class="c-mat-drawer" [ngClass]="{ 'u-is-open': isDrawerOpen }">
+    <div class="c-mat-drawer__header u-border-bottom">
+      <div class="c-mat-drawer__header-actions--left">
+        <button mat-stroked-button
+          [color]="selectedTask?.isCompleted ? 'green' : 'gray'"
+          (click)="onToggleCompleted(selectedTask)">
+          <mat-icon class="u-margin-right-tiny"
+            [color]="selectedTask?.isCompleted ? 'green' : 'gray'">check_circle_outline</mat-icon>
+            {{ selectedTask?.isCompleted ? 'Jest wykonane' : 'Jest niewykonane' }}
+        </button>
+      </div>
+      <div class="o-block o-block--right c-mat-drawer__header-actions--right">
+        <button mat-icon-button (click)="onHideTaskDetail()">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+    </div>
+    <div class="c-mat-drawer__body">
+      <header class="u-margin-bottom">
+        <h4 class="u-text-bold">{{ selectedTask?.name }}</h4>
+      </header>
+      <form [formGroup]="taskForm" class="u-text-normal" *ngIf="taskForm">
+        <!-- <div class="o-grid">
+          <div class="o-grid__cell u-1/1">
+            <mat-form-field appearance="outline" style="width: 100%;">
+              <mat-label>Nazwa</mat-label>
+              <input matInput formControlName="name">
+            </mat-form-field>
+          </div>
+        </div> -->
+        <div class="o-grid">
+          <div class="o-grid__cell u-1/2">
+            <mat-form-field appearance="outline" style="width: 100%;">
+              <mat-label>Osoba przypisana</mat-label>
+              <input matInput formControlName="assignee">
+              <mat-icon matSuffix>account_circle</mat-icon>
+            </mat-form-field>
+          </div>
+
+          <div class="o-grid__cell u-1/2">
+            <mat-form-field appearance="outline" style="width: 100%;">
+              <mat-label>Termin</mat-label>
+              <input matInput [matDatepicker]="picker" formControlName="endDate">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </div>
+
+          <div class="o-grid__cell u-1/1">
+            <mat-form-field appearance="outline" style="width: 100%;">
+              <mat-label>Procesy</mat-label>
+              <mat-select formControlName="processes" multiple>
+                <mat-option *ngFor="let process of processList" [value]="process">{{ process.name }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="o-grid__cell u-1/1">
+            <mat-form-field appearance="outline" style="width: 100%;">
+              <mat-label>Opis</mat-label>
+              <textarea matInput formControlName="description" rows="5"></textarea>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+      </form>
+    </div>
+    <div class="c-mat-drawer__footer">
+      <div class="o-block o-block--right c-mat-drawer__footer-actions--right">
+        <button mat-button color="default" (click)="onHideTaskDetail()">Zamknij</button>
+        <button mat-raised-button color="primary" class="u-margin-left-small" (click)="onSaveTaskDetail()">Zapisz</button>
+      </div>
+    </div>
+  </aside>
+
+</main>
