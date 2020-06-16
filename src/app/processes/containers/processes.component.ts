@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProcessesHttpService } from '../services/processes-http.service';
+import { MatDialog } from '@angular/material/dialog';
+import { DetailComponent } from './process/detail/detail.component';
 
 @Component({
   selector: 'app-processes',
@@ -11,6 +13,7 @@ export class ProcessesComponent implements OnInit {
   processes;
 
   constructor(
+    public dialog: MatDialog,
     private processesService: ProcessesHttpService,
   ) { }
 
@@ -19,6 +22,14 @@ export class ProcessesComponent implements OnInit {
       response => {
         this.processes = response;
       });
+  }
+
+  onCreateProcess() {
+    const dialogRef = this.dialog.open(DetailComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
 
 }

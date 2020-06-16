@@ -16,7 +16,7 @@
       </a>
       <mat-divider></mat-divider>
     </ng-container>
-    <a mat-list-item [routerLink]="['/processes/', 'add']">
+    <a role="button" mat-list-item (click)="onCreateProcess()">
       <span matLine>Nowy process</span>
       <button mat-icon-button>
         <mat-icon>add</mat-icon>

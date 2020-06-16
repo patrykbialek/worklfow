@@ -28,6 +28,12 @@ import { ReactiveFormsModule } from '@angular/forms';
     ProcessesRoutingModule,
     AngularMaterial,
     ReactiveFormsModule,
+  ],
+  entryComponents: [
+    DetailComponent,
+  ],
+  exports: [
+    DetailComponent,
   ]
 })
 export class ProcessesModule { }
