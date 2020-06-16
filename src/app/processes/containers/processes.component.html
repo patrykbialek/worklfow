@@ -10,7 +10,7 @@
       <a mat-list-item [routerLink]="['/processes/', process.id]">
         <span matLine>{{ process.name }}</span>
         <span matLine>W trakcie (40%)</span>
-        <button mat-icon-button (click)="onRemove($event)">
+        <button mat-icon-button>
           <mat-icon>keyboard_arrow_right</mat-icon>
         </button>
       </a>
@@ -18,7 +18,7 @@
     </ng-container>
     <a mat-list-item [routerLink]="['/processes/', 'add']">
       <span matLine>Nowy process</span>
-      <button mat-icon-button (click)="onRemove($event)">
+      <button mat-icon-button>
         <mat-icon>add</mat-icon>
       </button>
     </a>
@@ -30,7 +30,7 @@
       <a mat-list-item [routerLink]="['/processes/', process.id]">
         <span matLine>{{ process.name }}</span>
         <span matLine>W trakcie (40%)</span>
-        <button mat-icon-button (click)="onRemove($event)">
+        <button mat-icon-button>
           <mat-icon>keyboard_arrow_right</mat-icon>
         </button>
       </a>
