@@ -14,3 +14,11 @@ th, td {
 .mat-column-index {
   width: 40px;
 }
+
+.c-header-cell {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 8px;
+}

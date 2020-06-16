@@ -36,13 +36,52 @@
       <th mat-header-cell *matHeaderCellDef> Nazwa zadania</th>
     </ng-container>
     <ng-container matColumnDef="assignee">
-      <th mat-header-cell *matHeaderCellDef> Osoby przypisana</th>
+      <th mat-header-cell *matHeaderCellDef>
+        <div class="c-header-cell">
+          <span>Priorytet</span>
+          <div>
+            <button mat-icon-button [matMenuTriggerFor]="prorityMenu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #prorityMenu="matMenu">
+              <button mat-menu-item>Sortuj</button>
+              <button mat-menu-item>Usuń z tabeli</button>
+            </mat-menu>
+          </div>
+        </div>
+      </th>
     </ng-container>
     <ng-container matColumnDef="endDate">
-      <th mat-header-cell *matHeaderCellDef> Termin</th>
+      <th mat-header-cell *matHeaderCellDef>
+        <div class="c-header-cell">
+          <span>Termin</span>
+          <div>
+            <button mat-icon-button [matMenuTriggerFor]="prorityMenu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #prorityMenu="matMenu">
+              <button mat-menu-item>Sortuj</button>
+              <button mat-menu-item>Usuń z tabeli</button>
+            </mat-menu>
+          </div>
+        </div>
+      </th>
     </ng-container>
     <ng-container matColumnDef="priority">
-      <th mat-header-cell *matHeaderCellDef> Priorytet</th>
+      <th mat-header-cell *matHeaderCellDef> 
+        <div class="c-header-cell">
+          <span>Priorytet</span>
+          <div>
+            <button mat-icon-button [matMenuTriggerFor]="prorityMenu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #prorityMenu="matMenu">
+              <button mat-menu-item>Sortuj</button>
+              <button mat-menu-item>Usuń z tabeli</button>
+            </mat-menu>
+          </div>
+        </div>
+      </th>
     </ng-container>
     <tr mat-header-row *matHeaderRowDef="displayedColumns;"></tr>
   </table>
