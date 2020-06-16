@@ -1,20 +1,31 @@
-<!-- <mat-list *ngIf="tasks$ | async as tasks">
-  <div  class="u-margin-bottom-large" *ngFor="let item of tasks">
-    <div mat-subheader>{{ item.section }}</div>
-    <ng-container *ngFor="let task of item.tasks">
-      <mat-list-item>
-        <mat-icon mat-list-icon *ngIf="task.isCompleted" style="color: green">check_circle_outline</mat-icon>
-        <mat-icon mat-list-icon *ngIf="!task.isCompleted" (click)="onSetAsCompleted(task)">panorama_fish_eye</mat-icon>
-        <div mat-line>{{ task.name }}</div>
-        <div mat-line>Termin: {{ task.endDate | date:'dd/MM/yyyy' }} </div>
-        <button mat-icon-button (click)="onRemove()">
-          <mat-icon>keyboard_arrow_right</mat-icon>
-        </button>
-      </mat-list-item>
-      <mat-divider></mat-divider>
-    </ng-container>
-  </div>
-</mat-list> -->
+<section class="o-block o-block--right u-margin-bottom-small">
+  <button mat-button [matMenuTriggerFor]="filterMenu" class="u-margin-left-small">
+    <mat-icon class="u-margin-right-tiny">filter_list</mat-icon>
+    Filtruj</button>
+  <mat-menu #filterMenu="matMenu">
+    <button mat-menu-item>Wszystkie</button>
+    <button mat-menu-item>Tylko moje</button>
+    <button mat-menu-item>Przeterminowane</button>
+  </mat-menu>
+  <button mat-button [matMenuTriggerFor]="sortMenu" class="u-margin-left-small">
+    <mat-icon class="u-margin-right-tiny">swap_vert</mat-icon>
+    Sortuj</button>
+  <mat-menu #sortMenu="matMenu">
+    <button mat-menu-item>Nazwa</button>
+    <button mat-menu-item>Osoba przypisana</button>
+    <button mat-menu-item>Termin</button>
+    <button mat-menu-item>Priorytet</button>
+  </mat-menu>
+  <button mat-button [matMenuTriggerFor]="sortMenu" class="u-margin-left-small">
+    <mat-icon class="u-margin-right-tiny">view_columns</mat-icon>
+    Kolumny</button>
+  <mat-menu #sortMenu="matMenu">
+    <button mat-menu-item>Nazwa</button>
+    <button mat-menu-item>Osoba przypisana</button>
+    <button mat-menu-item>Termin</button>
+    <button mat-menu-item>Priorytet</button>
+  </mat-menu>
+</section>
 
 <section class="u-margin-bottom">
   <table mat-table [dataSource]="dataSourceAllTasks">
@@ -50,19 +61,19 @@
       <ng-container matColumnDef="name">
         <td mat-cell *matCellDef="let element"> {{ element.name }} </td>
       </ng-container>
-    
+
       <ng-container matColumnDef="assignee">
         <td mat-cell *matCellDef="let element"> {{ element.assignee }} </td>
       </ng-container>
-    
+
       <ng-container matColumnDef="endDate">
         <td mat-cell *matCellDef="let element"> {{ element.endDate | date:'dd/MM/yyyy' }} </td>
       </ng-container>
-    
+
       <ng-container matColumnDef="priority">
         <td mat-cell *matCellDef="let element"> {{ element.priority }} </td>
       </ng-container>
-    
+
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
   </section>
