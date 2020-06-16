@@ -29,9 +29,6 @@ import { ReactiveFormsModule } from '@angular/forms';
     AngularMaterial,
     ReactiveFormsModule,
   ],
-  entryComponents: [
-    DetailComponent,
-  ],
   exports: [
     DetailComponent,
   ]
