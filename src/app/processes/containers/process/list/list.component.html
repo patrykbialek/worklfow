@@ -1,11 +1,8 @@
-<mat-list *ngIf="tasks$ | async as tasks">
+<!-- <mat-list *ngIf="tasks$ | async as tasks">
   <div  class="u-margin-bottom-large" *ngFor="let item of tasks">
     <div mat-subheader>{{ item.section }}</div>
     <ng-container *ngFor="let task of item.tasks">
       <mat-list-item>
-        <!-- <div matLine [routerLink]="['/processes/']">
-          <p matLine>{{ task.name }}</p>
-        </div> -->
         <mat-icon mat-list-icon *ngIf="task.isCompleted" style="color: green">check_circle_outline</mat-icon>
         <mat-icon mat-list-icon *ngIf="!task.isCompleted" (click)="onSetAsCompleted(task)">panorama_fish_eye</mat-icon>
         <div mat-line>{{ task.name }}</div>
@@ -17,4 +14,56 @@
       <mat-divider></mat-divider>
     </ng-container>
   </div>
-</mat-list>
+</mat-list> -->
+
+<section class="u-margin-bottom">
+  <table mat-table [dataSource]="dataSourceAllTasks">
+    <ng-container matColumnDef="index">
+      <th mat-header-cell *matHeaderCellDef> #</th>
+    </ng-container>
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Nazwa zadania</th>
+    </ng-container>
+    <ng-container matColumnDef="assignee">
+      <th mat-header-cell *matHeaderCellDef> Osoby przypisana</th>
+    </ng-container>
+    <ng-container matColumnDef="endDate">
+      <th mat-header-cell *matHeaderCellDef> Termin</th>
+    </ng-container>
+    <ng-container matColumnDef="priority">
+      <th mat-header-cell *matHeaderCellDef> Priorytet</th>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns;"></tr>
+  </table>
+</section>
+
+<ng-container *ngFor="let item of dataSourceTasksBySections">
+  <section class="u-margin-bottom-large">
+    <header class="u-margin-bottom-small">
+      <h5>{{ item.section }}</h5>
+    </header>
+    <table mat-table [dataSource]="item.tasks">
+      <ng-container matColumnDef="index">
+        <td mat-cell *matCellDef="let element; let index = index"> {{ index + 1 }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <td mat-cell *matCellDef="let element"> {{ element.name }} </td>
+      </ng-container>
+    
+      <ng-container matColumnDef="assignee">
+        <td mat-cell *matCellDef="let element"> {{ element.assignee }} </td>
+      </ng-container>
+    
+      <ng-container matColumnDef="endDate">
+        <td mat-cell *matCellDef="let element"> {{ element.endDate | date:'dd/MM/yyyy' }} </td>
+      </ng-container>
+    
+      <ng-container matColumnDef="priority">
+        <td mat-cell *matCellDef="let element"> {{ element.priority }} </td>
+      </ng-container>
+    
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </section>
+</ng-container>
