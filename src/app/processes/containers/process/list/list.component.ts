@@ -47,8 +47,10 @@ export class ListComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private tasksHttpService: TasksHttpService,
-    private processesStoreService: ProcessesStoreService,
-  ) { }
+    private processesStore: ProcessesStoreService,
+  ) { 
+    this.processesStore.getTasksBySection();
+  }
 
   @HostListener('document:keydown.escape', ['$event'])
   onKeydownHandler(evt: KeyboardEvent) {
@@ -56,15 +58,14 @@ export class ListComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.processesStore.processSections$
+      .pipe(
+        tap(response => this.dataSourceTasksBySections = response)
+      ).subscribe();
+
     this.allTasks$ = this.tasksHttpService.getAllTasks()
       .pipe(
         tap(response => this.dataSourceAllTasks = response),
-      ).subscribe();
-
-    this.tasksBySections$ = this.processesStoreService
-      .process$
-      .pipe(
-        tap(response => this.dataSourceTasksBySections = response.sections),
       ).subscribe();
 
     this.taskForm = this.formBuilder.group({

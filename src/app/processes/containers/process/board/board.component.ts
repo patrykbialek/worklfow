@@ -12,10 +12,11 @@ import { ProcessesStoreService } from 'src/app/processes/services/processes-stor
 })
 export class BoardComponent implements OnInit {
 
-  tasks$ = this.processesStoreService.process$;
-  
+  tasks$ = this.processesStore.process$;
+  processSections$ = this.processesStore.processSections$
+
   constructor(
-    private processesStoreService: ProcessesStoreService,
+    private processesStore: ProcessesStoreService,
   ) { }
 
   ngOnInit() {

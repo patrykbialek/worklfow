@@ -3,6 +3,7 @@ import { ProcessesHttpService } from '../services/processes-http.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DetailComponent } from './process/detail/detail.component';
 import { tap, filter, map } from 'rxjs/operators';
+import { ProcessesStoreService } from '../services/processes-store.service';
 
 @Component({
   selector: 'app-processes',
@@ -11,40 +12,19 @@ import { tap, filter, map } from 'rxjs/operators';
 })
 export class ProcessesComponent implements OnInit {
 
-  processes;
+  processes$ = this.processesStore.processes$;
 
   constructor(
     public dialog: MatDialog,
     private processesService: ProcessesHttpService,
-  ) { }
+    private processesStore: ProcessesStoreService,
+  ) {
+    this.processesStore.getProcesses();
+    this.processesStore.getTasks();
+    this.processesStore.getSections();
+  }
 
   ngOnInit() {
-
-    this.processesService
-      .getProcesses()
-      .pipe(
-        filter(response => Boolean(response)),
-        map((response: any) => {
-          return response.map(item => {
-            let tasksAllCount = 0;
-            let taskCompletedCount = 0;
-            item.sections.map(section => {
-              tasksAllCount += section.tasks.length;
-              section.tasks.map(task => {
-                if (task.isCompleted) {
-                  taskCompletedCount += 1;
-                }
-              });
-            })
-            return {
-              ...item,
-              progress: taskCompletedCount / tasksAllCount * 100,
-            };
-          })
-        })
-      ).subscribe(response => {
-        this.processes = response;
-      });
   }
 
   onCreateProcess() {
@@ -63,4 +43,49 @@ export class ProcessesComponent implements OnInit {
     });
   }
 
+  onCreateSection() {
+    const today = new Date();
+    const section = {
+      name: 'Dział Rozliczeń CIT',
+      created: today.toISOString(),
+    };
+    this.processesService.createSection(section);
+  }
+
+  onCreateTask() {
+    const today = new Date();
+    const task = {
+      assignee: null,
+      created: today.toISOString(),
+      description: null,
+      endDate: null,
+      isCompleted: false,
+      name: 'Przygotować zestawienie CIT',
+      priority: 'high',
+      section: 'test',
+      startDate: today.toISOString(),
+      subtasks: [],
+    };
+    this.processesService.createTask(task);
+  }
+
+  onCreateProcessTemplate() {
+    const today = new Date();
+    const template = {
+      created: today.toISOString(),
+      description: null,
+      name: 'Zamknięcie miesiąca księgowego (duzy podmiot)',
+      tasks: [
+        "-MA065JvwpIW5VtKaqUi",
+        "-MA06D-XosET8g_rlQVs",
+        "-MA06DAqIWKvvzcYzwLr",
+        "-MA06DKNpdi1kUpUuczg",
+        "-MA06DSmjMX_rnOkiNav"
+      ],
+      team: null,
+    };
+    this.processesService.createTemplate(template);
+  }
+
 }
+

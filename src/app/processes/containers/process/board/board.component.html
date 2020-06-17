@@ -1,11 +1,11 @@
-<main class="u-padding-top" *ngIf="tasks$ | async as tasks">
+<main class="u-padding-top" *ngIf="processSections$ | async as processSections">
 
   <section class="c-board">
 
-    <ng-container *ngFor="let item of tasks.sections">
+    <ng-container *ngFor="let item of processSections">
       <div class="c-board__column">
         <header class="u-margin-bottom">
-          <h6>{{ item.section }}</h6>
+          <h6>{{ item.name }}</h6>
         </header>
 
         <ng-container *ngFor="let task of item.tasks">
@@ -63,7 +63,7 @@
                 [ngClass]="{ 'u-no-enddate': !task.endDate }">
                 <button mat-button (click)="picker.open()">
                   <mat-icon class="u-margin-right-tiny">event</mat-icon>
-                  {{ (task.endDate | date:'dd/MM/yyyy') || 'Brak daty wykonania' }}
+                  {{ (task.endDate | date:'dd/MM/yyyy') || 'Brak terminu' }}
                 </button>
                 <mat-form-field class="u-hidden-datepicker">
                   <input matInput [matDatepicker]="picker"
@@ -72,10 +72,6 @@
                 </mat-form-field>
               </div>
             </mat-card-footer>
-            <!-- <mat-card-actions>
-              <button mat-button>LIKE</button>
-              <button mat-button>SHARE</button>
-            </mat-card-actions> -->
           </mat-card>
         </ng-container>
       </div>

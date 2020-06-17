@@ -35,7 +35,7 @@ export class ProcessComponent implements OnInit {
   ];
   activeLinkIndex = -1;
 
-  process$ = this.processesService.process$.pipe(tap(console.log));
+  process$ = this.processesService.process$;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -51,7 +51,7 @@ export class ProcessComponent implements OnInit {
 
     this.activatedRoute.params
       .subscribe(params => {
-        this.processesService.setProcess(params.id);
+        this.processesService.getProcess(params.id);
       });
   }
 }
