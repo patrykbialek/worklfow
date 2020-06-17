@@ -27,33 +27,19 @@
       <button mat-icon-button color="primary">
         <mat-icon>add</mat-icon>
       </button>
-    </a>
+    </a> -->
     <a role="button" color="primary" mat-list-item (click)="onCreateTask()">
       <span matLine>Nowe zadanie</span>
       <button mat-icon-button color="primary">
         <mat-icon>add</mat-icon>
       </button>
     </a>
-    <a role="button" color="primary" mat-list-item (click)="onCreateProcessTemplate()">
+    <!-- <a role="button" color="primary" mat-list-item (click)="onCreateProcessTemplate()">
       <span matLine>Nowy szablon</span>
       <button mat-icon-button color="primary">
         <mat-icon>add</mat-icon>
       </button>
     </a> -->
-  </mat-nav-list>
-
-  <mat-nav-list>
-    <h3 matSubheader>Zarchiwizowane procesy</h3>
-    <ng-container *ngFor="let process of processes">
-      <a mat-list-item [routerLink]="['/processes/', process.id]">
-        <span matLine>{{ process.name }}</span>
-        <span matLine>W trakcie (40%)</span>
-        <button mat-icon-button>
-          <mat-icon>keyboard_arrow_right</mat-icon>
-        </button>
-      </a>
-      <mat-divider></mat-divider>
-    </ng-container>
   </mat-nav-list>
 
 </main>
