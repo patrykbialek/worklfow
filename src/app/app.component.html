@@ -1,10 +1,18 @@
 <mat-toolbar color="default" class="c-app-header u-margin-bottom-large">
   <mat-toolbar-row>
-    <span>Workflow</span>
-    <span class="example-spacer"></span>
-    <button mat-button [routerLink]="['']">Dashboard</button>
-    <button mat-button [routerLink]="['processes']">Procesy</button>
-    <button mat-button [routerLink]="['tasks']">Zadania</button>
+    <span class="u-margin-right-huge">
+      <img src="../assets/images/logo.svg" alt="logo" style="height: 40px;">
+    </span>
+    <span style="flex-grow: 1;"></span>
+    <button class="u-margin-left-tiny" mat-button [routerLink]="['']">
+      <mat-icon class="u-margin-right-tiny">dashboard</mat-icon>Dashboard</button>
+    <button class="u-margin-left-tiny" mat-button [routerLink]="['processes']">
+      <mat-icon class="u-margin-right-tiny">timeline</mat-icon>Procesy</button>
+    <button class="u-margin-left-tiny" mat-button [routerLink]="['tasks']">
+      <mat-icon class="u-margin-right-tiny">rule</mat-icon>Zadania</button>
+    <div class="u-border-left u-margin-left-tiny" style="width:1px">&nbsp;</div>
+    <button class="u-margin-left-tiny" mat-button [routerLink]="['tasks']">
+      <mat-icon class="u-margin-right-tiny">account_circle</mat-icon>Patryk Nowak</button>
   </mat-toolbar-row>
 </mat-toolbar>
 
