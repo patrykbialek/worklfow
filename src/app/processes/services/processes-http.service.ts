@@ -21,7 +21,24 @@ export class ProcessesHttpService {
 
   createProcess(newProcess: Process): Promise<any> {
     const db: AngularFireList<Process> = this.db.list(`/processes`);
-    return db.push(newProcess);
+    const tasks = Object.values(newProcess.tasks);
+    delete newProcess.tasks;
+    const newRef = db.push(newProcess);
+
+    // console.log(newProcess.tasks);
+    tasks.forEach((task: any) => {
+      const today = new Date();
+      const newTask = {
+        created: today.toISOString(),
+        isCompleted: false,
+        name: task.name,
+        section: task.section,
+        startDate: today.toISOString(),
+      };
+      this.createTask(newTask, newRef.key)
+    });
+
+    return newRef;
   }
 
   createSection(newSection: any): Promise<any> {
@@ -29,9 +46,14 @@ export class ProcessesHttpService {
     return db.push(newSection);
   }
 
-  createTask(newTask: any): Promise<any> {
+  createTask(newTask: any, processKey: string): Promise<any> {
     const db: AngularFireList<any> = this.db.list(`/tasks`);
-    return db.push(newTask);
+    const taskRef = db.push(newTask);
+
+    const tasks: AngularFireList<any> = this.db.list(`/processes/${processKey}/tasks`);
+    tasks.push(taskRef.key);
+
+    return taskRef;
   }
 
   createTemplate(newTemplate: any): Promise<any> {
@@ -59,9 +81,19 @@ export class ProcessesHttpService {
         map((change) => ({ key: change.payload.key, ...change.payload.val() })),
       );
   }
-  
+
   getProcessTemplates() {
     const db: AngularFireList<any> = this.db.list(`/processTemplates`);
+
+    return db.snapshotChanges().pipe(
+      map((changes) =>
+        changes.map((change) => ({ key: change.payload.key, ...change.payload.val() }))
+      ),
+    );
+  }
+
+  getTaskTemplates() {
+    const db: AngularFireList<any> = this.db.list(`/taskTemplates`);
 
     return db.snapshotChanges().pipe(
       map((changes) =>
@@ -102,17 +134,17 @@ export class ProcessesHttpService {
   //   const rootRef = this.db.database.ref();
   //   const templatesRef = rootRef.child('processTemplates/-MA0811bIUULkFeAJFun');
   //   const tasksRef = rootRef.child('tasks');
-    
+
   //   function getTasks(key, cb) {
   //     templatesRef.child(key).on('child_added', snap => {
   //       let taskRef = tasksRef.child(snap.key);
   //       taskRef.once('value', cb);
   //     });
   //   }
-    
+
   //   let tasks = []
   //   getTasks(key, snap => tasks.push(snap.val()))
-      
+
   //   return of(tasks);
 
   //   // templatesRef.child(key).once('value', snap => console.log(snap.val().tasks))

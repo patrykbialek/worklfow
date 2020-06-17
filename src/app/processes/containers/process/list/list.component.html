@@ -29,8 +29,8 @@
     </mat-menu>
   </section>
 
-  <section class="u-margin-bottom">
-    <table mat-table [dataSource]="dataSourceAllTasks">
+  <section class="u-margin-bottom" *ngIf="allTasks$ | async as allTasks">
+    <table mat-table [dataSource]="allTasks">
       <ng-container matColumnDef="index">
         <th mat-header-cell *matHeaderCellDef> #</th>
       </ng-container>
@@ -111,62 +111,64 @@
     </table>
   </section>
 
-  <ng-container *ngFor="let item of dataSourceTasksBySections">
-    <section class="u-margin-bottom-large">
-      <header class="u-margin-bottom-small">
-        <h5>{{ item.name }}</h5>
-      </header>
-      <table mat-table [dataSource]="item.tasks">
-        <ng-container matColumnDef="index">
-          <td mat-cell *matCellDef="let element; let index = index"
-            [ngClass]="{ 'u-is-selected': element.id === selectedTask?.id }"> {{ index + 1 }} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="name">
-          <td mat-cell
-            *matCellDef="let element"
-            class="u-border-right"
-            [ngClass]="{ 'u-is-completed': element.isCompleted, 'u-is-selected': element.id === selectedTask?.id  }">
-            <div class="c-row-cell">
-              <span>
-                <button mat-icon-button (click)="onToggleCompleted(element)">
-                  <mat-icon [color]="element.isCompleted ? 'green' : 'gray'">check_circle_outline</mat-icon>
-                </button>
-                {{ element.name }}</span>
-              <div>
-                <button mat-icon-button (click)="onDisplayTaskDetail(element)"
-                  matTooltip="Szczegóły" matTooltipPosition="left">
-                  <mat-icon>chevron_right</mat-icon>
-                </button>
+  <ng-container *ngIf="processSections$ | async as processSections">
+    <ng-container *ngFor="let item of processSections">
+      <section class="u-margin-bottom-large">
+        <header class="u-margin-bottom-small">
+          <h5>{{ item.name }}</h5>
+        </header>
+        <table mat-table [dataSource]="item.tasks">
+          <ng-container matColumnDef="index">
+            <td mat-cell *matCellDef="let element; let index = index"
+              [ngClass]="{ 'u-is-selected': element.id === selectedTask?.id }"> {{ index + 1 }} </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="name">
+            <td mat-cell
+              *matCellDef="let element"
+              class="u-border-right"
+              [ngClass]="{ 'u-is-completed': element.isCompleted, 'u-is-selected': element.id === selectedTask?.id  }">
+              <div class="c-row-cell">
+                <span>
+                  <button mat-icon-button (click)="onToggleCompleted(element)">
+                    <mat-icon [color]="element.isCompleted ? 'green' : 'gray'">check_circle_outline</mat-icon>
+                  </button>
+                  {{ element.name }}</span>
+                <div>
+                  <button mat-icon-button (click)="onDisplayTaskDetail(element)"
+                    matTooltip="Szczegóły" matTooltipPosition="left">
+                    <mat-icon>chevron_right</mat-icon>
+                  </button>
+                </div>
               </div>
-            </div>
-          </td>
-        </ng-container>
-
-        <ng-container matColumnDef="assignee">
-          <td mat-cell
+            </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="assignee">
+            <td mat-cell
+              *matCellDef="let element"
+              class="u-border-left u-padding-left-small u-padding-right-small"
+              [ngClass]="{ 'u-is-selected': element.id === selectedTask?.id }"> {{ element.assignee }} </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="endDate">
+            <td mat-cell
+              *matCellDef="let element"
+              class="u-border-left u-padding-left-small u-padding-right-small"
+              [ngClass]="{ 'u-is-selected': element.id === selectedTask?.id }"> {{ element.endDate | date:'dd/MM/yyyy' }} </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="priority">
+            <td mat-cell
             *matCellDef="let element"
             class="u-border-left u-padding-left-small u-padding-right-small"
-            [ngClass]="{ 'u-is-selected': element.id === selectedTask?.id }"> {{ element.assignee }} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="endDate">
-          <td mat-cell
-            *matCellDef="let element"
-            class="u-border-left u-padding-left-small u-padding-right-small"
-            [ngClass]="{ 'u-is-selected': element.id === selectedTask?.id }"> {{ element.endDate | date:'dd/MM/yyyy' }} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="priority">
-          <td mat-cell
-          *matCellDef="let element"
-          class="u-border-left u-padding-left-small u-padding-right-small"
-          [ngClass]="{ 'u-is-selected': element.id === selectedTask?.id }"> {{ element.priority }} </td>
-        </ng-container>
-
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-      </table>
-    </section>
+            [ngClass]="{ 'u-is-selected': element.id === selectedTask?.id }"> {{ element.priority }} </td>
+          </ng-container>
+  
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </section>
+    </ng-container>
   </ng-container>
 
   <aside class="c-mat-drawer" [ngClass]="{ 'u-is-open': isDrawerOpen }">

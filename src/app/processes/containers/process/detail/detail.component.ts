@@ -1,8 +1,10 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ProcessesStoreService } from 'src/app/processes/services/processes-store.service';
-import { keyframes } from '@angular/animations';
+
+import * as fromModels from '../../../../processes/models';
+import { ProcessesStoreService } from 'src/app/processes/store/processes-store.service';
 
 @Component({
   selector: 'app-detail',
@@ -11,23 +13,24 @@ import { keyframes } from '@angular/animations';
 })
 export class DetailComponent implements OnInit {
 
+  newProcess: fromModels.Process;
   processForm: FormGroup;
-
   processTemplates;
-
-  newProcess;
+  taskTemplates;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<DetailComponent>,
     private formBuilder: FormBuilder,
 
-    private processesStoreService: ProcessesStoreService,
+    private processesStore: ProcessesStoreService,
   ) { }
 
   ngOnInit() {
-    this.processesStoreService.getProcessTemplates()
+    this.processesStore.getProcessTemplates()
       .subscribe(response => this.processTemplates = response);
+    this.processesStore.getTaskTemplates()
+      .subscribe(response => this.taskTemplates = response);
 
     this.processForm = this.formBuilder.group({
       description: ['', Validators.required],
@@ -36,14 +39,22 @@ export class DetailComponent implements OnInit {
       startDate: ['', Validators.required],
       team: [''],
       owner: ['', Validators.required],
+      tasks: this.formBuilder.array([]),
     });
   }
 
   onSelectProcessTemplate(template: any) {
     this.newProcess = template;
     this.processForm.get('name').setValue(template.name);
-  }
 
+    const tasks = this.processForm.get('tasks') as FormArray;
+    Object.values(this.taskTemplates).forEach((task: any) => {
+      tasks.push(this.formBuilder.group({
+        name: task.name,
+        section: task.section,
+      }))
+    });
+  }
 
   onNoClick(): void {
     this.dialogRef.close();
@@ -62,6 +73,7 @@ export class DetailComponent implements OnInit {
       name: this.processForm.get('name').value,
       owner: this.processForm.get('owner').value,
       startDate: this.processForm.get('startDate').value,
+      tasks: this.processForm.get('tasks').value,
     }
 
     delete this.newProcess.key;

@@ -1,9 +1,9 @@
 import { Injectable } from "@angular/core";
-import { Observable, of, BehaviorSubject, combineLatest, pipe } from 'rxjs';
-import { Process } from '../models';
-import { ProcessesHttpService } from './processes-http.service';
-import { tap, map } from 'rxjs/operators';
+import { BehaviorSubject, combineLatest, } from 'rxjs';
+import { tap, map, filter } from 'rxjs/operators';
 
+import { ProcessesHttpService } from '../services/processes-http.service';
+import * as fromModels from '../models';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +13,9 @@ export class ProcessesStoreService {
   private processSubject = new BehaviorSubject(null);
   process$ = this.processSubject.asObservable();
 
+  private processSectionsSubject = new BehaviorSubject([]);
+  processSections$ = this.processSectionsSubject.asObservable();
+
   private processesSubject = new BehaviorSubject([]);
   processes$ = this.processesSubject.asObservable();
 
@@ -21,9 +24,6 @@ export class ProcessesStoreService {
 
   private tasksSubject = new BehaviorSubject([]);
   tasks$ = this.tasksSubject.asObservable();
-
-  private processSectionsSubject = new BehaviorSubject([]);
-  processSections$ = this.processSectionsSubject.asObservable();
 
   constructor(
     private processesHttpService: ProcessesHttpService,
@@ -36,13 +36,20 @@ export class ProcessesStoreService {
       ).subscribe(process => this.processSubject.next(process));
   }
 
+  // GET
+
   getProcessTemplates() {
     return this.processesHttpService.getProcessTemplates();
+  }
+
+  getTaskTemplates() {
+    return this.processesHttpService.getTaskTemplates();
   }
 
   getTasksBySection() {
     this.process$
       .pipe(
+        filter(process => Boolean(process)),
         tap(process => {
           let sections = [];
           process.tasks.forEach(task => {
@@ -79,15 +86,17 @@ export class ProcessesStoreService {
       map(([process, sections, tasks]) => {
         const processTasks = [];
 
-        Object.keys(process.tasks).forEach(key => {
-          const task = tasks.find(task => task.key === key);
-          const section = sections.find(section => section.key === task.section);
+        if (process.tasks) {
+          Object.values(process.tasks).forEach(key => {
+            const task = tasks.find(task => task.key === key);
+            const section = sections.find(section => section.key === task.section);
 
-          processTasks.push({
-            ...task,
-            section,
+            processTasks.push({
+              ...task,
+              section,
+            });
           });
-        });
+        }
 
         return {
           ...process,
@@ -106,20 +115,25 @@ export class ProcessesStoreService {
     const data$ = combineLatest([processes$, sections$, tasks$]);
 
     data$.pipe(
+      filter(([processes, sections, tasks]) => Boolean(tasks)),
       map(([processes, sections, tasks]) => {
 
         return processes.map(process => {
           const processTasks = [];
 
-          Object.keys(process.tasks).forEach(key => {
-            const task = tasks.find(task => task.key === key);
-            const section = sections.find(section => section.key === task.section);
+          if (process.tasks) {
+            Object.values(process.tasks).forEach(key => {
+              const task = tasks.find(task => {
+                return task.key === key;
+              });
+              const section = sections.find(section => section.key === task.section);
 
-            processTasks.push({
-              ...task,
-              section,
+              processTasks.push({
+                ...task,
+                section,
+              });
             });
-          });
+          }
 
           return {
             ...process,
@@ -136,7 +150,6 @@ export class ProcessesStoreService {
     this.processesHttpService.getTasks()
       .pipe(
         tap(items => this.tasksSubject.next(items)),
-        tap(console.log),
       ).subscribe();
   }
 
@@ -147,9 +160,17 @@ export class ProcessesStoreService {
       ).subscribe();
   }
 
-  createProcess(newProcess: Process) {
+  // CREATE
+
+  createTask(newTask: fromModels.Task) {
+    this.processesHttpService.createTask(newTask, null)
+  }
+
+  createProcess(newProcess: fromModels.Process) {
     this.processesHttpService.createProcess(newProcess);
   }
+
+  // UPDATE
 
   updateTask(key: string, value: any) {
     this.processesHttpService.updateTask(key, value);

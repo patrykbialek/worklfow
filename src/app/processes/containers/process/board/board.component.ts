@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { TasksHttpService } from 'src/app/tasks/services/tasks-http.service';
-import { Task } from 'src/app/processes/models';
-import { TasksComponent } from 'src/app/tasks/containers/tasks.component';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
-import { ProcessesStoreService } from 'src/app/processes/services/processes-store.service';
+
+import * as fromModels from 'src/app/processes/models';
+import { ProcessesStoreService } from 'src/app/processes/store/processes-store.service';
 
 @Component({
   selector: 'app-board',
@@ -17,7 +16,7 @@ export class BoardComponent implements OnInit {
 
   constructor(
     private processesStore: ProcessesStoreService,
-  ) { }
+  ) {}
 
   ngOnInit() {
   }
@@ -32,12 +31,12 @@ export class BoardComponent implements OnInit {
     this.updateTask(request.task);
   }
 
-  addEvent(event: MatDatepickerInputEvent<Date>, task: Task) {
+  addEvent(event: MatDatepickerInputEvent<Date>, task: fromModels.Task) {
     task.endDate = event.value.toISOString();
     this.updateTask(task);
   }
 
-  updateTask(task: Task) {
+  updateTask(task: fromModels.Task) {
     const section = task.section.key;
     task = {
       ...task,

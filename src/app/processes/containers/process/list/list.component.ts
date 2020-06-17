@@ -1,10 +1,12 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { TasksHttpService } from 'src/app/tasks/services/tasks-http.service';
-import { Task, Process } from 'src/app/processes/models';
 import { MatTableDataSource } from '@angular/material/table';
 import { tap } from 'rxjs/operators';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { ProcessesStoreService } from 'src/app/processes/services/processes-store.service';
+import { ProcessesStoreService } from 'src/app/processes/store/processes-store.service';
+import { Observable } from 'rxjs';
+
+import * as fromModels from 'src/app/processes/models';
 
 @Component({
   selector: 'app-list',
@@ -13,44 +15,23 @@ import { ProcessesStoreService } from 'src/app/processes/services/processes-stor
 })
 export class ListComponent implements OnInit {
 
-  allTasks$;
-  tasksBySections$;
-
   displayedColumns: string[] = ['index', 'name', 'assignee', 'endDate', 'priority'];
-  dataSourceAllTasks: Task[] = [];
+  dataSourceAllTasks: fromModels.Task[] = [];
   dataSourceTasksBySections: any[] = [];
 
   isDrawerOpen: boolean;
-  selectedTask: Task;
+  selectedTask: fromModels.Task;
 
   taskForm: FormGroup;
 
-  processList: Process[] = [
-    {
-      id: '3434er34234',
-      name: 'Zamknięcie miesiąca kwiecień 2020',
-      startDate: null,
-      endDate: null,
-      team: null,
-      description: null,
-    },
-    {
-      id: 'err343434',
-      name: 'Zamknięcie miesiąca maj 2020',
-      startDate: null,
-      endDate: null,
-      team: null,
-      description: null,
-    },
-  ]
+  allTasks$: Observable<fromModels.Task[]> = this.tasksHttpService.getAllTasks();
+  processSections$: Observable<fromModels.Section[]> = this.processesStore.processSections$;
 
   constructor(
     private formBuilder: FormBuilder,
     private tasksHttpService: TasksHttpService,
     private processesStore: ProcessesStoreService,
-  ) { 
-    this.processesStore.getTasksBySection();
-  }
+  ) {}
 
   @HostListener('document:keydown.escape', ['$event'])
   onKeydownHandler(evt: KeyboardEvent) {
@@ -58,16 +39,6 @@ export class ListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.processesStore.processSections$
-      .pipe(
-        tap(response => this.dataSourceTasksBySections = response)
-      ).subscribe();
-
-    this.allTasks$ = this.tasksHttpService.getAllTasks()
-      .pipe(
-        tap((response: any) => this.dataSourceAllTasks = response),
-      ).subscribe();
-
     this.taskForm = this.formBuilder.group({
       name: [''],
       assignee: [''],
@@ -77,7 +48,7 @@ export class ListComponent implements OnInit {
     });
   }
 
-  onToggleCompleted(task: Task) {
+  onToggleCompleted(task: fromModels.Task) {
     task.isCompleted = !task.isCompleted;
     const section = task.section.key;
     task = {
@@ -87,7 +58,7 @@ export class ListComponent implements OnInit {
     this.updateTask(task);
   }
 
-  onDisplayTaskDetail(task: Task) {
+  onDisplayTaskDetail(task: fromModels.Task) {
     this.selectedTask = task;
     this.isDrawerOpen = true;
 
