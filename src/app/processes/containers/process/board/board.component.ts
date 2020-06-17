@@ -22,17 +22,27 @@ export class BoardComponent implements OnInit {
   ngOnInit() {
   }
 
-  onSetAsCompleted(task: Task) {
-    task.isCompleted = true;
-  }
-  onSetAsUncompleted(task: Task) {
-    task.isCompleted = false;
-  }
-  onChangeAssignee(assignee: string, task: Task) {
-    task.assignee = assignee;
-  }
-  addEvent(event: MatDatepickerInputEvent<Date>, task: Task) {
-    task.endDate = event.value.toISOString();
+  onChangeAssignee(request: any) {
+    request.task.assignee = request.assignee;
+    this.updateTask(request.task);
   }
 
+  onChangeIsCompleted(request: any) {
+    request.task.isCompleted = request.isCompleted;
+    this.updateTask(request.task);
+  }
+
+  addEvent(event: MatDatepickerInputEvent<Date>, task: Task) {
+    task.endDate = event.value.toISOString();
+    this.updateTask(task);
+  }
+
+  updateTask(task: Task) {
+    const section = task.section.key;
+    task = {
+      ...task,
+      section,
+    };
+    this.processesStore.updateTask(task.key, task);
+  }
 }

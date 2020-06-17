@@ -65,7 +65,7 @@ export class ListComponent implements OnInit {
 
     this.allTasks$ = this.tasksHttpService.getAllTasks()
       .pipe(
-        tap(response => this.dataSourceAllTasks = response),
+        tap((response: any) => this.dataSourceAllTasks = response),
       ).subscribe();
 
     this.taskForm = this.formBuilder.group({

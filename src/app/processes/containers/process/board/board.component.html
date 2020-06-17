@@ -21,11 +21,11 @@
                     <mat-icon>more_vert</mat-icon>
                   </button>
                   <mat-menu #menu="matMenu">
-                    <button mat-menu-item *ngIf="!task.isCompleted" (click)="onSetAsCompleted(task)">
+                    <button mat-menu-item *ngIf="!task.isCompleted" (click)="onChangeIsCompleted({ task: task, isCompleted: true })">
                       <mat-icon>check_circle_outline</mat-icon>
                       Jest wykonane
                     </button>
-                    <button mat-menu-item *ngIf="task.isCompleted" (click)="onSetAsUncompleted(task)">
+                    <button mat-menu-item *ngIf="task.isCompleted" (click)="onChangeIsCompleted({ task: task, isCompleted: false })">
                       <mat-icon>block</mat-icon>
                       Jest niewykonane
                     </button>
@@ -44,16 +44,16 @@
                   {{ task.assignee || 'Nieprzypisane' }}
                 </button>
                 <mat-menu #assigneeMenu="matMenu">
-                  <button mat-menu-item (click)="onChangeAssignee(null, task)">
+                  <button mat-menu-item (click)="onChangeAssignee({ task: task, assignee: null })">
                     <mat-icon>account_circle</mat-icon>
                     Nieprzypisane
                   </button>
                   <mat-divider></mat-divider>
-                  <button mat-menu-item (click)="onChangeAssignee('Janusz Popanusz', task)">
+                  <button mat-menu-item (click)="onChangeAssignee({ task: task, assignee: 'Janusz Popanusz' })">
                     <mat-icon>account_circle</mat-icon>
                     Janusz Popanusz
                   </button>
-                  <button mat-menu-item (click)="onChangeAssignee('Maria Kwiatkowska', task)">
+                  <button mat-menu-item (click)="onChangeAssignee({ task: task, assignee: 'Maria Kwiatkowska' })">
                     <mat-icon>account_circle</mat-icon>
                     Maria Kwiatkowska
                   </button>
