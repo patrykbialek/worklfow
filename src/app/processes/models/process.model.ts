@@ -5,4 +5,5 @@ export interface Process {
   name: string;
   startDate: string;
   team: string;
+  tasks: any;
 }

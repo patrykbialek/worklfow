@@ -10,4 +10,5 @@ export interface Task {
   subtasks: string[];
   name: string;
   section: string;
+  key: string;
 }
