@@ -31,14 +31,12 @@ export class ProcessesComponent implements OnInit {
     const dialogRef = this.dialog.open(DetailComponent, {
       width: '480px',
       disableClose: false,
-      data: {
-        text: 'Dane na stronie <b>kaft.pl</b> zostaną zaktualizowane.'
-      }
+      data: {}
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.processesService.createProcess(result);
+        this.processesStore.createProcess(result);
       }
     });
   }

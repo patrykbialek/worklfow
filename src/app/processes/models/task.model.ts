@@ -9,4 +9,5 @@ export interface Task {
   isCompleted: boolean;
   subtasks: string[];
   name: string;
+  section: any;
 }

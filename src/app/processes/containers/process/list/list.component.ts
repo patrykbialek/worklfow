@@ -79,6 +79,12 @@ export class ListComponent implements OnInit {
 
   onToggleCompleted(task: Task) {
     task.isCompleted = !task.isCompleted;
+    const section = task.section.key;
+    task = {
+      ...task,
+      section,
+    };
+    this.updateTask(task);
   }
 
   onDisplayTaskDetail(task: Task) {
@@ -101,6 +107,10 @@ export class ListComponent implements OnInit {
   onSaveTaskDetail() {
     this.selectedTask = null;
     this.isDrawerOpen = false;
+  }
+
+  updateTask(task: any) {
+    this.processesStore.updateTask(task.key, task);
   }
 
 }

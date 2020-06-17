@@ -90,6 +90,13 @@ export class ProcessesHttpService {
     );
   }
 
+  // Update
+
+  updateTask(key: string, value: any): Promise<any> {
+    const db: AngularFireList<any> = this.db.list(`/tasks`);
+    return db.update(key, value);
+  }
+
   // getTemplateTasks() {
   //   const key = 'tasks';
   //   const rootRef = this.db.database.ref();

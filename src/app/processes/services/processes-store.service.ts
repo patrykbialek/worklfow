@@ -146,4 +146,12 @@ export class ProcessesStoreService {
         tap(items => this.sectionsSubject.next(items)),
       ).subscribe();
   }
+
+  createProcess(newProcess: Process) {
+    this.processesHttpService.createProcess(newProcess);
+  }
+
+  updateTask(key: string, value: any) {
+    this.processesHttpService.updateTask(key, value);
+  }
 }
