@@ -1,20 +1,22 @@
-<mat-toolbar color="default" class="c-app-header u-margin-bottom-large" style='z-index: 10;'>
-  <mat-toolbar-row>
-    <span class="u-margin-right-huge">
-      <img src="../assets/images/logo.svg" alt="logo" style="height: 40px;">
-    </span>
-    <span style="flex-grow: 1;"></span>
-    <button class="u-margin-left-tiny" mat-button [routerLink]="['dashboard']" routerLinkActive="u-router-link-active">
-      <mat-icon class="u-margin-right-tiny">dashboard</mat-icon>Dashboard</button>
-    <button class="u-margin-left-tiny" mat-button [routerLink]="['processes']" routerLinkActive="u-router-link-active">
-      <mat-icon class="u-margin-right-tiny">timeline</mat-icon>Procesy</button>
-    <button class="u-margin-left-tiny" mat-button [routerLink]="['tasks']" routerLinkActive="u-router-link-active">
-      <mat-icon class="u-margin-right-tiny">rule</mat-icon>Zadania</button>
-    <div class="u-border-left u-margin-left-tiny" style="width:1px">&nbsp;</div>
-    <button class="u-margin-left-tiny" mat-button [routerLink]="['/']">
-      <mat-icon class="u-margin-right-tiny">account_circle</mat-icon>Patryk Nowak</button>
-  </mat-toolbar-row>
-</mat-toolbar>
+<ng-container *ngIf="user$ | async as user">
+  <mat-toolbar color="default" class="c-app-header u-margin-bottom-large" style='z-index: 10;'>
+    <mat-toolbar-row>
+      <span class="u-margin-right-huge">
+        <img src="../assets/images/logo.svg" alt="logo" style="height: 40px;">
+      </span>
+      <span style="flex-grow: 1;"></span>
+      <button class="u-margin-left-tiny" mat-button [routerLink]="['dashboard']" routerLinkActive="u-router-link-active">
+        <mat-icon class="u-margin-right-tiny">dashboard</mat-icon>Dashboard</button>
+      <button class="u-margin-left-tiny" mat-button [routerLink]="['processes']" routerLinkActive="u-router-link-active">
+        <mat-icon class="u-margin-right-tiny">timeline</mat-icon>Procesy</button>
+      <button class="u-margin-left-tiny" mat-button [routerLink]="['tasks']" routerLinkActive="u-router-link-active">
+        <mat-icon class="u-margin-right-tiny">rule</mat-icon>Zadania</button>
+      <div class="u-border-left u-margin-left-tiny" style="width:1px">&nbsp;</div>
+      <button class="u-margin-left-tiny" mat-button (click)="onLogout()">
+        <mat-icon class="u-margin-right-tiny">account_circle</mat-icon>{{ user.email }}</button>
+    </mat-toolbar-row>
+  </mat-toolbar>
+</ng-container>
 
 <main class="u-padding-top-huge">
   <router-outlet></router-outlet>

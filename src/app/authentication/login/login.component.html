@@ -2,17 +2,15 @@
 <main class="c-login">
   <div class="c-login__image"></div>
   <div class="c-login__form">
-    <div class="u-margin-bottom" style="    flex-grow: 1;
-    display: flex;
-    align-items: flex-end;">
+    <div class="u-margin-bottom" style="flex-grow: 1; display: flex; align-items: flex-end;">
       <img src="../../../assets/images/logo.svg" alt="logo" style="height: 48px;">
     </div>
-    <form [formGroup]="loginForm" class="u-text-normal" #form>
+    <form [formGroup]="loginForm" class="u-text-normal" (ngSubmit)="onLogin()" #form>
       <div class="o-grid">
         <div class="o-grid__cell u-1/1">
           <mat-form-field appearance="outline" style="width: 100%;">
             <mat-label>Użytkownik</mat-label>
-            <input matInput formControlName="userName" #userName>
+            <input matInput formControlName="email" #userName>
             <mat-error>Pole wymagane.</mat-error>
           </mat-form-field>
         </div>
@@ -27,7 +25,8 @@
           </mat-form-field> 
         </div>
         <div class="o-grid__cell u-1/1 u-margin-bottom">
-          <button [routerLink]="['./dashboard']"
+          <button
+            type="submit"
             mat-raised-button color="primary" 
             [disabled]="loginForm.invalid"
             class="c-login-button">

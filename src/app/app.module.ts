@@ -23,7 +23,7 @@ import { AuthenticationModule } from './authentication/authentication.module';
 
     AngularMaterial,
     
-    AngularFireModule.initializeApp(environment.firebase, 'page'),
+    AngularFireModule.initializeApp(environment.firebase, 'workflow'),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
 

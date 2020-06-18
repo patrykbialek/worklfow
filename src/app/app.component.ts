@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { AuthService } from './authentication/auth.service';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +10,18 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'Workflow';
+  user$ = this.authService.user$.pipe(
+    tap(console.log)
+  );
+
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+  ) { }
+
+  onLogout() {
+    this.authService.logout()
+      .then(() => this.router.navigate(['/']))
+      .catch(console.log);
+  }
 }
