@@ -1,6 +1,7 @@
 <main class="o-wrapper u-padding-bottom-huge" *ngIf="process$ | async as process">
 
   <header class="c-title u-margin-bottom">
+    <img src="../../../../assets/images/{{ process.image }}" alt="logo" style="width: 42px" class="u-margin-right">
     <h4 class="u-margin-right-small">{{ process.name }}</h4>
     <button mat-icon-button color="accent"><mat-icon>info</mat-icon></button>
   </header>

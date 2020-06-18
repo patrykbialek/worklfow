@@ -3,3 +3,31 @@
   align-items: center;
   min-height: 54px;
 }
+
+::ng-deep .mat-list-base .mat-list-item .mat-list-icon {
+  width: 64px !important;
+  height: 64px !important;
+  order: 1 !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 24px;
+}
+ ::ng-deep.mat-list-base .mat-list-item .mat-list-text {
+  order: 2 !important;
+}
+
+::ng-deep .mat-list-item-content button {
+  order: 3 !important;
+}
+
+::ng-deep .mat-list-item,
+::ng-deep .mat-list-base .mat-list-item.mat-2-line {
+  height: 84px !important;
+}
+
+.u-is-empty {
+  border: dashed 1px rgba(0, 0, 0, 0.12);
+  border-radius: .3rem !important;
+  color: #757575;
+}

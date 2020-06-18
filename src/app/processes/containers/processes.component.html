@@ -7,8 +7,12 @@
   <mat-nav-list class="u-margin-bottom-large">
     <h3 matSubheader>Aktualne procesy</h3>
     <ng-container *ngFor="let process of processes">
-      <a mat-list-item [routerLink]="['/processes/', process.key]">
-        <span matLine>{{ process.name }}</span>
+      <a mat-list-item role="button" [routerLink]="['/processes/', process.key]">
+        <span class="mat-list-icon">
+          <img src="../../../assets/images/{{ process.image }}" alt="logo" style="width: 64px;">
+        </span>
+        <span matLine>
+          {{ process.name }}</span>
         <span matLine>Postęp {{ process.progress || '0'}}%</span>
         <button mat-icon-button>
           <mat-icon>keyboard_arrow_right</mat-icon>
@@ -16,10 +20,13 @@
       </a>
       <mat-divider></mat-divider>
     </ng-container>
-    <a role="button" color="primary" mat-list-item (click)="onCreateProcess()">
-      <span matLine>Nowy process</span>
-      <button mat-icon-button color="primary">
+    <a mat-list-item role="button" color="primary" (click)="onCreateProcess()">
+      <span class="mat-list-icon u-is-empty">
         <mat-icon>add</mat-icon>
+      </span>
+      <span matLine>Nowy process</span>
+      <button mat-icon-button>
+        <mat-icon>keyboard_arrow_right</mat-icon>
       </button>
     </a>
   </mat-nav-list>

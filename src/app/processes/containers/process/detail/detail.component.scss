@@ -6,3 +6,23 @@
   align-items: center;
   margin-bottom: -12px;
 }
+
+::ng-deep .mat-card-header-text {
+  margin: 0 !important;
+}
+
+::ng-deep .mat-dialog-container {
+  background-color: #fafafa !important;
+}
+
+::ng-deep .mat-card-avatar {
+  background-size: cover;
+  height: 64px !important;
+  width: 64px !important;
+  border-radius: 0 !important;
+  margin-right: 24px !important;
+}
+
+::ng-deep .mat-card-title {
+  max-width: 90%;
+}

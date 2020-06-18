@@ -1,18 +1,33 @@
 <h1 mat-dialog-title>Nowy proces</h1>
 <div mat-dialog-content>
 
-  <section class="u-margin-bottom">
-    <header>
+  <section class="u-margin-bottom" *ngIf="!newProcess">
+    <!-- <header class="u-margin-bottom-small">
       <h6>Wybierz proces z szablonu</h6>
-    </header>
+    </header> -->
     <ng-container *ngFor="let template of processTemplates">
-      <mat-card class="u-text-normal" (click)="onSelectProcessTemplate(template)">{{ template.name }}</mat-card>
+      <a (click)="onSelectProcessTemplate(template)" style="cursor:pointer;">
+
+        <mat-card class="u-margin-bottom">
+          <mat-card-header class="u-margin-bottom">
+            <div mat-card-avatar
+              [ngStyle]="{ 'background-image': 'url(../../../../../assets/images/' + template.image + ')' }"></div>
+            <mat-card-title class="u-text-large">{{ template.name }}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p class="u-text-normal u-text-gray-700">{{ template.description }}</p>
+          </mat-card-content>
+          <mat-card-actions align="end">
+            <button mat-button>WYBIERZ</button>
+          </mat-card-actions>
+        </mat-card>
+      </a>
     </ng-container>
   </section>
 
-  <mat-divider class="u-margin-bottom"></mat-divider>
+  <!-- <mat-divider class="u-margin-bottom"></mat-divider> -->
 
-  <form [formGroup]="processForm" class="u-text-normal">
+  <form [formGroup]="processForm" class="u-text-normal" *ngIf="newProcess">
     <div class="o-grid">
       <div class="o-grid__cell u-1/1">
         <mat-form-field appearance="outline" style="width: 100%;">
@@ -48,7 +63,15 @@
     </div>
   </form>
 </div>
-<div mat-dialog-actions align="end">
-  <button mat-button (click)="onNoClick()">Anuluj</button>
-  <button mat-raised-button color="primary" cdkFocusInitial (click)="onOkClick()" tabindex="-1">Zapisz</button>
+<div mat-dialog-actions>
+  <div style="flex-grow:1;">
+    <button mat-button (click)="onGoBackToTemplates()" *ngIf="newProcess">
+      <mat-icon class="u-margin-right-tiny">arrow_back</mat-icon>
+      Wróc do szablonów</button>
+  </div>
+  <div>
+    <button mat-button (click)="onNoClick()">Anuluj</button>
+    <button mat-raised-button color="primary" cdkFocusInitial (click)="onOkClick()" tabindex="-1"
+      *ngIf="newProcess">Zapisz</button>
+  </div>
 </div>

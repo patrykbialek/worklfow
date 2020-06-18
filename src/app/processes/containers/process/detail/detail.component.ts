@@ -79,4 +79,8 @@ export class DetailComponent implements OnInit {
     delete this.newProcess.key;
     this.dialogRef.close(this.newProcess);
   }
+
+  onGoBackToTemplates() {
+    this.newProcess = null;
+  }
 }
