@@ -4,6 +4,13 @@
     <img src="../../../../assets/images/{{ process.image }}" alt="logo" style="width: 42px" class="u-margin-right">
     <h4 class="u-margin-right-small">{{ process.name }}</h4>
     <button mat-icon-button color="accent"><mat-icon>info</mat-icon></button>
+
+    <div style="flex-grow: 1" class="o-block o-block--right">
+      <a mat-button [routerLink]="['../']">
+        <mat-icon class="u-margin-right-tiny">arrow_back</mat-icon>
+        Wróć do listy
+      </a>
+    </div>
   </header>
 
   <nav mat-tab-nav-bar>
