@@ -12,42 +12,54 @@
         <div class="o-grid__cell u-1/1">
           <mat-form-field appearance="outline" style="width: 100%;">
             <mat-label>Użytkownik</mat-label>
-            <input matInput formControlName="userName">
+            <input matInput formControlName="userName" #userName>
+            <mat-error>Pole wymagane.</mat-error>
           </mat-form-field>
         </div>
-        <div class="o-grid__cell u-1/1">
+        <div class="o-grid__cell u-1/1 o-block o-block--right" style="margin-top: -8px;">
+          <a class="c-forgot-password-button" [routerLink]="['./password-reset']">Resetuj hasło</a>
+        </div>
+        <div class="o-grid__cell u-1/1 u-margin-bottom-small">
           <mat-form-field appearance="outline" style="width: 100%;">
             <mat-label>Hasło</mat-label>
             <input matInput formControlName="password" type="password">
+            <mat-error>Pole wymagane.</mat-error>
           </mat-form-field> 
-        </div> 
+        </div>
         <div class="o-grid__cell u-1/1 u-margin-bottom">
           <button [routerLink]="['./dashboard']"
-          mat-raised-button color="primary" 
-          [disabled]="loginForm.invalid"
-          class="c-login-button">ZALOGUJ</button>
+            mat-raised-button color="primary" 
+            [disabled]="loginForm.invalid"
+            class="c-login-button">
+            <span class="u-margin-right-tiny">ZALOGUJ</span>
+          </button>
         </div>
-        <div class="o-grid__cell u-1/1 o-block">
+        <!-- <div class="o-grid__cell u-1/1 o-block u-margin-bottom-huge">
           <a class="c-forgot-password-button" [routerLink]="['./forgot-password']">Nie pamiętam hasła</a>
+        </div> -->
+        <div class="o-grid__cell u-1/1 u-margin-bottom">
+          <a role="button" [routerLink]="['./register']"
+          mat-button color="primary" 
+          class="c-register-button">ZAREJESTRUJ SIĘ</a>
         </div>
       </div>
     </form>
     <footer>
       <ul class="c-footer-nav">
         <li>
-          <a href="">work-smarter.pl</a>
+          <a href="https://work-smarter.pl" target="_blank" mat-button color="accent">work-smarter.pl</a>
         </li>
         <li>
           <span class="c-footer-nav__spacer">&#8226;</span>
         </li>
         <li>
-          <a href="">Regulamin</a>
+          <a href="" mat-button color="accent">Regulamin</a>
         </li>
         <li>
           <span class="c-footer-nav__spacer">&#8226;</span>
         </li>
         <li>
-          <a href="">Pomoc</a>
+          <a href="" mat-button color="accent">Pomoc</a>
         </li>
       </ul>
     </footer>

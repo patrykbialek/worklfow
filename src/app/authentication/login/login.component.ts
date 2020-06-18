@@ -11,6 +11,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
 
   @ViewChild('form') formHTML: ElementRef;
+  @ViewChild('userName') userNameHTML: ElementRef;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -24,8 +25,8 @@ export class LoginComponent implements OnInit {
     });
 
     setTimeout(() => {
-      // this.renderer.addClass(this.formHTML.nativeElement, 'u-is-shown');
-    }, 500);
+      this.userNameHTML.nativeElement.focus();
+    });
   }
 
   onImageLoad(evt) {
