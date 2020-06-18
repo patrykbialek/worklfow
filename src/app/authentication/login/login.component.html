@@ -1,0 +1,52 @@
+
+<main class="c-login">
+  <div class="c-login__image"></div>
+  <div class="c-login__form">
+    <div class="u-margin-bottom" style="    flex-grow: 1;
+    display: flex;
+    align-items: flex-end;">
+      <img src="../../../assets/images/logo.svg" alt="logo" style="height: 48px;">
+    </div>
+    <form [formGroup]="loginForm" class="u-text-normal" #form>
+      <div class="o-grid">
+        <div class="o-grid__cell u-1/1">
+          <mat-form-field appearance="outline" style="width: 100%;">
+            <mat-label>Użytkownik</mat-label>
+            <input matInput formControlName="userName">
+          </mat-form-field>
+        </div>
+        <div class="o-grid__cell u-1/1">
+          <mat-form-field appearance="outline" style="width: 100%;">
+            <mat-label>hasło</mat-label>
+            <input matInput formControlName="password" type="password">
+          </mat-form-field> 
+        </div> 
+        <div class="o-grid__cell u-1/1 u-margin-bottom">
+          <button [routerLink]="['./dashboard']" mat-raised-button color="primary" class="c-login-button">ZALOGUJ</button>
+        </div>
+        <div class="o-grid__cell u-1/1 o-block">
+          <a class="c-forgot-password-button" [routerLink]="['./forgot-password']">Nie pamietam hasła</a>
+        </div>
+      </div>
+    </form>
+    <footer>
+      <ul class="c-footer-nav">
+        <li>
+          <a href="">work-smarter.pl</a>
+        </li>
+        <li>
+          <span class="c-footer-nav__spacer">&#8226;</span>
+        </li>
+        <li>
+          <a href="">Regulamin</a>
+        </li>
+        <li>
+          <span class="c-footer-nav__spacer">&#8226;</span>
+        </li>
+        <li>
+          <a href="">Pomoc</a>
+        </li>
+      </ul>
+    </footer>
+  </div>
+</main>

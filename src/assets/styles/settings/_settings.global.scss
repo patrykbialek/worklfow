@@ -10,7 +10,8 @@
 // Standardise some UI treatments.
 
 html, body {
-  font-family: Roboto, sans-serif;
+  // font-family: Roboto, sans-serif;
+  font-family: 'Baloo 2', cursive;
   background-color: $grey_50;
   color: $grey_700;
   -webkit-font-smoothing: antialiased;
@@ -32,10 +33,10 @@ html {
 //   background-position: right top;
 // }
 
-button, input, optgroup, select, textarea {
-  font-family: Ubuntu, sans-serif;
-  margin: 0;
-}
+// button, input, optgroup, select, textarea {
+//   font-family: Ubuntu, sans-serif;
+//   margin: 0;
+// }
 
 
 $global-radius: 0.3rem !default;
@@ -136,3 +137,13 @@ $mq-breakpoints: (
 .u-router-link-active {
   color: #AB47BC;
 }
+
+@import '~@angular/material/theming';
+
+// // Define a custom typography config that overrides the font-family as well as the
+// // `headlines` and `body-1` levels.
+// $custom-typography: mat-typography-config(
+//   font-family: 'Baloo 2', cursive;
+//   $headline: mat-typography-level(32px, 48px, 700),
+//   $body-1: mat-typography-level(16px, 24px, 500)
+// );

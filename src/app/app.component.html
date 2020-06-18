@@ -1,4 +1,4 @@
-<mat-toolbar color="default" class="c-app-header u-margin-bottom-large">
+<mat-toolbar color="default" class="c-app-header u-margin-bottom-large" style='z-index: 10;'>
   <mat-toolbar-row>
     <span class="u-margin-right-huge">
       <img src="../assets/images/logo.svg" alt="logo" style="height: 40px;">
@@ -11,7 +11,7 @@
     <button class="u-margin-left-tiny" mat-button [routerLink]="['tasks']" routerLinkActive="u-router-link-active">
       <mat-icon class="u-margin-right-tiny">rule</mat-icon>Zadania</button>
     <div class="u-border-left u-margin-left-tiny" style="width:1px">&nbsp;</div>
-    <button class="u-margin-left-tiny" mat-button [routerLink]="['tasks']">
+    <button class="u-margin-left-tiny" mat-button [routerLink]="['/']">
       <mat-icon class="u-margin-right-tiny">account_circle</mat-icon>Patryk Nowak</button>
   </mat-toolbar-row>
 </mat-toolbar>
