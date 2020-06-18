@@ -11,6 +11,7 @@ import { ProcessComponent } from './containers/process/process.component';
 import { AngularMaterial } from '../angular-material.module';
 import { DetailComponent } from './containers/process/detail/detail.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -28,6 +29,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     ProcessesRoutingModule,
     AngularMaterial,
     ReactiveFormsModule,
+
+    SharedModule,
+
   ],
   exports: [
     DetailComponent,

@@ -1,7 +1,10 @@
-<main *ngIf="tasks$ | async as tasks">
-  <pre>
-    {{ tasks | json }}
-  </pre>
+<main  class="o-wrapper">
+
+  <header class="c-title u-margin-bottom">
+    <h4 class="u-margin-right-small">Zadania</h4>
+  </header>
+
+  <app-under-contstruction></app-under-contstruction>
+
 </main>
 
-<router-outlet></router-outlet>
