@@ -70,8 +70,8 @@
       Wróc do szablonów</button>
   </div>
   <div>
-    <button mat-button (click)="onNoClick()">Anuluj</button>
-    <button mat-raised-button color="primary" cdkFocusInitial (click)="onOkClick()" tabindex="-1"
+    <button mat-button (click)="onCancel()">Anuluj</button>
+    <button mat-raised-button color="primary" cdkFocusInitial (click)="onSave()" tabindex="-1"
       *ngIf="newProcess">Zapisz</button>
   </div>
 </div>

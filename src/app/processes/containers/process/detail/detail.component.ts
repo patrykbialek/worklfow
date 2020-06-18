@@ -46,9 +46,13 @@ export class DetailComponent implements OnInit {
   onSelectProcessTemplate(template: any) {
     this.newProcess = template;
     this.processForm.get('name').setValue(template.name);
+    const templateFromTasks = Object.keys(template.tasks);
 
     const tasks = this.processForm.get('tasks') as FormArray;
-    Object.values(this.taskTemplates).forEach((task: any) => {
+    const templateTasks = this.taskTemplates.filter((task: fromModels.Task) => {
+      return templateFromTasks.includes(task.key);
+    });
+    templateTasks.forEach((task: any) => {
       tasks.push(this.formBuilder.group({
         name: task.name,
         section: task.section,
@@ -56,11 +60,11 @@ export class DetailComponent implements OnInit {
     });
   }
 
-  onNoClick(): void {
+  onCancel(): void {
     this.dialogRef.close();
   }
 
-  onOkClick(): void {
+  onSave(): void {
     const today = new Date().toISOString();
     const endDate = this.processForm.get('endDate').value;
     this.processForm.get('endDate').setValue(endDate.toISOString());
