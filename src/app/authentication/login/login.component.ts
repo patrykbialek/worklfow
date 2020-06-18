@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
 
     setTimeout(() => {
       this.userNameHTML.nativeElement.focus();
-    });
+    }, 3000);
   }
 
   onImageLoad(evt) {

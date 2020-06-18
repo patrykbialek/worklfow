@@ -12,3 +12,7 @@
   z-index: 1000;
   transition: all 250ms ease-in;
 }
+
+::ng-deep .mat-menu-panel {
+  max-width: none !important;
+}
