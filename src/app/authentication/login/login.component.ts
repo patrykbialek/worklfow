@@ -28,4 +28,13 @@ export class LoginComponent implements OnInit {
     }, 500);
   }
 
+  onImageLoad(evt) {
+    if (evt && evt.target) {
+      const width = evt.target.naturalWidth;
+      const height = evt.target.naturalHeight;
+      const portrait = height > width ? true : false;
+      console.log(width, height, 'portrait: ', portrait);
+    }
+  }
+
 }

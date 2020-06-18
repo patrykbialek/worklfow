@@ -17,15 +17,18 @@
         </div>
         <div class="o-grid__cell u-1/1">
           <mat-form-field appearance="outline" style="width: 100%;">
-            <mat-label>hasło</mat-label>
+            <mat-label>Hasło</mat-label>
             <input matInput formControlName="password" type="password">
           </mat-form-field> 
         </div> 
         <div class="o-grid__cell u-1/1 u-margin-bottom">
-          <button [routerLink]="['./dashboard']" mat-raised-button color="primary" class="c-login-button">ZALOGUJ</button>
+          <button [routerLink]="['./dashboard']"
+          mat-raised-button color="primary" 
+          [disabled]="loginForm.invalid"
+          class="c-login-button">ZALOGUJ</button>
         </div>
         <div class="o-grid__cell u-1/1 o-block">
-          <a class="c-forgot-password-button" [routerLink]="['./forgot-password']">Nie pamietam hasła</a>
+          <a class="c-forgot-password-button" [routerLink]="['./forgot-password']">Nie pamiętam hasła</a>
         </div>
       </div>
     </form>
