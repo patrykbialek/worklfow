@@ -128,3 +128,11 @@ $mq-breakpoints: (
   box-shadow: 0 0.75vw 1.5vw 0 rgba(6,0,35,.05)!important;
   background-color: #fff !important;
 }
+
+.mat-button.mat-accent, .mat-icon-button.mat-accent, .mat-stroked-button.mat-accent {
+  color: #AB47BC;
+}
+
+.u-router-link-active {
+  color: #AB47BC;
+}

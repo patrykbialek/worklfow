@@ -18,7 +18,7 @@
             <p class="u-text-normal u-text-gray-700">{{ template.description }}</p>
           </mat-card-content>
           <mat-card-actions align="end">
-            <button mat-button>WYBIERZ</button>
+            <button mat-button color="accent" tabindex="-1">WYBIERZ</button>
           </mat-card-actions>
         </mat-card>
       </a>
@@ -70,7 +70,7 @@
       Wróc do szablonów</button>
   </div>
   <div>
-    <button mat-button (click)="onCancel()">Anuluj</button>
+    <button mat-button (click)="onCancel()" tabindex="-1">Anuluj</button>
     <button mat-raised-button color="primary" cdkFocusInitial (click)="onSave()" tabindex="-1"
       *ngIf="newProcess">Zapisz</button>
   </div>
