@@ -49,15 +49,30 @@ th, td {
   flex-direction: column;
   right: 0;
   max-width: 640px;
-  position: absolute;
-  top: 0;
+  position: fixed;
+  bottom: 24px;
   transition: .2s ease-in;
   width: 60%;
   z-index: 600;
   transform: scale(0, 1);
   transform-origin: right;
 
+  border-radius: 4px;
+
   transition: transform 250ms ease-in-out;
+
+  height: calc(100% - 248px);
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+
+    height: 100%;
+  }
+
+  &__body {
+    flex-grow: 1;
+  }
 
   &.u-is-open {
     transform: scale(1,1);

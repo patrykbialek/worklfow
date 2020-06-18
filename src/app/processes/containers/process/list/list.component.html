@@ -191,7 +191,7 @@
       </div>
       <div class="c-mat-drawer__body">
         <header class="u-margin-bottom">
-          <h4 class="u-text-bold">{{ selectedTask?.name }}</h4>
+          <h4 class="u-font-weight-medium">{{ selectedTask?.name }}</h4>
         </header>
         <form [formGroup]="taskForm" class="u-text-normal" *ngIf="taskForm">
           <div class="o-grid">
@@ -232,7 +232,7 @@
   
         </form>
       </div>
-      <div class="c-mat-drawer__footer">
+      <div class="c-mat-drawer__footer u-border-top">
         <div class="o-block o-block--right c-mat-drawer__footer-actions--right">
           <button mat-button color="default" (click)="onHideTaskDetail()">Zamknij</button>
           <button mat-raised-button color="primary" class="u-margin-left-small" (click)="onSaveTaskDetail()">Zapisz</button>
