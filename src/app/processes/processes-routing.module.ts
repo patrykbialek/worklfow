@@ -6,6 +6,7 @@ import { ListComponent } from './containers/process/list/list.component';
 import { BoardComponent } from './containers/process/board/board.component';
 import { TimelineComponent } from './containers/process/timeline/timeline.component';
 import { CalendarComponent } from './containers/process/calendar/calendar.component';
+import { DiagramComponent } from './containers/process/diagram/diagram.component';
 
 
 const routes: Routes = [
@@ -15,13 +16,17 @@ const routes: Routes = [
   },
   {
     path: ':id',
-    redirectTo: ':id/list',
+    redirectTo: ':id/diagram',
     pathMatch: 'full'
   },
   {
     path: ':id',
     component: ProcessComponent,
     children: [
+      {
+        path: 'diagram',
+        component: DiagramComponent,
+      },
       {
         path: 'list',
         component: ListComponent,

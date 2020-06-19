@@ -12,6 +12,7 @@ import { AngularMaterial } from '../angular-material.module';
 import { DetailComponent } from './containers/process/detail/detail.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
+import { DiagramComponent } from './containers/process/diagram/diagram.component';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { SharedModule } from '../shared/shared.module';
     CalendarComponent,
     ProcessComponent,
     DetailComponent,
+    DiagramComponent,
   ],
   imports: [
     CommonModule,

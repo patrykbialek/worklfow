@@ -12,24 +12,29 @@ export class ProcessComponent implements OnInit {
 
   navLinks = [
     {
+      label: 'Diagram',
+      link: './diagram',
+      index: 0
+    },
+    {
       label: 'Zadania',
       link: './list',
-      index: 0
+      index: 1
     },
     {
       label: 'Tablica',
       link: './board',
-      index: 1
+      index: 2
     },
     {
       label: 'Harmonogram',
       link: './timeline',
-      index: 2
+      index: 3
     },
     {
       label: 'Kalendarz',
       link: './calendar',
-      index: 3
+      index: 4
     },
   ];
   activeLinkIndex = -1;
