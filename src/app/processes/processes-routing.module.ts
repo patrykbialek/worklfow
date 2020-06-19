@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ProcessesComponent } from './containers/processes.component';
 import { ProcessComponent } from './containers/process/process.component';
-import { ListComponent } from './containers/process/list/list.component';
+import { TasksComponent } from './containers/process/tasks/tasks.component';
 import { BoardComponent } from './containers/process/board/board.component';
 import { TimelineComponent } from './containers/process/timeline/timeline.component';
 import { CalendarComponent } from './containers/process/calendar/calendar.component';
@@ -28,8 +28,8 @@ const routes: Routes = [
         component: DiagramComponent,
       },
       {
-        path: 'list',
-        component: ListComponent,
+        path: 'tasks',
+        component: TasksComponent,
       },
       {
         path: 'board',

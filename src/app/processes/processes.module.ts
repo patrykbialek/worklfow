@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { ProcessesRoutingModule } from './processes-routing.module';
 import { ProcessesComponent } from './containers/processes.component';
-import { ListComponent } from './containers/process/list/list.component';
+import { TasksComponent } from './containers/process/tasks/tasks.component';
 import { BoardComponent } from './containers/process/board/board.component';
 import { TimelineComponent } from './containers/process/timeline/timeline.component';
 import { CalendarComponent } from './containers/process/calendar/calendar.component';
@@ -18,7 +18,7 @@ import { DiagramComponent } from './containers/process/diagram/diagram.component
 @NgModule({
   declarations: [
     ProcessesComponent,
-    ListComponent,
+    TasksComponent,
     BoardComponent,
     TimelineComponent,
     CalendarComponent,

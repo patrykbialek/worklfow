@@ -9,11 +9,11 @@ import { Observable } from 'rxjs';
 import * as fromModels from 'src/app/processes/models';
 
 @Component({
-  selector: 'app-list',
-  templateUrl: './list.component.html',
-  styleUrls: ['./list.component.scss']
+  selector: 'app-tasks',
+  templateUrl: './tasks.component.html',
+  styleUrls: ['./tasks.component.scss']
 })
-export class ListComponent implements OnInit {
+export class TasksComponent implements OnInit {
 
   displayedColumns: string[] = ['index', 'name', 'assignee', 'endDate', 'priority'];
   dataSourceAllTasks: fromModels.Task[] = [];

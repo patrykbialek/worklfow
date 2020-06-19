@@ -18,7 +18,7 @@ export class ProcessComponent implements OnInit {
     },
     {
       label: 'Zadania',
-      link: './list',
+      link: './tasks',
       index: 1
     },
     {
