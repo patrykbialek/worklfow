@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_03nknxb" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.7.3">
+  <bpmn:collaboration id="Collaboration_0r9qd97">
+    <bpmn:participant id="Participant_1pmzosm" name="ER0020_Formal_Verification" processRef="ER0020_Formal_Verification" />
+  </bpmn:collaboration>
+  <bpmn:process id="ER0020_Formal_Verification" name="ER0020_Formal_Verification" isExecutable="true" camunda:versionTag="1">
+    <bpmn:laneSet id="LaneSet_1nolgl2">
+      <bpmn:lane id="Lane_1dn1tu7" name="Department of Deactivation and Cooperation with Operators">
+        <bpmn:flowNodeRef>ER0020T001</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ER0020_end</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ER0020G0030</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ER0020T002</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ER0020G0020</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ER0020G0010</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>IntermediateThrowEvent_1odh47o</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>IntermediateThrowEvent_0uqn8jf</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ER0020_start</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>SubProcess_0nashov</bpmn:flowNodeRef>
+      </bpmn:lane>
+    </bpmn:laneSet>
+    <bpmn:userTask id="ER0020T001" name="ER0020T001 Formal verification">
+      <bpmn:extensionElements>
+        <camunda:taskListener delegateExpression="${taskCreationAssignmentListener}" event="create" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_09he8n4</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0mx4gvw</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:endEvent id="ER0020_end" name="End">
+      <bpmn:incoming>SequenceFlow_13ld6l7</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:exclusiveGateway id="ER0020G0030">
+      <bpmn:incoming>SequenceFlow_1kejynu</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_0og3u78</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_13ld6l7</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:userTask id="ER0020T002" name="ER0020T002 Inform OK about contract rejection">
+      <bpmn:extensionElements>
+        <camunda:taskListener delegateExpression="${taskCreationAssignmentListener}" event="create" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_1afihzr</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0og3u78</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="ER0020G0020" name="Verification status?">
+      <bpmn:incoming>SequenceFlow_0mx4gvw</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1kejynu</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_1afihzr</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_0du034q</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:exclusiveGateway id="ER0020G0010">
+      <bpmn:incoming>SequenceFlow_0k5ppdh</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_08mb2o2</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_09he8n4</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:intermediateThrowEvent id="IntermediateThrowEvent_1odh47o" name="Start clarification">
+      <bpmn:incoming>SequenceFlow_0du034q</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_01wtmy2</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_0yo8o1c" messageRef="Message_0lhx0j5" camunda:delegateExpression="${correlateMessageDelegate}">
+        <bpmn:extensionElements>
+          <camunda:field name="messageName">
+            <camunda:string>START_CLARIFICATION</camunda:string>
+          </camunda:field>
+        </bpmn:extensionElements>
+      </bpmn:messageEventDefinition>
+    </bpmn:intermediateThrowEvent>
+    <bpmn:intermediateCatchEvent id="IntermediateThrowEvent_0uqn8jf" name="Clarification finished">
+      <bpmn:incoming>SequenceFlow_01wtmy2</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_08mb2o2</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_1e1c9a9" messageRef="Message_0riisy3" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:startEvent id="ER0020_start" name="Start">
+      <bpmn:outgoing>SequenceFlow_0k5ppdh</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_0k5ppdh" sourceRef="ER0020_start" targetRef="ER0020G0010" />
+    <bpmn:sequenceFlow id="SequenceFlow_08mb2o2" sourceRef="IntermediateThrowEvent_0uqn8jf" targetRef="ER0020G0010" />
+    <bpmn:sequenceFlow id="SequenceFlow_09he8n4" sourceRef="ER0020G0010" targetRef="ER0020T001" />
+    <bpmn:sequenceFlow id="SequenceFlow_0mx4gvw" sourceRef="ER0020T001" targetRef="ER0020G0020" />
+    <bpmn:sequenceFlow id="SequenceFlow_1kejynu" name="Accepted" sourceRef="ER0020G0020" targetRef="ER0020G0030">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${contractStatus=='FORMAL_VERIFICATION_PASSED'}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="SequenceFlow_1afihzr" name="Rejected" sourceRef="ER0020G0020" targetRef="ER0020T002">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${contractStatus=='FORMAL_VERIFICATION_REJECTED'}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="SequenceFlow_0du034q" name="Clarify" sourceRef="ER0020G0020" targetRef="IntermediateThrowEvent_1odh47o">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${contractStatus=='APPLICATION_NEEDS_CLARIFICATION'}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="SequenceFlow_0og3u78" sourceRef="ER0020T002" targetRef="ER0020G0030" />
+    <bpmn:sequenceFlow id="SequenceFlow_13ld6l7" sourceRef="ER0020G0030" targetRef="ER0020_end" />
+    <bpmn:sequenceFlow id="SequenceFlow_01wtmy2" sourceRef="IntermediateThrowEvent_1odh47o" targetRef="IntermediateThrowEvent_0uqn8jf" />
+    <bpmn:subProcess id="SubProcess_0nashov" name="Clarification handling" triggeredByEvent="true">
+      <bpmn:startEvent id="StartEvent_1ffki13" name="Start clarification" isInterrupting="false">
+        <bpmn:outgoing>SequenceFlow_02spa9u</bpmn:outgoing>
+        <bpmn:messageEventDefinition id="MessageEventDefinition_0h1zrj2" messageRef="Message_0lhx0j5" />
+      </bpmn:startEvent>
+      <bpmn:intermediateThrowEvent id="IntermediateThrowEvent_17k2ha6" name="Calculate due date" camunda:asyncBefore="true">
+        <bpmn:incoming>SequenceFlow_0o77l1o</bpmn:incoming>
+        <bpmn:outgoing>SequenceFlow_08jx13i</bpmn:outgoing>
+        <bpmn:messageEventDefinition id="MessageEventDefinition_0w3eni1" messageRef="Message_18k2fbb" camunda:delegateExpression="${correlateMessageDelegate}">
+          <bpmn:extensionElements>
+            <camunda:field name="messageName">
+              <camunda:string>CALCULATE_DUE_DATE</camunda:string>
+            </camunda:field>
+          </bpmn:extensionElements>
+        </bpmn:messageEventDefinition>
+      </bpmn:intermediateThrowEvent>
+      <bpmn:userTask id="ER0020T003" name="ER0020T003 Send clarification request">
+        <bpmn:extensionElements>
+          <camunda:taskListener delegateExpression="${taskCreationAssignmentListener}" event="create" />
+        </bpmn:extensionElements>
+        <bpmn:incoming>SequenceFlow_02spa9u</bpmn:incoming>
+        <bpmn:outgoing>SequenceFlow_0ul988i</bpmn:outgoing>
+      </bpmn:userTask>
+      <bpmn:userTask id="ER0020T005" name="ER0020T005 Update base agreement application">
+        <bpmn:extensionElements>
+          <camunda:taskListener delegateExpression="${taskCreationAssignmentListener}" event="create" />
+        </bpmn:extensionElements>
+        <bpmn:incoming>SequenceFlow_1oyada4</bpmn:incoming>
+        <bpmn:outgoing>SequenceFlow_0o77l1o</bpmn:outgoing>
+      </bpmn:userTask>
+      <bpmn:userTask id="ER0020T004" name="ER0020T004 Register clarification response">
+        <bpmn:extensionElements>
+          <camunda:taskListener delegateExpression="${taskCreationAssignmentListener}" event="create" />
+        </bpmn:extensionElements>
+        <bpmn:incoming>SequenceFlow_0ul988i</bpmn:incoming>
+        <bpmn:outgoing>SequenceFlow_1oyada4</bpmn:outgoing>
+      </bpmn:userTask>
+      <bpmn:sequenceFlow id="SequenceFlow_1oyada4" sourceRef="ER0020T004" targetRef="ER0020T005" />
+      <bpmn:sequenceFlow id="SequenceFlow_02spa9u" sourceRef="StartEvent_1ffki13" targetRef="ER0020T003" />
+      <bpmn:sequenceFlow id="SequenceFlow_0ul988i" sourceRef="ER0020T003" targetRef="ER0020T004" />
+      <bpmn:sequenceFlow id="SequenceFlow_0o77l1o" sourceRef="ER0020T005" targetRef="IntermediateThrowEvent_17k2ha6" />
+      <bpmn:sequenceFlow id="SequenceFlow_08jx13i" sourceRef="IntermediateThrowEvent_17k2ha6" targetRef="EndEvent_0htnj9i" />
+      <bpmn:endEvent id="EndEvent_0htnj9i" name="Clarification finished" camunda:asyncBefore="true">
+        <bpmn:incoming>SequenceFlow_08jx13i</bpmn:incoming>
+        <bpmn:messageEventDefinition id="MessageEventDefinition_1rnxr59" messageRef="Message_0riisy3" camunda:delegateExpression="${correlateMessageDelegate}">
+          <bpmn:extensionElements>
+            <camunda:field name="messageName">
+              <camunda:string>CLARIFICATION_FINISHED</camunda:string>
+            </camunda:field>
+          </bpmn:extensionElements>
+        </bpmn:messageEventDefinition>
+      </bpmn:endEvent>
+    </bpmn:subProcess>
+  </bpmn:process>
+  <bpmn:message id="Message_18k2fbb" name="CALCULATE_DUE_DATE" />
+  <bpmn:message id="Message_00221qv" name="START_TIMERS" />
+  <bpmn:message id="Message_1m4s243" name="START_DUE_DATE" />
+  <bpmn:message id="Message_0riisy3" name="CLARIFICATION_FINISHED" />
+  <bpmn:message id="Message_0lhx0j5" name="START_CLARIFICATION" />
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0r9qd97">
+      <bpmndi:BPMNShape id="Participant_1pmzosm_di" bpmnElement="Participant_1pmzosm" isHorizontal="true">
+        <dc:Bounds x="179" y="80" width="1351" height="890" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_1dn1tu7_di" bpmnElement="Lane_1dn1tu7" isHorizontal="true">
+        <dc:Bounds x="209" y="80" width="1321" height="890" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_01wtmy2_di" bpmnElement="SequenceFlow_01wtmy2">
+        <di:waypoint x="752" y="200" />
+        <di:waypoint x="618" y="200" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_13ld6l7_di" bpmnElement="SequenceFlow_13ld6l7">
+        <di:waypoint x="1275" y="390" />
+        <di:waypoint x="1412" y="390" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0og3u78_di" bpmnElement="SequenceFlow_0og3u78">
+        <di:waypoint x="1120" y="530" />
+        <di:waypoint x="1250" y="530" />
+        <di:waypoint x="1250" y="415" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0du034q_di" bpmnElement="SequenceFlow_0du034q">
+        <di:waypoint x="890" y="365" />
+        <di:waypoint x="890" y="200" />
+        <di:waypoint x="788" y="200" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="904" y="279" width="32" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1afihzr_di" bpmnElement="SequenceFlow_1afihzr">
+        <di:waypoint x="890" y="415" />
+        <di:waypoint x="890" y="530" />
+        <di:waypoint x="1020" y="530" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="828" y="463" width="44" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1kejynu_di" bpmnElement="SequenceFlow_1kejynu">
+        <di:waypoint x="915" y="390" />
+        <di:waypoint x="1225" y="390" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1056" y="373" width="45" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0mx4gvw_di" bpmnElement="SequenceFlow_0mx4gvw">
+        <di:waypoint x="730" y="390" />
+        <di:waypoint x="865" y="390" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_09he8n4_di" bpmnElement="SequenceFlow_09he8n4">
+        <di:waypoint x="485" y="390" />
+        <di:waypoint x="630" y="390" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_08mb2o2_di" bpmnElement="SequenceFlow_08mb2o2">
+        <di:waypoint x="582" y="200" />
+        <di:waypoint x="460" y="200" />
+        <di:waypoint x="460" y="365" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0k5ppdh_di" bpmnElement="SequenceFlow_0k5ppdh">
+        <di:waypoint x="318" y="390" />
+        <di:waypoint x="435" y="390" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Activity_1ng7g4o_di" bpmnElement="ER0020T001">
+        <dc:Bounds x="630" y="350" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0dfs3bu_di" bpmnElement="ER0020_end">
+        <dc:Bounds x="1412" y="372" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1420" y="415" width="20" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1xwcjvp_di" bpmnElement="ER0020G0030" isMarkerVisible="true">
+        <dc:Bounds x="1225" y="365" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0al7kg8_di" bpmnElement="ER0020T002">
+        <dc:Bounds x="1020" y="490" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0g8ny39_di" bpmnElement="ER0020G0020" isMarkerVisible="true">
+        <dc:Bounds x="865" y="365" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="813" y="346" width="53" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0kklvig_di" bpmnElement="ER0020G0010" isMarkerVisible="true">
+        <dc:Bounds x="435" y="365" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_110xkfk_di" bpmnElement="IntermediateThrowEvent_1odh47o">
+        <dc:Bounds x="752" y="182" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="731" y="225" width="82" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_09r9e93_di" bpmnElement="IntermediateThrowEvent_0uqn8jf">
+        <dc:Bounds x="582" y="182" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="573" y="225" width="58" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="ER0020_start">
+        <dc:Bounds x="282" y="372" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="288" y="415" width="25" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0nashov_di" bpmnElement="SubProcess_0nashov" isExpanded="true">
+        <dc:Bounds x="290" y="650" width="1050" height="210" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_08jx13i_di" bpmnElement="SequenceFlow_08jx13i">
+        <di:waypoint x="1138" y="750" />
+        <di:waypoint x="1242" y="750" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0o77l1o_di" bpmnElement="SequenceFlow_0o77l1o">
+        <di:waypoint x="1000" y="750" />
+        <di:waypoint x="1102" y="750" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0ul988i_di" bpmnElement="SequenceFlow_0ul988i">
+        <di:waypoint x="590" y="750" />
+        <di:waypoint x="690" y="750" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_02spa9u_di" bpmnElement="SequenceFlow_02spa9u">
+        <di:waypoint x="388" y="750" />
+        <di:waypoint x="490" y="750" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1oyada4_di" bpmnElement="SequenceFlow_1oyada4">
+        <di:waypoint x="790" y="750" />
+        <di:waypoint x="900" y="750" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Event_1ffki13_di" bpmnElement="StartEvent_1ffki13">
+        <dc:Bounds x="352" y="732" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="333" y="775" width="82" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1noglk8_di" bpmnElement="ER0020T003">
+        <dc:Bounds x="490" y="710" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1c4um39_di" bpmnElement="ER0020T005">
+        <dc:Bounds x="900" y="710" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0it7e7e_di" bpmnElement="ER0020T004">
+        <dc:Bounds x="690" y="710" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_17k2ha6_di" bpmnElement="IntermediateThrowEvent_17k2ha6">
+        <dc:Bounds x="1102" y="732" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1086" y="776" width="68" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0nvlvb9_di" bpmnElement="EndEvent_0htnj9i">
+        <dc:Bounds x="1242" y="732" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1231" y="775" width="58" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

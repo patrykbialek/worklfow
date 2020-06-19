@@ -11,6 +11,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularMaterial } from './angular-material.module';
 import { environment } from 'src/environments/environment';
 import { AuthenticationModule } from './authentication/authentication.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,8 @@ import { AuthenticationModule } from './authentication/authentication.module';
     AngularFireModule.initializeApp(environment.firebase, 'workflow'),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
+
+    HttpClientModule,
 
     AuthenticationModule,
   ],

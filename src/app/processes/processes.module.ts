@@ -31,7 +31,7 @@ import { DiagramComponent } from './containers/process/diagram/diagram.component
     ProcessesRoutingModule,
     AngularMaterial,
     ReactiveFormsModule,
-
+    
     SharedModule,
 
   ],
