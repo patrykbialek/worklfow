@@ -10,9 +10,7 @@ import { tap } from 'rxjs/operators';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  user$ = this.authService.user$.pipe(
-    tap(console.log)
-  );
+  user$ = this.authService.user$;
 
   constructor(
     private authService: AuthService,
