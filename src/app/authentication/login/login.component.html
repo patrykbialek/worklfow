@@ -7,10 +7,13 @@
     </div>
     <form [formGroup]="loginForm" class="u-text-normal" (ngSubmit)="onLogin()">
       <div class="o-grid">
+        <div class="o-grid__cell u-1/1 u-margin-bottom-small" *ngIf="errorMessage">
+          <div class="u-text-error">{{ errorMessage }}</div>
+        </div>
         <div class="o-grid__cell u-1/1">
           <mat-form-field appearance="outline" style="width: 100%;">
-            <mat-label>Użytkownik</mat-label>
-            <input matInput formControlName="email" #userName>
+            <mat-label>E-mail</mat-label>
+            <input matInput formControlName="email" type="email" #email>
             <mat-error>Pole wymagane.</mat-error>
           </mat-form-field>
         </div>
