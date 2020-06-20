@@ -1,104 +1,72 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-
 import {
-  Modeler, OriginalPropertiesProvider, PropertiesPanelModule,
-  InjectionNames, OriginalPaletteProvider
-} from 'src/app/bpmn-js/bpmn-js';
-import { CustomPropsProvider } from 'src/app/props-provider/CustomPropsProvider';
-import { CustomPaletteProvider } from 'src/app/props-provider/CustomPaletteProvider';
+  AfterContentInit,
+  Component,
+  ElementRef,
+  Input,
+  OnDestroy,
+  ViewChild,
+  OnInit
+} from '@angular/core';
 
+/**
+ * You may include a different variant of BpmnJS:
+ *
+ * bpmn-viewer  - displays BPMN diagrams without the ability
+ *                to navigate them
+ * bpmn-modeler - bootstraps a full-fledged BPMN editor
+ */
+import * as BpmnJS from 'bpmn-js/dist/bpmn-modeler.production.min.js';
+import BpmnViewer from 'bpmn-js/lib/NavigatedViewer';
 
-const customModdle = {
-  name: "customModdle",
-  uri: "http://example.com/custom-moddle",
-  prefix: "custom",
-  xml: {
-    tagAlias: "lowerCase"
-  },
-  associations: [],
-  types: [
-    {
-      "name": "ExtUserTask",
-      "extends": [
-        "bpmn:UserTask"
-      ],
-      "properties": [
-        {
-          "name": "worklist",
-          "isAttr": true,
-          "type": "String"
-        }
-      ]
-    },
-  ]
-};
+import { DiagramHttpService } from 'src/app/processes/services/diagram-http.service';
 
-const dd = ''
 @Component({
   selector: 'app-diagram',
-  templateUrl: './diagram.component.html',
+  templateUrl: 'diagram.component.html',
   styleUrls: ['./diagram.component.scss']
 })
-export class DiagramComponent implements OnInit {
+export class DiagramComponent implements AfterContentInit, OnInit, OnDestroy {
+  private bpmnJS: BpmnJS;
+  private diagramUrl = 'https://cdn.staticaly.com/gh/bpmn-io/bpmn-js-examples/dfceecba/starter/diagram.bpmn';
 
-  viewer: any;
-  title: string = 'Angular 2 with BPMN-JS';
-  modeler;
+  @ViewChild('ref', { static: true }) private el: ElementRef;
 
   constructor(
-    private http: HttpClient
-  ) { }
+    private diagramHttpService: DiagramHttpService,
+  ) {
+
+    // this.bpmnJS = new BpmnJS();
+    this.bpmnJS = new BpmnViewer();
+
+    this.bpmnJS.on('import.done', ({ error }) => {
+      if (!error) {
+        this.bpmnJS.get('canvas').zoom('fit-viewport');
+        const overlays = this.bpmnJS.get('overlays');
+
+        overlays.add('sid-52EB1772-F36E-433E-8F5B-D5DFD26E6F26', 'note', {
+          position: {
+            bottom: 48,
+            right: 48
+          },
+          html: '<div class="diagram-note">Mixed up the labels?</div>'
+        });
+      }
+    });
+  }
+
+  ngAfterContentInit(): void {
+    this.bpmnJS.attachTo(this.el.nativeElement);
+  }
 
   ngOnInit() {
-    this.viewer = new Modeler({
-      container: '#canvas',
-      width: '100%',
-      height: '600px',
-      propertiesPanel: {
-        parent: '#properties'
-      },
-      additionalModules: [
-        PropertiesPanelModule,
-
-        // Re-use original bpmn-properties-module, see CustomPropsProvider
-        { [InjectionNames.bpmnPropertiesProvider]: ['type', OriginalPropertiesProvider.propertiesProvider[1]] },
-        { [InjectionNames.propertiesProvider]: ['type', CustomPropsProvider] },
-
-        // Re-use original palette, see CustomPaletteProvider
-        { [InjectionNames.originalPaletteProvider]: ['type', OriginalPaletteProvider] },
-        { [InjectionNames.paletteProvider]: ['type', CustomPaletteProvider] },
-      ],
-    });
-    //   propertiesPanel: {
-    //     parent: '#properties'
-    //   },
-    //   moddleExtension: {
-    //     custom: customModdle
-    //   }
-    // });
-    this.loadSampleBPMN();
+    this.loadDiagram(this.diagramUrl);
   }
 
-  handleError(err: any) {
-    if (err) {
-      console.log('error rendering', err);
-    } else {
-      console.log('rendered');
-    }
+  ngOnDestroy(): void {
+    this.bpmnJS.destroy();
   }
 
-  loadSampleBPMN() {
-    const url = '/assets/diagrams/ER0020_Formal_Verification.bpmn';
-    this.http.get(url, {
-      headers: { observe: 'response' }, responseType: 'text'
-    }).subscribe(
-      (data: any) => {
-        this.viewer.importXML(data);
-      },
-      this.handleError
-    );
+  loadDiagram(url: string) {
+    this.diagramHttpService.loadDiagram(url, this.bpmnJS)
   }
-
-
 }
