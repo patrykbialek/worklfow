@@ -19,7 +19,7 @@ export class AppComponent {
 
   onLogout() {
     this.authService.logout()
-      .then(() => this.router.navigate(['/']))
+      .then(() => this.router.navigate(['/login']))
       .catch(console.log);
   }
 }

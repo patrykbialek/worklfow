@@ -10,8 +10,13 @@ const routes: Routes = [
   //   loadChildren: () => import('./authentication/authentication.module').then(m => m.AuthenticationModule)
   // },
   {
-    path: '',
+    path: 'login',
     component: LoginComponent,
+  },
+  {
+    path: '',
+    redirectTo: 'dashboard',
+    pathMatch: 'full',
   },
   {
     path: 'dashboard',
