@@ -1,24 +1,17 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, } from '@angular/core';
 import { AppSpinnerService } from 'src/app/shared/app-spinner/app-spinner.service';
+import { CommonWithAnimationComponent } from 'src/app/shared/common-with-animation.component';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements AfterViewInit, OnInit {
+export class DashboardComponent extends CommonWithAnimationComponent implements OnInit {
 
-  @ViewChild('main') mainHTML: ElementRef;
-  
   constructor(
     private spinnerService: AppSpinnerService,
-  ) { }
-
-  ngAfterViewInit() {
-    setTimeout(() => {
-      this.mainHTML.nativeElement.style.opacity = '1';
-    }, 100);
-  }
+  ) { super(); }
 
   ngOnInit() {
     setTimeout(() => {

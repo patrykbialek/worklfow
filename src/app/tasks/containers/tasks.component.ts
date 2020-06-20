@@ -1,29 +1,20 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, } from '@angular/core';
+import { CommonWithAnimationComponent } from 'src/app/shared/common-with-animation.component';
+
 import { TasksHttpService } from '../services/tasks-http.service';
-import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-tasks',
   templateUrl: './tasks.component.html',
   styleUrls: ['./tasks.component.scss']
 })
-export class TasksComponent implements AfterViewInit, OnInit {
+export class TasksComponent extends CommonWithAnimationComponent {
 
   tasks$ = this.tasksService.getAllTasks();
 
-  @ViewChild('main') mainHTML: ElementRef;
-
   constructor(
     private tasksService: TasksHttpService,
-  ) { }
+  ) { super(); }
 
-  ngAfterViewInit() {
-    setTimeout(() => {
-      this.mainHTML.nativeElement.style.opacity = '1';
-    }, 100);
-  }
-
-  ngOnInit() {
-  }
 
 }

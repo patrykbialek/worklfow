@@ -1,6 +1,4 @@
-<main class="o-wrapper c-main"
-  *ngIf="processes$ | async as processes"
-  #main>
+<app-main-component *ngIf="processes$ | async as processes">
 
   <header class="c-title u-margin-bottom">
     <h4 class="u-margin-right-small">Moje procesy</h4>
@@ -20,8 +18,8 @@
           <mat-icon>keyboard_arrow_right</mat-icon>
         </button>
         <!-- <button mat-button color="accent">
-          OTWÓRZ
-        </button> -->
+            OTWÓRZ
+          </button> -->
       </a>
       <mat-divider></mat-divider>
     </ng-container>
@@ -36,6 +34,5 @@
     </a>
   </mat-nav-list>
 
-</main>
-
-<router-outlet></router-outlet>
+  <router-outlet></router-outlet>
+</app-main-component>

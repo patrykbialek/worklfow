@@ -1,19 +1,20 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, } from '@angular/core';
 
 import { MatDialog } from '@angular/material/dialog';
 
 import { DetailComponent } from './process/detail/detail.component';
 
 import { ProcessesStoreService } from '../store/processes-store.service';
-import { tap, filter, finalize } from 'rxjs/operators';
+import { tap, filter, } from 'rxjs/operators';
 import { AppSpinnerService } from 'src/app/shared/app-spinner/app-spinner.service';
+import { CommonWithAnimationComponent } from 'src/app/shared/common-with-animation.component';
 
 @Component({
   selector: 'app-processes',
   templateUrl: './processes.component.html',
   styleUrls: ['./processes.component.scss']
 })
-export class ProcessesComponent implements OnInit {
+export class ProcessesComponent extends CommonWithAnimationComponent implements OnInit {
 
   processes$ = this.processesStore.processes$
     .pipe(
@@ -21,20 +22,16 @@ export class ProcessesComponent implements OnInit {
       tap((response: any[]) => {
         if (response) {
           this.spinnerService.hide();
-          setTimeout(() => {
-            this.mainHTML.nativeElement.style.opacity = '1';
-          }, 100);
         }
       })
     );
-
-  @ViewChild('main') mainHTML: ElementRef;
 
   constructor(
     public dialog: MatDialog,
     private processesStore: ProcessesStoreService,
     private spinnerService: AppSpinnerService,
   ) {
+    super();
     this.processesStore.getProcesses();
     this.processesStore.getSections();
     this.processesStore.getTasks();

@@ -1,15 +1,16 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { ProcessesStoreService } from '../../store/processes-store.service';
 import { tap } from 'rxjs/operators';
+import { CommonWithAnimationComponent } from 'src/app/shared/common-with-animation.component';
 
 @Component({
   selector: 'app-process',
   templateUrl: './process.component.html',
   styleUrls: ['./process.component.scss']
 })
-export class ProcessComponent implements OnInit {
+export class ProcessComponent extends CommonWithAnimationComponent implements OnInit {
 
   navLinks = [
     {
@@ -41,21 +42,13 @@ export class ProcessComponent implements OnInit {
   activeLinkIndex = -1;
 
   process$ = this.processesStore.process$
-    .pipe(tap(response => {
-      if (response) {
-        setTimeout(() => {
-          this.mainHTML.nativeElement.style.opacity = '1';
-        }, 100);
-      }
-    }));
-
-  @ViewChild('main') mainHTML: ElementRef;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private processesStore: ProcessesStoreService,
   ) {
+    super();
     this.processesStore.getTasksBySection();
   }
 
