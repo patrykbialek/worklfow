@@ -1,0 +1,93 @@
+.c-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 40rem;
+  flex-direction: column;
+
+  background-color: #fff;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+
+  left: 0;
+  top: 0;
+  z-index: 1000;
+
+  &__image {
+    // width: 80px;
+    // height: 80px;
+
+    svg {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+#step_1,
+#step_2,
+#step_3,
+#step_4,
+#step_5,
+#step_6,
+#step_8,
+#step_7 {
+  opacity: 0;
+}
+
+$base_duration: 150;
+
+.u-animate {
+  #step_1,
+  #step_2,
+  #step_3,
+  #step_4,
+  #step_5,
+  #step_6,
+  #step_7,
+  #step_8 {
+    animation-duration: #{$base_duration}ms;
+    animation-timing-function: ease-in-out;
+    animation-delay: 0s;
+    animation-iteration-count: 1;
+    animation-direction: normal;
+    animation-fill-mode: both;
+    animation-play-state: running;
+    animation-name: fadeIn;
+  }
+
+  #step_1 {
+    animation-delay: 0s;
+  }
+  #step_2 {
+    animation-delay: #{$base_duration}ms;
+  }
+  #step_3 {
+    animation-delay: #{500 + $base_duration}ms;
+  }
+  #step_4 {
+    animation-delay: #{1000 + $base_duration}ms;
+  }
+  #step_5 {
+    animation-delay: #{1500 + $base_duration}ms;
+  }
+  #step_6 {
+    animation-delay: #{2000 + $base_duration}ms;
+  }
+  #step_7 {
+    animation-delay: #{2500 + $base_duration}ms;
+  }
+  #step_8 {
+    animation-delay: #{3000 + $base_duration}ms;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

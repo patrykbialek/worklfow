@@ -5,6 +5,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { DetailComponent } from './process/detail/detail.component';
 
 import { ProcessesStoreService } from '../store/processes-store.service';
+import { tap, filter, finalize } from 'rxjs/operators';
+import { AppSpinnerService } from 'src/app/shared/app-spinner/app-spinner.service';
 
 @Component({
   selector: 'app-processes',
@@ -13,11 +15,20 @@ import { ProcessesStoreService } from '../store/processes-store.service';
 })
 export class ProcessesComponent implements OnInit {
 
-  processes$ = this.processesStore.processes$;
+  processes$ = this.processesStore.processes$
+    .pipe(
+      filter(response => Boolean(response)),
+      tap((response: any[]) => {
+        if (response) {
+          this.spinnerService.hide();
+        }
+      })
+    );
 
   constructor(
     public dialog: MatDialog,
     private processesStore: ProcessesStoreService,
+    private spinnerService: AppSpinnerService,
   ) {
     this.processesStore.getProcesses();
     this.processesStore.getSections();
@@ -25,6 +36,7 @@ export class ProcessesComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.spinnerService.show();
   }
 
   onCreateProcess() {

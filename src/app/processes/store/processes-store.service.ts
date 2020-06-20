@@ -16,7 +16,7 @@ export class ProcessesStoreService {
   private processSectionsSubject = new BehaviorSubject([]);
   processSections$ = this.processSectionsSubject.asObservable();
 
-  private processesSubject = new BehaviorSubject([]);
+  private processesSubject = new BehaviorSubject(null);
   processes$ = this.processesSubject.asObservable();
 
   private sectionsSubject = new BehaviorSubject([]);

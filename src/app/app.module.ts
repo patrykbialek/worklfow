@@ -12,6 +12,7 @@ import { AngularMaterial } from './angular-material.module';
 import { environment } from 'src/environments/environment';
 import { AuthenticationModule } from './authentication/authentication.module';
 import { HttpClientModule } from '@angular/common/http';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,8 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule,
 
     AuthenticationModule,
+
+    SharedModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

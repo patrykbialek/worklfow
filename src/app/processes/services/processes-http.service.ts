@@ -6,7 +6,7 @@ import {
   AngularFireObject,
   AngularFireList,
 } from '@angular/fire/database';
-import { map } from 'rxjs/operators';
+import { map, delay } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -70,6 +70,7 @@ export class ProcessesHttpService {
       map((changes) =>
         changes.map((change) => ({ key: change.payload.key, ...change.payload.val() }))
       ),
+      // delay(3000),
     );
   }
 

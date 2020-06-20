@@ -7,6 +7,7 @@ import { ProcessesStoreService } from 'src/app/processes/store/processes-store.s
 import { Observable } from 'rxjs';
 
 import * as fromModels from 'src/app/processes/models';
+import { AppSpinnerService } from 'src/app/shared/app-spinner/app-spinner.service';
 
 @Component({
   selector: 'app-tasks',
@@ -29,9 +30,10 @@ export class TasksComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private tasksHttpService: TasksHttpService,
     private processesStore: ProcessesStoreService,
-  ) {}
+    private tasksHttpService: TasksHttpService,
+    private spinnerService: AppSpinnerService,
+  ) { }
 
   @HostListener('document:keydown.escape', ['$event'])
   onKeydownHandler(evt: KeyboardEvent) {

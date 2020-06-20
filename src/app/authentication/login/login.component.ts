@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/co
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
+import { AppSpinnerService } from 'src/app/shared/app-spinner/app-spinner.service';
 
 @Component({
   selector: 'app-login',
@@ -26,11 +27,12 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private renderer: Renderer2,
     private router: Router,
+    private spinnerService: AppSpinnerService,
   ) { }
 
   ngOnInit(): void {
     this.authService.logout();
-    
+
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]],
       password: ['', Validators.required],
@@ -54,13 +56,13 @@ export class LoginComponent implements OnInit {
   // }
 
   onLogin() {
-    // this.isLoading = true;
+    this.spinnerService.show();
     this.errorMessage = null;
     const payload = this.loginForm.value;
     this.authService.login(payload)
-    .then(() => this.router.navigate(['/dashboard']))
-    .catch((error: any) => {
-        // this.isLoading = false;
+      .then(() => this.router.navigate(['/dashboard']))
+      .catch((error: any) => {
+        this.spinnerService.hide();
         this.errorMessage = this.errorMessages[error.message];
       });
   }
