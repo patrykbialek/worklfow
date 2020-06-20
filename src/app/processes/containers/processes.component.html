@@ -2,13 +2,16 @@
 
   <header class="c-title u-margin-bottom">
     <h4 class="c-title__caption u-margin-right-small">Moje procesy</h4>
+    <button mat-icon-button color="accent" matTooltip="Nowy proces" (click)="onCreateProcess()" tabindex="-1">
+      <mat-icon>playlist_add</mat-icon>
+    </button>
 
-    <div class="c-title__actions-right o-block o-block--right">
+    <!-- <div class="c-title__actions-right o-block o-block--right">
       <a mat-button color="accent" (click)="onCreateProcess()">
         <mat-icon class="u-margin-right-tiny">playlist_add</mat-icon>
         Nowy process
       </a>
-    </div>
+    </div> -->
   </header>
 
   <mat-nav-list class="u-margin-bottom-large">
