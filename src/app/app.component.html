@@ -1,9 +1,9 @@
 <ng-container *ngIf="user$ | async as user">
   <mat-toolbar color="default" class="c-app-header u-margin-bottom-large" style='z-index: 10;'>
     <mat-toolbar-row>
-      <span class="u-margin-right-huge">
+      <a class="u-margin-right-huge" [routerLink]="['/']">
         <img src="../assets/images/logo.svg" alt="logo" style="height: 40px;">
-      </span>
+      </a>
       <span style="flex-grow: 1;"></span>
       <button class="u-margin-left-tiny" mat-button [routerLink]="['dashboard']" routerLinkActive="u-router-link-active">
         <mat-icon class="u-margin-right-tiny">dashboard</mat-icon>Dashboard</button>
