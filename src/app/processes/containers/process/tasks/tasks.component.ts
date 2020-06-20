@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, ViewChild, ElementRef } from '@angular/core';
 import { TasksHttpService } from 'src/app/tasks/services/tasks-http.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { tap } from 'rxjs/operators';
@@ -28,6 +28,8 @@ export class TasksComponent implements OnInit {
   allTasks$: Observable<fromModels.Task[]> = this.tasksHttpService.getAllTasks();
   processSections$: Observable<fromModels.Section[]> = this.processesStore.processSections$;
 
+  @ViewChild('main') mainHTML: ElementRef;
+
   constructor(
     private formBuilder: FormBuilder,
     private processesStore: ProcessesStoreService,
@@ -38,6 +40,12 @@ export class TasksComponent implements OnInit {
   @HostListener('document:keydown.escape', ['$event'])
   onKeydownHandler(evt: KeyboardEvent) {
     this.onHideTaskDetail();
+  }
+
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.mainHTML.nativeElement.style.opacity = '1';
+    }, 100);
   }
 
   ngOnInit() {

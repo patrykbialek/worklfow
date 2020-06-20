@@ -35,6 +35,9 @@ import { SharedModule } from './shared/shared.module';
 
     SharedModule,
   ],
+  exports: [
+    BrowserAnimationsModule,
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

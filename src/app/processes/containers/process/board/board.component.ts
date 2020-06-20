@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
 import * as fromModels from 'src/app/processes/models';
@@ -9,14 +9,22 @@ import { ProcessesStoreService } from 'src/app/processes/store/processes-store.s
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.scss']
 })
-export class BoardComponent implements OnInit {
+export class BoardComponent implements AfterViewInit, OnInit {
 
   tasks$ = this.processesStore.process$;
   processSections$ = this.processesStore.processSections$
 
+  @ViewChild('main') mainHTML: ElementRef;
+
   constructor(
     private processesStore: ProcessesStoreService,
   ) {}
+
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.mainHTML.nativeElement.style.opacity = '1';
+    }, 100);
+  }
 
   ngOnInit() {
   }

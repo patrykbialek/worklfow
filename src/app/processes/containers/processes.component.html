@@ -1,7 +1,9 @@
-<main  class="o-wrapper" *ngIf="processes$ | async as processes">
+<main class="o-wrapper c-main"
+  *ngIf="processes$ | async as processes"
+  #main>
 
   <header class="c-title u-margin-bottom">
-    <h4 class="u-margin-right-small">Wszystkie procesy</h4>
+    <h4 class="u-margin-right-small">Moje procesy</h4>
   </header>
 
   <mat-nav-list class="u-margin-bottom-large">

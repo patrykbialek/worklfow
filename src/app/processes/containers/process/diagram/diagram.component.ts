@@ -5,7 +5,8 @@ import {
   Input,
   OnDestroy,
   ViewChild,
-  OnInit
+  OnInit,
+  AfterViewInit
 } from '@angular/core';
 
 /**
@@ -25,11 +26,12 @@ import { DiagramHttpService } from 'src/app/processes/services/diagram-http.serv
   templateUrl: 'diagram.component.html',
   styleUrls: ['./diagram.component.scss']
 })
-export class DiagramComponent implements AfterContentInit, OnInit, OnDestroy {
+export class DiagramComponent implements AfterContentInit, AfterViewInit, OnInit, OnDestroy {
   private bpmnJS: BpmnJS;
   private diagramUrl = 'https://cdn.staticaly.com/gh/bpmn-io/bpmn-js-examples/dfceecba/starter/diagram.bpmn';
 
   @ViewChild('ref', { static: true }) private el: ElementRef;
+  @ViewChild('main') mainHTML: ElementRef;
 
   constructor(
     private diagramHttpService: DiagramHttpService,
@@ -52,6 +54,12 @@ export class DiagramComponent implements AfterContentInit, OnInit, OnDestroy {
         });
       }
     });
+  }
+
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.mainHTML.nativeElement.style.opacity = '1';
+    }, 100);
   }
 
   ngAfterContentInit(): void {

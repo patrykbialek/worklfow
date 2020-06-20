@@ -56,7 +56,7 @@ export class LoginComponent implements OnInit {
   // }
 
   onLogin() {
-    this.spinnerService.show();
+    // this.spinnerService.show();
     this.errorMessage = null;
     const payload = this.loginForm.value;
     this.authService.login(payload)

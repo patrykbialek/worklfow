@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { ProcessesStoreService } from '../../store/processes-store.service';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-process',
@@ -39,7 +40,16 @@ export class ProcessComponent implements OnInit {
   ];
   activeLinkIndex = -1;
 
-  process$ = this.processesStore.process$;
+  process$ = this.processesStore.process$
+    .pipe(tap(response => {
+      if (response) {
+        setTimeout(() => {
+          this.mainHTML.nativeElement.style.opacity = '1';
+        }, 100);
+      }
+    }));
+
+  @ViewChild('main') mainHTML: ElementRef;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -47,7 +57,7 @@ export class ProcessComponent implements OnInit {
     private processesStore: ProcessesStoreService,
   ) {
     this.processesStore.getTasksBySection();
-   }
+  }
 
   ngOnInit(): void {
     this.router.events.subscribe((res) => {

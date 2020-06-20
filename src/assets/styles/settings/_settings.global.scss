@@ -144,3 +144,22 @@ $mq-breakpoints: (
   color: #AB47BC;
 }
 
+
+.c-main {
+  opacity: 0;
+  transition: opacity 250ms ease-in-out 0s;
+}
+
+.c-title {
+  display: flex;
+  align-items: center;
+  min-height: 54px;
+
+  &__caption {
+    color: #424242;
+  }
+
+  &__actions-right {
+    flex-grow: 1;
+  }
+}

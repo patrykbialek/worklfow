@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 
 import { MatDialog } from '@angular/material/dialog';
 
@@ -21,9 +21,14 @@ export class ProcessesComponent implements OnInit {
       tap((response: any[]) => {
         if (response) {
           this.spinnerService.hide();
+          setTimeout(() => {
+            this.mainHTML.nativeElement.style.opacity = '1';
+          }, 100);
         }
       })
     );
+
+  @ViewChild('main') mainHTML: ElementRef;
 
   constructor(
     public dialog: MatDialog,

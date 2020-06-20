@@ -1,11 +1,13 @@
-<main class="o-wrapper u-padding-bottom-huge" *ngIf="process$ | async as process">
+<main class="o-wrapper u-padding-bottom-huge c-main"
+  *ngIf="process$ | async as process"
+  #main>
 
   <header class="c-title u-margin-bottom">
-    <img src="../../../../assets/images/{{ process.image }}" alt="logo" style="width: 42px" class="u-margin-right">
-    <h4 class="u-margin-right-small">{{ process.name }}</h4>
+    <img class="c-title__image u-margin-right" src="../../../../assets/images/{{ process.image }}" alt="logo" style="width: 42px">
+    <h4 class="c-title__caption u-margin-right-small">{{ process.name }}</h4>
     <button mat-icon-button color="accent"><mat-icon>info</mat-icon></button>
 
-    <div style="flex-grow: 1" class="o-block o-block--right">
+    <div class="c-title__actions-right o-block o-block--right">
       <a mat-button [routerLink]="['../']">
         <mat-icon class="u-margin-right-tiny">arrow_back</mat-icon>
         Wróć do listy

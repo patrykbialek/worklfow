@@ -16,6 +16,9 @@ export class AppSpinnerComponent implements OnDestroy {
   interval1;
   interval2;
 
+  timeout1;
+  timeout2
+
   isShown$ = this.spinnerService.isShown$
     .pipe(
       tap((response) => {
@@ -36,24 +39,28 @@ export class AppSpinnerComponent implements OnDestroy {
   ngOnDestroy() {
     clearInterval(this.interval1);
     clearInterval(this.interval2);
+    clearTimeout(this.timeout1);
+    clearTimeout(this.timeout2);
   }
 
   setUpSpinnerElement() {
-    setTimeout(() => {
-      this.imageHMTL.nativeElement.style.height = `${this.size}px`;
-      this.imageHMTL.nativeElement.style.width = `${this.size}px`;
+    this.timeout1 = setTimeout(() => {
+      if (this.imageHMTL) {
+        this.imageHMTL.nativeElement.style.height = `${this.size}px`;
+        this.imageHMTL.nativeElement.style.width = `${this.size}px`;
 
-      setTimeout(() => {
-        this.isAnimated = true;
-      }, 100);
+        this.timeout2 = setTimeout(() => {
+          this.isAnimated = true;
+        }, 100);
 
-      this.interval1 = setInterval(() => {
-        this.isAnimated = false;
-      }, 4000);
+        this.interval1 = setInterval(() => {
+          this.isAnimated = false;
+        }, 4000);
 
-      this.interval2 = setInterval(() => {
-        this.isAnimated = true;
-      }, 4100);
-    }, 100);
+        this.interval2 = setInterval(() => {
+          this.isAnimated = true;
+        }, 4100);
+      }
+    }, 300);
   }
 }
