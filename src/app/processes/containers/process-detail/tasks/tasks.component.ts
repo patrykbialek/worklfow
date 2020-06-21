@@ -1,17 +1,18 @@
 import { Component, OnInit, HostListener, ViewChild, ElementRef } from '@angular/core';
 import { TasksHttpService } from 'src/app/tasks/services/tasks-http.service';
-import { MatTableDataSource } from '@angular/material/table';
-import { tap } from 'rxjs/operators';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { ProcessesStoreService } from 'src/app/processes/store/processes-store.service';
 import { Observable } from 'rxjs';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
 import * as fromModels from 'src/app/processes/models';
+import { UsersHttpService } from '@shared/services';
+import { MatSelectChange } from '@angular/material/select';
 
 @Component({
   selector: 'app-tasks',
   templateUrl: './tasks.component.html',
-  styleUrls: ['./tasks.component.scss']
+  styleUrls: ['./tasks.component.scss'],
 })
 export class TasksComponent implements OnInit {
 
@@ -27,12 +28,16 @@ export class TasksComponent implements OnInit {
   allTasks$: Observable<fromModels.Task[]> = this.tasksHttpService.getAllTasks();
   processSections$: Observable<fromModels.Section[]> = this.processesStore.processSections$;
 
+  users = [];
+  users$ = this.userService.users$;
+
   @ViewChild('main') mainHTML: ElementRef;
 
   constructor(
     private formBuilder: FormBuilder,
     private processesStore: ProcessesStoreService,
     private tasksHttpService: TasksHttpService,
+    private userService: UsersHttpService,
   ) { }
 
   @HostListener('document:keydown.escape', ['$event'])
@@ -46,6 +51,14 @@ export class TasksComponent implements OnInit {
     }, 100);
   }
 
+  get assignee() {
+    return this.taskForm.get('assignee');
+  }
+
+  get description() {
+    return this.taskForm.get('description');
+  }
+
   ngOnInit() {
     this.taskForm = this.formBuilder.group({
       name: [''],
@@ -54,6 +67,14 @@ export class TasksComponent implements OnInit {
       description: [''],
       processes: [null],
     });
+
+    this.users$.subscribe(response => this.users = response);
+  }
+
+  onChangeAssignee(event: MatSelectChange) {
+    let task = this.selectedTask;
+    task.assignee = this.assignee.value;
+    this.updateTask(task);
   }
 
   onToggleCompleted(task: fromModels.Task) {
@@ -69,10 +90,12 @@ export class TasksComponent implements OnInit {
   onDisplayTaskDetail(task: fromModels.Task) {
     this.selectedTask = task;
     this.isDrawerOpen = true;
-
+    
     if (this.selectedTask) {
+      const assignee = task.assignee ? this.users.find(user => user.key === task.assignee.key) : null;
+
       this.taskForm.get('name').setValue(this.selectedTask.name);
-      this.taskForm.get('assignee').setValue(this.selectedTask.assignee);
+      this.taskForm.get('assignee').setValue(assignee);
       this.taskForm.get('endDate').setValue(this.selectedTask.endDate);
       this.taskForm.get('description').setValue(this.selectedTask.description);
     }
@@ -84,12 +107,27 @@ export class TasksComponent implements OnInit {
   }
 
   onSaveTaskDetail() {
+    if (this.taskForm.valid) {
+      let task = this.selectedTask;
+      task.description = this.description.value;
+      this.updateTask(task);
+    }
+  }
+
+  updateTask(task: any) {
+    const section = task.section.key;
+    task = {
+      ...task,
+      section,
+    };
+    this.processesStore.updateTask(task.key, task);
     this.selectedTask = null;
     this.isDrawerOpen = false;
   }
 
-  updateTask(task: any) {
-    this.processesStore.updateTask(task.key, task);
+  addEvent(event: MatDatepickerInputEvent<Date>) {
+    let task = this.selectedTask;
+    task.endDate = event.value.toISOString();
+    this.updateTask(task);
   }
-
 }

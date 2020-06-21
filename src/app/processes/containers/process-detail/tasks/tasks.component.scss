@@ -116,3 +116,11 @@ th, td {
     font-weight: 600;
   }
 }
+
+
+::ng-deep .u-hidden-datepicker {
+  width: 1px;
+  visibility: hidden;
+  position: absolute !important;
+  z-index: -1;
+}

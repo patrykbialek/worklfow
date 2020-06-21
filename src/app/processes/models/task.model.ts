@@ -1,6 +1,6 @@
 export interface Task {
   id: string;
-  assignee: string;
+  assignee: any;
   description: string;
   endDate: string;
   isCompleted: boolean;
@@ -11,4 +11,5 @@ export interface Task {
   section: any;
   startDate: string;
   subtasks: string[];
+  userId?: string;
 }

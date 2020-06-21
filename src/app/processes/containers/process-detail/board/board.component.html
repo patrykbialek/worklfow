@@ -41,22 +41,20 @@
                 [ngClass]="{ 'u-no-assignee': !task.assignee }">
                 <button mat-button [matMenuTriggerFor]="assigneeMenu">
                   <mat-icon class="u-margin-right-tiny">account_circle</mat-icon>
-                  {{ task.assignee || 'Nieprzypisane' }}
+                  {{ task.assignee?.name || 'Nieprzypisane' }}
                 </button>
                 <mat-menu #assigneeMenu="matMenu">
-                  <button mat-menu-item (click)="onChangeAssignee({ task: task, assignee: null })">
+                  <button mat-menu-item (click)="onChangeAssignee({ task: task, user: '' })">
                     <mat-icon>account_circle</mat-icon>
                     Nieprzypisane
                   </button>
                   <mat-divider></mat-divider>
-                  <button mat-menu-item (click)="onChangeAssignee({ task: task, assignee: 'Janusz Popanusz' })">
-                    <mat-icon>account_circle</mat-icon>
-                    Janusz Popanusz
-                  </button>
-                  <button mat-menu-item (click)="onChangeAssignee({ task: task, assignee: 'Maria Kwiatkowska' })">
-                    <mat-icon>account_circle</mat-icon>
-                    Maria Kwiatkowska
-                  </button>
+                  <ng-container *ngFor="let user of users$ | async">
+                    <button mat-menu-item (click)="onChangeAssignee({ task: task, user: user })">
+                      <mat-icon>account_circle</mat-icon>
+                      {{ user.name }}
+                    </button>
+                  </ng-container>
                 </mat-menu>
               </div>
               <div class="c-task-enddate"

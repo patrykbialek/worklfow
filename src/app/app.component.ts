@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import * as fromAuthServices from '@authentication/services';
 import * as fromSharedServices from '@shared/services';
+import { take, tap } from 'rxjs/internal/operators';
 
 @Component({
   selector: 'app-root',
@@ -17,14 +18,18 @@ export class AppComponent implements OnInit {
   public getRouterOutletState(outlet) {
     return outlet.isActivated ? outlet.activatedRoute : '';
   }
-  
+
   constructor(
     private authService: fromAuthServices.AuthService,
     private router: Router,
     private spinnerService: fromSharedServices.AppSpinnerService,
+    private usersHttpService: fromSharedServices.UsersHttpService,
   ) { }
 
   ngOnInit() {
+    this.usersHttpService.getUsers().pipe(
+      take(1),
+    ).subscribe();
   }
 
   onLogout() {

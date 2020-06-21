@@ -148,7 +148,7 @@
             <td mat-cell
               *matCellDef="let element"
               class="u-border-left u-padding-left-small u-padding-right-small"
-              [ngClass]="{ 'u-is-selected': element.id === selectedTask?.id }"> {{ element.assignee }} </td>
+              [ngClass]="{ 'u-is-selected': element.id === selectedTask?.id }"> {{ element.assignee?.name }} </td>
           </ng-container>
   
           <ng-container matColumnDef="endDate">
@@ -193,20 +193,33 @@
         <header class="u-margin-bottom">
           <h4 class="u-font-weight-medium">{{ selectedTask?.name }}</h4>
         </header>
-        <form [formGroup]="taskForm" class="u-text-normal" *ngIf="taskForm">
+        <form [formGroup]="taskForm" class="u-text-normal" *ngIf="taskForm" (ngSubmit)="onSaveTaskDetail()">
           <div class="o-grid">
             <div class="o-grid__cell u-1/2">
               <mat-form-field appearance="outline" style="width: 100%;">
                 <mat-label>Osoba przypisana</mat-label>
-                <input matInput formControlName="assignee">
-                <mat-icon matSuffix>account_circle</mat-icon>
+                <mat-select
+                  formControlName="assignee"
+                  (selectionChange)="onChangeAssignee($event)"
+                  [attr.data-name]="'assignee'">
+                  <mat-option [value]="null">
+                    {{ 'Nieprzypisane' }}
+                  </mat-option>
+                  <mat-divider></mat-divider>
+                  <mat-option *ngFor="let user of users" [value]="user">
+                    {{ user.name }}
+                  </mat-option>
+                </mat-select>
               </mat-form-field>
             </div>
   
             <div class="o-grid__cell u-1/2">
               <mat-form-field appearance="outline" style="width: 100%;">
                 <mat-label>Termin</mat-label>
-                <input matInput [matDatepicker]="picker" formControlName="endDate">
+                <input matInput
+                  [matDatepicker]="picker"
+                  formControlName="endDate"
+                  (dateInput)="addEvent($event)">
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
               </mat-form-field>

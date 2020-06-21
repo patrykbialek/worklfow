@@ -2,7 +2,9 @@ import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angula
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
 import * as fromModels from 'src/app/processes/models';
+import * as fromAuthService from '@authentication/services';
 import { ProcessesStoreService } from 'src/app/processes/store/processes-store.service';
+import { UsersHttpService } from '@shared/services';
 
 @Component({
   selector: 'app-board',
@@ -11,14 +13,20 @@ import { ProcessesStoreService } from 'src/app/processes/store/processes-store.s
 })
 export class BoardComponent implements AfterViewInit, OnInit {
 
+  userId: string;
+
   tasks$ = this.processesStore.process$;
   processSections$ = this.processesStore.processSections$
+
+  users$ = this.userService.users$;
 
   @ViewChild('main') mainHTML: ElementRef;
 
   constructor(
+    private authService: fromAuthService.AuthService,
     private processesStore: ProcessesStoreService,
-  ) {}
+    private userService: UsersHttpService,
+  ) { }
 
   ngAfterViewInit() {
     setTimeout(() => {
@@ -27,11 +35,14 @@ export class BoardComponent implements AfterViewInit, OnInit {
   }
 
   ngOnInit() {
+    this.authService.user$
+      .subscribe(response => this.userId = response.uid);
   }
 
   onChangeAssignee(request: any) {
-    request.task.assignee = request.assignee;
-    this.updateTask(request.task);
+    let task = request.task;
+    task.assignee = request.user;
+    this.updateTask(task);
   }
 
   onChangeIsCompleted(request: any) {
@@ -49,6 +60,7 @@ export class BoardComponent implements AfterViewInit, OnInit {
     task = {
       ...task,
       section,
+      userId: this.userId
     };
     this.processesStore.updateTask(task.key, task);
   }
