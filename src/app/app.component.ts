@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { AuthService } from '@authentication/auth.service';
+import * as fromAuthServices from '@authentication/services';
 import * as fromSharedServices from '@shared/services';
 
 @Component({
@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
   }
   
   constructor(
-    private authService: AuthService,
+    private authService: fromAuthServices.AuthService,
     private router: Router,
     private spinnerService: fromSharedServices.AppSpinnerService,
   ) { }

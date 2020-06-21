@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { AuthGuard } from '@authentication/auth-guard.service';
+import * as fromAuthServices from '@authentication/services';
 
 const routes: Routes = [
   {
@@ -11,17 +11,17 @@ const routes: Routes = [
   {
     path: 'dashboard',
     loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule),
-    canActivate: [AuthGuard],
+    canActivate: [fromAuthServices.AuthGuardService],
   },
   {
     path: 'processes',
     loadChildren: () => import('./processes/processes.module').then(m => m.ProcessesModule),
-    canActivate: [AuthGuard],
+    canActivate: [fromAuthServices.AuthGuardService],
   },
   {
     path: 'tasks',
     loadChildren: () => import('./tasks/tasks.module').then(m => m.TasksModule),
-    canActivate: [AuthGuard],
+    canActivate: [fromAuthServices.AuthGuardService],
   },
 ];
 

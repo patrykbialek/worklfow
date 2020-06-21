@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/co
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { AuthService } from '../../auth.service';
+import * as fromAuthServices from '@authentication/services';
 import * as fromSharedServices from '@shared/services';
 
 @Component({
@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
   @ViewChild('email') emailHTML: ElementRef;
 
   constructor(
-    private authService: AuthService,
+    private authService: fromAuthServices.AuthService,
     private formBuilder: FormBuilder,
     private renderer: Renderer2,
     private router: Router,
