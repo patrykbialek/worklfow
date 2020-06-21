@@ -2,8 +2,8 @@ import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/co
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { AuthService } from '../auth.service';
-import * as fromSharedServices from '../../shared/services';
+import { AuthService } from '../../auth.service';
+import * as fromSharedServices from '@shared/services';
 
 @Component({
   selector: 'app-login',

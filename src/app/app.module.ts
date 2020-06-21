@@ -11,7 +11,6 @@ import { AngularMaterialModule } from './shared/modules/angular-material.module'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { AuthenticationModule } from '@authentication/authentication.module';
 import { SharedModule } from '@shared/shared.module';
 
 import { environment } from 'src/environments/environment';
@@ -32,8 +31,6 @@ import { environment } from 'src/environments/environment';
     AngularFireAuthModule,
 
     HttpClientModule,
-
-    AuthenticationModule,
 
     SharedModule,
   ],
