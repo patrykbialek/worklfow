@@ -1,7 +1,7 @@
 import { Component, } from '@angular/core';
-import { CommonWithAnimationComponent } from 'src/app/shared/common-with-animation.component';
+import { CommonWithAnimationComponent } from 'src/app/shared/components/common-with-animation.component';
 
-import { TasksHttpService } from '../services/tasks-http.service';
+import { TasksHttpService } from '../../services/tasks-http.service';
 
 @Component({
   selector: 'app-tasks',

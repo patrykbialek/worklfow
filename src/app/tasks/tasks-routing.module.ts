@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { TasksComponent } from './containers/tasks.component';
 
+import * as fromContainers from './containers';
 
 const routes: Routes = [
   {
     path: '',
-    component: TasksComponent,
+    component: fromContainers.TasksComponent,
   },
 ];
 

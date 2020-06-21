@@ -1,18 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ProcessesComponent } from './containers/processes.component';
-import { ProcessComponent } from './containers/process/process.component';
-import { TasksComponent } from './containers/process/tasks/tasks.component';
-import { BoardComponent } from './containers/process/board/board.component';
-import { TimelineComponent } from './containers/process/timeline/timeline.component';
-import { CalendarComponent } from './containers/process/calendar/calendar.component';
-import { DiagramComponent } from './containers/process/diagram/diagram.component';
 
+import * as fromContainers from './containers';
 
 const routes: Routes = [
   {
     path: '',
-    component: ProcessesComponent,
+    component: fromContainers.ProcessesComponent,
   },
   {
     path: ':id',
@@ -21,27 +15,27 @@ const routes: Routes = [
   },
   {
     path: ':id',
-    component: ProcessComponent,
+    component: fromContainers.ProcessComponent,
     children: [
       {
         path: 'diagram',
-        component: DiagramComponent,
+        component: fromContainers.DiagramComponent,
       },
       {
         path: 'tasks',
-        component: TasksComponent,
+        component: fromContainers.TasksComponent,
       },
       {
         path: 'board',
-        component: BoardComponent,
+        component: fromContainers.BoardComponent,
       },
       {
         path: 'timeline',
-        component: TimelineComponent,
+        component: fromContainers.TimelineComponent,
       },
       {
         path: 'calendar',
-        component: CalendarComponent,
+        component: fromContainers.CalendarComponent,
       },
     ]
   },

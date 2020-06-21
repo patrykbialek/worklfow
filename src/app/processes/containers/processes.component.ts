@@ -6,8 +6,10 @@ import { DetailComponent } from './process/detail/detail.component';
 
 import { ProcessesStoreService } from '../store/processes-store.service';
 import { tap, filter, } from 'rxjs/operators';
-import { AppSpinnerService } from 'src/app/shared/app-spinner/app-spinner.service';
-import { CommonWithAnimationComponent } from 'src/app/shared/common-with-animation.component';
+
+import { CommonWithAnimationComponent } from 'src/app/shared/components/common-with-animation.component';
+
+import * as fromSharedServices from '../../shared/services';
 
 @Component({
   selector: 'app-processes',
@@ -29,7 +31,7 @@ export class ProcessesComponent extends CommonWithAnimationComponent implements 
   constructor(
     public dialog: MatDialog,
     private processesStore: ProcessesStoreService,
-    private spinnerService: AppSpinnerService,
+    private spinnerService: fromSharedServices.AppSpinnerService,
   ) {
     super();
     this.processesStore.getProcesses();

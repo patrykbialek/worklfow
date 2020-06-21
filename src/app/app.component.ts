@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { AuthService } from './authentication/auth.service';
-import { AppSpinnerService } from './shared/app-spinner/app-spinner.service';
-import { fadeAnimation } from './animations';
+import { AuthService } from '@authentication/auth.service';
+import * as fromSharedServices from '@shared/services';
 
 @Component({
   selector: 'app-root',
@@ -22,7 +21,7 @@ export class AppComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private spinnerService: AppSpinnerService,
+    private spinnerService: fromSharedServices.AppSpinnerService,
   ) { }
 
   ngOnInit() {

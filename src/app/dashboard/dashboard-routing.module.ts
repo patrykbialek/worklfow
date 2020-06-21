@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { DashboardComponent } from './containers/dashboard.component';
 
+import * as fromContainers from './containers';
 
 const routes: Routes = [
   {
     path: '',
-    component: DashboardComponent,
+    component: fromContainers.DashboardComponent,
   },
 ];
 

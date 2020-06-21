@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
-import { AppSpinnerService } from 'src/app/shared/app-spinner/app-spinner.service';
+
+import { AuthService } from '../auth.service';
+import * as fromSharedServices from '../../shared/services';
 
 @Component({
   selector: 'app-login',
@@ -27,7 +28,7 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private renderer: Renderer2,
     private router: Router,
-    private spinnerService: AppSpinnerService,
+    private spinnerService: fromSharedServices.AppSpinnerService,
   ) { }
 
   ngOnInit(): void {

@@ -1,22 +1,23 @@
 import { NgModule } from '@angular/core';
-import { UnderConstructionComponent } from './under-construction/under-construction.component';
 import { CommonModule } from '@angular/common';
-import { AppSpinnerComponent } from './app-spinner/app-spinner.component';
-import { CommonWithAnimationComponent } from './common-with-animation.component';
+
+import { AngularMaterialModule } from './modules/angular-material.module';
+
+import * as fromComponents from './components';
 
 @NgModule({
   imports: [
     CommonModule,
+
+    AngularMaterialModule,
   ],
   declarations: [
-    AppSpinnerComponent,
-    CommonWithAnimationComponent,
-    UnderConstructionComponent,
+    ...fromComponents.components,
   ],
   exports: [
-    AppSpinnerComponent,
-    CommonWithAnimationComponent,
-    UnderConstructionComponent
+    AngularMaterialModule,
+    
+    ...fromComponents.components,
   ],
 })
 export class SharedModule { }

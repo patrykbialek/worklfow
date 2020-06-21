@@ -2,7 +2,7 @@ import { Component, OnDestroy, ViewChild, ElementRef, Input } from '@angular/cor
 
 import { tap, } from 'rxjs/operators';
 
-import { AppSpinnerService } from './app-spinner.service';
+import { AppSpinnerService } from '../../services/app-spinner.service';
 
 @Component({
   selector: 'app-spinner',

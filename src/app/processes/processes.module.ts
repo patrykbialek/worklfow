@@ -1,42 +1,26 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { ProcessesRoutingModule } from './processes-routing.module';
-import { ProcessesComponent } from './containers/processes.component';
-import { TasksComponent } from './containers/process/tasks/tasks.component';
-import { BoardComponent } from './containers/process/board/board.component';
-import { TimelineComponent } from './containers/process/timeline/timeline.component';
-import { CalendarComponent } from './containers/process/calendar/calendar.component';
-import { ProcessComponent } from './containers/process/process.component';
-import { AngularMaterial } from '../angular-material.module';
-import { DetailComponent } from './containers/process/detail/detail.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { SharedModule } from '../shared/shared.module';
-import { DiagramComponent } from './containers/process/diagram/diagram.component';
 
+import { ProcessesRoutingModule } from './processes-routing.module';
+import { SharedModule } from '@shared/shared.module';
+
+import * as fromContainers from './containers';
 
 @NgModule({
   declarations: [
-    ProcessesComponent,
-    TasksComponent,
-    BoardComponent,
-    TimelineComponent,
-    CalendarComponent,
-    ProcessComponent,
-    DetailComponent,
-    DiagramComponent,
+    ...fromContainers.components,
   ],
   imports: [
     CommonModule,
-    ProcessesRoutingModule,
-    AngularMaterial,
     ReactiveFormsModule,
     
+    ProcessesRoutingModule,
     SharedModule,
-
   ],
   exports: [
-    DetailComponent,
+    ...fromContainers.components,
   ]
 })
 export class ProcessesModule { }

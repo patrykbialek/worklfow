@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { ProcessesStoreService } from '../../store/processes-store.service';
 import { tap } from 'rxjs/operators';
-import { CommonWithAnimationComponent } from 'src/app/shared/common-with-animation.component';
+import { CommonWithAnimationComponent } from 'src/app/shared/components/common-with-animation.component';
 
 @Component({
   selector: 'app-process',

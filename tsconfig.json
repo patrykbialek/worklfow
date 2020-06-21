@@ -17,7 +17,14 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@authentication/*": ["src/app/authentication/*"],
+      "@dashboard/*": ["src/app/dashboard/*"],
+      "@processes/*": ["src/app/processes/*"],
+      "@shared/*": ["src/app/shared/*"],
+      "@tasks/*": ["src/app/tasks/*"]
+    }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
