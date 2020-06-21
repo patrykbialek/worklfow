@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { AuthenticationComponent } from './containers/authentication.component';
 import * as fromContainers from '@authentication/containers';
+import * as fromSharedServices from '@shared/services';
 
 const routes: Routes = [
   {
@@ -17,6 +18,8 @@ const routes: Routes = [
       {
         path: 'login',
         component: fromContainers.LoginComponent,
+        data: { title: 'Witamy | work_smarter' },
+        resolve: { title: fromSharedServices.TitleResolverService },
       }
     ]
   },

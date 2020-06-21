@@ -8,6 +8,8 @@ import { CommonWithAnimationComponent } from 'src/app/shared/components/common-w
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent extends CommonWithAnimationComponent {
-  constructor() { super(); }
+  constructor() {
+    super();
+  }
 
 }
