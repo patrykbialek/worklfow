@@ -5,6 +5,7 @@ import * as fromModels from 'src/app/processes/models';
 import * as fromAuthService from '@authentication/services';
 import { ProcessesStoreService } from 'src/app/processes/store/processes-store.service';
 import { UsersHttpService } from '@shared/services';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-board',
@@ -25,6 +26,7 @@ export class BoardComponent implements AfterViewInit, OnInit {
   constructor(
     private authService: fromAuthService.AuthService,
     private processesStore: ProcessesStoreService,
+    private snackBar: MatSnackBar,
     private userService: UsersHttpService,
   ) { }
 
@@ -63,5 +65,12 @@ export class BoardComponent implements AfterViewInit, OnInit {
       userId: this.userId
     };
     this.processesStore.updateTask(task.key, task);
+    this.openSnackBar('Dane zapisane.', 'Zamknij');
+  }
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 3000,
+    });
   }
 }

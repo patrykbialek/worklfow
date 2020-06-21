@@ -9,6 +9,7 @@ import { CommonWithAnimationComponent } from '@shared/components/common-with-ani
 
 import { ProcessesStoreService } from '../../store/processes-store.service';
 import * as fromSharedServices from '@shared/services';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-processes',
@@ -30,6 +31,7 @@ export class ProcessesComponent extends CommonWithAnimationComponent implements 
   constructor(
     public dialog: MatDialog,
     private processesStore: ProcessesStoreService,
+    private snackBar: MatSnackBar,
     private spinnerService: fromSharedServices.AppSpinnerService,
   ) {
     super();
@@ -52,7 +54,14 @@ export class ProcessesComponent extends CommonWithAnimationComponent implements 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.processesStore.createProcess(result);
+        this.openSnackBar('Dane zapisane.', 'Zamknij');
       }
+    });
+  }
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 3000,
     });
   }
 

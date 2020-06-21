@@ -8,6 +8,7 @@ import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import * as fromModels from 'src/app/processes/models';
 import { UsersHttpService } from '@shared/services';
 import { MatSelectChange } from '@angular/material/select';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-tasks',
@@ -36,6 +37,7 @@ export class TasksComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private processesStore: ProcessesStoreService,
+    private snackBar: MatSnackBar,
     private tasksHttpService: TasksHttpService,
     private userService: UsersHttpService,
   ) { }
@@ -79,11 +81,6 @@ export class TasksComponent implements OnInit {
 
   onToggleCompleted(task: fromModels.Task) {
     task.isCompleted = !task.isCompleted;
-    const section = task.section.key;
-    task = {
-      ...task,
-      section,
-    };
     this.updateTask(task);
   }
 
@@ -111,6 +108,8 @@ export class TasksComponent implements OnInit {
       let task = this.selectedTask;
       task.description = this.description.value;
       this.updateTask(task);
+      this.selectedTask = null;
+      this.isDrawerOpen = false;
     }
   }
 
@@ -121,13 +120,18 @@ export class TasksComponent implements OnInit {
       section,
     };
     this.processesStore.updateTask(task.key, task);
-    this.selectedTask = null;
-    this.isDrawerOpen = false;
+    this.openSnackBar('Dane zapisane.', 'Zamknij');
   }
 
   addEvent(event: MatDatepickerInputEvent<Date>) {
     let task = this.selectedTask;
     task.endDate = event.value.toISOString();
     this.updateTask(task);
+  }
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 3000,
+    });
   }
 }
