@@ -1,7 +1,7 @@
-import { TasksComponent } from './tasks/tasks.component';
+import { TaskListComponent } from './task-list/task-list.component';
 
 export const components = [
-  TasksComponent,
+  TaskListComponent,
 ];
 
-export { TasksComponent };
+export { TaskListComponent };

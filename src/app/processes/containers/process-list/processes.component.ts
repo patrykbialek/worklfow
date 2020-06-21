@@ -2,14 +2,13 @@ import { Component, OnInit, } from '@angular/core';
 
 import { MatDialog } from '@angular/material/dialog';
 
-import { DetailComponent } from './process/detail/detail.component';
-
-import { ProcessesStoreService } from '../store/processes-store.service';
 import { tap, filter, } from 'rxjs/operators';
 
-import { CommonWithAnimationComponent } from 'src/app/shared/components/common-with-animation.component';
+import { DetailComponent } from '../process-detail/detail/detail.component';
+import { CommonWithAnimationComponent } from '@shared/components/common-with-animation.component';
 
-import * as fromSharedServices from '../../shared/services';
+import { ProcessesStoreService } from '../../store/processes-store.service';
+import * as fromSharedServices from '@shared/services';
 
 @Component({
   selector: 'app-processes',

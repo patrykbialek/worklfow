@@ -6,11 +6,9 @@ import { AuthenticationRoutingModule } from './authentication-routing.module';
 import { SharedModule } from '@shared/shared.module';
 
 import * as fromContainers from './containers';
-import { AuthenticationComponent } from './authentication.component';
 
 @NgModule({
   declarations: [
-    AuthenticationComponent,
     ...fromContainers.components,
   ],
   imports: [
