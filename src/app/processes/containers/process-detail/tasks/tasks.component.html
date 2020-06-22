@@ -195,12 +195,12 @@
         </header>
         <form [formGroup]="taskForm" class="u-text-normal" *ngIf="taskForm" (ngSubmit)="onSaveTaskDetail()">
           <div class="o-grid">
-            <div class="o-grid__cell u-1/2">
+            <div class="o-grid__cell u-1/2" *ngIf="users$ | async as users">
               <mat-form-field appearance="outline" style="width: 100%;">
                 <mat-label>Osoba przypisana</mat-label>
                 <mat-select
                   formControlName="assignee"
-                  (selectionChange)="onChangeAssignee($event)"
+                  (selectionChange)="onChangeAssignee()"
                   [attr.data-name]="'assignee'">
                   <mat-option [value]="null">
                     {{ 'Nieprzypisane' }}
@@ -219,7 +219,7 @@
                 <input matInput
                   [matDatepicker]="picker"
                   formControlName="endDate"
-                  (dateInput)="addEvent($event)">
+                  (dateInput)="onChangeEndDate($event)">
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
               </mat-form-field>
