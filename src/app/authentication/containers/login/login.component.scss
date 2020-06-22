@@ -38,7 +38,7 @@
     box-shadow: 0 0.75vw 1.5vw 0 rgba(6, 0, 35, 0.05) !important;
     transition: transform 250ms ease-in-out;
     transform: translate(100%, 0);
-    animation: slide 450ms 550ms ease-in-out both;
+    animation: slide 450ms 500ms ease-in-out both;
 
     position: absolute;
     top: 0;
@@ -56,8 +56,7 @@
 
     transition: transform 250ms ease-in-out;
     transform: translate(100%, 0);
-    animation: slide 450ms 550ms ease-in-out both;
-  
+    animation: slide 450ms 600ms ease-in-out both;
   }
 
   .c-login-button,
