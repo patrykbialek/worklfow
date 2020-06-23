@@ -15,9 +15,10 @@ export class DiagramHttpService {
   ) { }
 
   loadDiagram(url: string, bpmnJS: any) {
+    const _url = 'assets/diagrams/ER0020_Formal_Verification.bpmn';
     return (
       this.http
-        .get(url, { responseType: 'text' })
+        .get(_url, { responseType: 'text' })
         .pipe(
           catchError(err => throwError(err)),
           importDiagram(bpmnJS)

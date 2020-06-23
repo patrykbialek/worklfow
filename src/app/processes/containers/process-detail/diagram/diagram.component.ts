@@ -45,13 +45,13 @@ export class DiagramComponent implements AfterContentInit, AfterViewInit, OnInit
         this.bpmnJS.get('canvas').zoom('fit-viewport');
         const overlays = this.bpmnJS.get('overlays');
 
-        overlays.add('sid-52EB1772-F36E-433E-8F5B-D5DFD26E6F26', 'note', {
-          position: {
-            bottom: 48,
-            right: 48
-          },
-          html: '<div class="diagram-note">Mixed up the labels?</div>'
-        });
+        // overlays.add('sid-52EB1772-F36E-433E-8F5B-D5DFD26E6F26', 'note', {
+        //   position: {
+        //     bottom: 48,
+        //     right: 48
+        //   },
+        //   html: '<div class="diagram-note">Mixed up the labels?</div>'
+        // });
       }
     });
   }
