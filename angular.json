@@ -32,6 +32,7 @@
               "src/assets/styles/main.scss"
             ],
             "scripts": [
+              "src/assets/vendors/loader.js"
             ]
           },
           "configurations": {

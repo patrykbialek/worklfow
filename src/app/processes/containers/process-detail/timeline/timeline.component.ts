@@ -18,6 +18,7 @@ export class TimelineComponent implements AfterViewInit, OnInit {
   }
 
   ngOnInit() {
+
   }
 
 
