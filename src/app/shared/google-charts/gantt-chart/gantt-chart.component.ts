@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterContentInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterContentInit, AfterViewInit, Input } from '@angular/core';
 import { GoogleChartService } from '../service/google-chart.service';
 
 function daysToMilliseconds(days) {
@@ -14,6 +14,7 @@ export class GanttChartComponent implements AfterViewInit {
 
   private gLib: any;
 
+  @Input() rows;
   @ViewChild('ganttChart') ganttChartHTML: ElementRef;
 
   constructor(
@@ -27,16 +28,6 @@ export class GanttChartComponent implements AfterViewInit {
   }
 
   drawChart() {
-    const rows = [
-      ['t1', 'Zadanie 1', 'Zakupy', new Date(2020, 5, 15), null, daysToMilliseconds(2), 75, null],
-      ['t2', 'Zadanie 2', 'Zakupy', null, null, daysToMilliseconds(1), 6, 't1'],
-      ['t3', 'Zadanie 3', 'Księgowość', null, null, daysToMilliseconds(2), 0, 't2'],
-      ['t4', 'Zadanie 4', 'Zakupy', null, null, daysToMilliseconds(2), 0, 't3'],
-      ['t5', 'Zadanie 5', 'Kadry', null, null, daysToMilliseconds(2), 0, null],
-      ['t6', 'Zadanie 6', 'Księgowość', null, null, daysToMilliseconds(3), 0, null],
-      ['t7', 'Zadanie 7', 'Księgowość', new Date(2020, 5, 15), null, daysToMilliseconds(1), 0, null],
-    ];
-
     let chart = new this.gLib.visualization.Gantt(this.ganttChartHTML.nativeElement);
     let data = new this.gLib.visualization.DataTable();
 
@@ -49,10 +40,10 @@ export class GanttChartComponent implements AfterViewInit {
     data.addColumn('number', 'Percent Complete');
     data.addColumn('string', 'Dependencies');
 
-    data.addRows(rows);
+    data.addRows(this.rows);
 
     let options = {
-      height: (rows.length * 50),
+      height: (this.rows.length * 50),
       legend: 'left',
       gantt: {
         criticalPathEnabled: true, // Critical path arrows will be the same as other arrows.
