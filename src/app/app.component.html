@@ -1,37 +1,39 @@
-<ng-container *ngIf="user$ | async as user">
-  <mat-toolbar color="default" class="c-app-header u-margin-bottom-large" style='z-index: 10;'>
-    <mat-toolbar-row>
-      <a class="u-margin-right-huge" [routerLink]="['/dashboard']">
-        <img src="../assets/images/logo.svg" alt="logo" style="height: 40px;">
-      </a>
-      <span style="flex-grow: 1;"></span>
-      <button class="u-margin-left-tiny" mat-button [routerLink]="['dashboard']" routerLinkActive="u-router-link-active">
-        <mat-icon class="u-margin-right-tiny">dashboard</mat-icon>Dashboard</button>
-      <button class="u-margin-left-tiny" mat-button [routerLink]="['processes']" routerLinkActive="u-router-link-active">
-        <mat-icon class="u-margin-right-tiny">timeline</mat-icon>Moje procesy</button>
-      <button class="u-margin-left-tiny" mat-button [routerLink]="['tasks']" routerLinkActive="u-router-link-active">
-        <mat-icon class="u-margin-right-tiny">rule</mat-icon>Moje zadania</button>
-      <div class="u-border-left u-margin-left-tiny" style="width:1px">&nbsp;</div>
-      <button class="u-margin-left-tiny" mat-button color="primary" [matMenuTriggerFor]="userMenu" >
-        <mat-icon style="margin-right: 16px;" >account_circle</mat-icon>
-        {{ user.email }}
-      </button>
-      <mat-menu #userMenu="matMenu">
-        <button mat-menu-item>
-          <mat-icon>tune</mat-icon>
-          <span>Ustawienia profilu</span>
+<nav class="c-app-header">
+  <ng-container *ngIf="user$ | async as user">
+    <mat-toolbar color="default" class="c-app-header__toolbar">
+      <mat-toolbar-row>
+        <a class="u-margin-right-huge" [routerLink]="['/dashboard']">
+          <img src="../assets/images/logo.svg" alt="logo" style="height: 40px;">
+        </a>
+        <span style="flex-grow: 1;"></span>
+        <button class="u-margin-left-tiny" mat-button [routerLink]="['dashboard']" routerLinkActive="u-router-link-active">
+          <mat-icon class="u-margin-right-tiny">dashboard</mat-icon>Dashboard</button>
+        <button class="u-margin-left-tiny" mat-button [routerLink]="['processes']" routerLinkActive="u-router-link-active">
+          <mat-icon class="u-margin-right-tiny">timeline</mat-icon>Moje procesy</button>
+        <button class="u-margin-left-tiny" mat-button [routerLink]="['tasks']" routerLinkActive="u-router-link-active">
+          <mat-icon class="u-margin-right-tiny">rule</mat-icon>Moje zadania</button>
+        <div class="u-border-left u-margin-left-tiny" style="width:1px">&nbsp;</div>
+        <button class="u-margin-left-tiny" mat-button color="primary" [matMenuTriggerFor]="userMenu" >
+          <mat-icon style="margin-right: 16px;" >account_circle</mat-icon>
+          {{ user.email }}
         </button>
-        <mat-divider></mat-divider>
-        <button mat-menu-item (click)="onLogout()">
-          <mat-icon>lock</mat-icon>
-          <span>Wyloguj</span>
-        </button>
-      </mat-menu>
-    </mat-toolbar-row>
-  </mat-toolbar>
-</ng-container>
+        <mat-menu #userMenu="matMenu">
+          <button mat-menu-item>
+            <mat-icon>tune</mat-icon>
+            <span>Ustawienia profilu</span>
+          </button>
+          <mat-divider></mat-divider>
+          <button mat-menu-item (click)="onLogout()">
+            <mat-icon>lock</mat-icon>
+            <span>Wyloguj</span>
+          </button>
+        </mat-menu>
+      </mat-toolbar-row>
+    </mat-toolbar>
+  </ng-container>
+</nav>
 
-<main>
+<main class="c-body">
   <router-outlet ></router-outlet>
 </main>
 <!-- 
