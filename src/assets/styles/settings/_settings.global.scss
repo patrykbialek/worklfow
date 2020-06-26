@@ -136,15 +136,17 @@ $mq-breakpoints: (
 }
 
 .c-section-header {
+  position: fixed;
+  top: 72px;
+  left: 0;
   width: 100%;
-  display: flex;
-  align-items: center;
-  height: 96px;
+  background-color: #fafafa;
+  z-index: 10;
 
   &__title {
     display: flex;
     align-items: center;
-    min-height: 54px;
+    height: 96px;
     width: 100%;
   }
   &__caption {
@@ -154,4 +156,11 @@ $mq-breakpoints: (
   &__actions-right {
     flex-grow: 1;
   }
+}
+
+.c-section-content {
+  position: absolute;
+  top: 96px;
+  left: 0;
+  width: 100%;
 }
