@@ -2,90 +2,96 @@
 
   <section class="c-board">
 
-    <ng-container *ngFor="let item of processSections">
-      <div class="c-board__column">
+    <div cdkDropListGroup *ngFor="processBoards$ | async as boards">
+      <div class="c-board__column" *ngFor="let item of boards">
         <header class="u-margin-bottom">
-          <h6>{{ item.name }}</h6>
+          <h6>{{ item.column.name }}</h6>
         </header>
 
-        <ng-container *ngFor="let task of item.tasks">
-          <mat-card class="u-margin-bottom"
-            [ngClass]="{ 'u-is-completed': task.isCompleted}">
-            <mat-card-header>
-              <mat-card-title class="c-card-title">
-                <div class="c-card-title__caption u-margin-right-small">
-                  <span>{{ task.name }}</span>
-                </div>
-                <div class="c-card-title__actions">
-                  <button mat-icon-button [matMenuTriggerFor]="menu">
-                    <mat-icon>more_vert</mat-icon>
+        <div
+          dkDropList
+          id="{{ item.column.key }}"
+          [cdkDropListData]="item.tasks"
+          (cdkDropListDropped)="drop($event, item.column)">
+
+          <div *ngFor="let task of item.tasks" cdkDrag>
+            <mat-card class="u-margin-bottom"
+              [ngClass]="{ 'u-is-completed': task.isCompleted}">
+              <mat-card-header>
+                <mat-card-title class="c-card-title">
+                  <div class="c-card-title__caption u-margin-right-small">
+                    <span>{{ task.name }}</span>
+                  </div>
+                  <div class="c-card-title__actions">
+                    <button mat-icon-button [matMenuTriggerFor]="menu">
+                      <mat-icon>more_vert</mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu">
+                      <button mat-menu-item *ngIf="!task.isCompleted" (click)="onChangeIsCompleted({ task: task, isCompleted: true })">
+                        <mat-icon>check_circle_outline</mat-icon>
+                        Jest wykonane
+                      </button>
+                      <button mat-menu-item *ngIf="task.isCompleted" (click)="onChangeIsCompleted({ task: task, isCompleted: false })">
+                        <mat-icon>block</mat-icon>
+                        Jest niewykonane
+                      </button>
+                    </mat-menu>
+                  </div>
+                </mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+              </mat-card-content>
+              <mat-card-footer>
+                <div class="c-task-assignee u-margin-bottom-small"
+                  [ngClass]="{ 'u-no-assignee': !task.assignee }">
+                  <button mat-button [matMenuTriggerFor]="assigneeMenu">
+                    <mat-icon class="u-margin-right-tiny">account_circle</mat-icon>
+                    {{ task.assignee?.name || 'Nieprzypisane' }}
                   </button>
-                  <mat-menu #menu="matMenu">
-                    <button mat-menu-item *ngIf="!task.isCompleted" (click)="onChangeIsCompleted({ task: task, isCompleted: true })">
-                      <mat-icon>check_circle_outline</mat-icon>
-                      Jest wykonane
+                  <mat-menu #assigneeMenu="matMenu">
+                    <button mat-menu-item (click)="onChangeAssignee({ task: task, user: '' })">
+                      <mat-icon>account_circle</mat-icon>
+                      Nieprzypisane
                     </button>
-                    <button mat-menu-item *ngIf="task.isCompleted" (click)="onChangeIsCompleted({ task: task, isCompleted: false })">
-                      <mat-icon>block</mat-icon>
-                      Jest niewykonane
-                    </button>
+                    <mat-divider></mat-divider>
+                    <ng-container *ngFor="let user of users$ | async">
+                      <button mat-menu-item (click)="onChangeAssignee({ task: task, user: user })">
+                        <mat-icon>account_circle</mat-icon>
+                        {{ user.name }}
+                      </button>
+                    </ng-container>
                   </mat-menu>
                 </div>
-              </mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-
-            </mat-card-content>
-            <mat-card-footer>
-              <div class="c-task-assignee u-margin-bottom-small"
-                [ngClass]="{ 'u-no-assignee': !task.assignee }">
-                <button mat-button [matMenuTriggerFor]="assigneeMenu">
-                  <mat-icon class="u-margin-right-tiny">account_circle</mat-icon>
-                  {{ task.assignee?.name || 'Nieprzypisane' }}
-                </button>
-                <mat-menu #assigneeMenu="matMenu">
-                  <button mat-menu-item (click)="onChangeAssignee({ task: task, user: '' })">
-                    <mat-icon>account_circle</mat-icon>
-                    Nieprzypisane
+                <div class="c-task-enddate"
+                  [ngClass]="{ 'u-no-enddate': !task.endDate }">
+                  <button mat-button (click)="picker1.open()">
+                    <mat-icon class="u-margin-right-tiny">event</mat-icon>
+                    {{ (task.startDate | date:'dd/MM/yyyy') || 'Brak terminu' }}
                   </button>
-                  <mat-divider></mat-divider>
-                  <ng-container *ngFor="let user of users$ | async">
-                    <button mat-menu-item (click)="onChangeAssignee({ task: task, user: user })">
-                      <mat-icon>account_circle</mat-icon>
-                      {{ user.name }}
-                    </button>
-                  </ng-container>
-                </mat-menu>
-              </div>
-              <div class="c-task-enddate"
-                [ngClass]="{ 'u-no-enddate': !task.endDate }">
-                <button mat-button (click)="picker1.open()">
-                  <mat-icon class="u-margin-right-tiny">event</mat-icon>
-                  {{ (task.startDate | date:'dd/MM/yyyy') || 'Brak terminu' }}
-                </button>
-                <mat-form-field class="u-hidden-datepicker">
-                  <input matInput [matDatepicker]="picker1"
-                    (dateInput)="addEventStartDate($event, task)">
-                  <mat-datepicker #picker1></mat-datepicker>
-                </mat-form-field>
-              </div>
-              <div class="c-task-enddate"
-                [ngClass]="{ 'u-no-enddate': !task.endDate }">
-                <button mat-button (click)="picker2.open()">
-                  <mat-icon class="u-margin-right-tiny">event</mat-icon>
-                  {{ (task.endDate | date:'dd/MM/yyyy') || 'Brak terminu' }}
-                </button>
-                <mat-form-field class="u-hidden-datepicker">
-                  <input matInput [matDatepicker]="picker2"
-                    (dateInput)="addEventEndDate($event, task)">
-                  <mat-datepicker #picker2></mat-datepicker>
-                </mat-form-field>
-              </div>
-            </mat-card-footer>
-          </mat-card>
-        </ng-container>
+                  <mat-form-field class="u-hidden-datepicker">
+                    <input matInput [matDatepicker]="picker1"
+                      (dateInput)="addEventStartDate($event, task)">
+                    <mat-datepicker #picker1></mat-datepicker>
+                  </mat-form-field>
+                </div>
+                <div class="c-task-enddate"
+                  [ngClass]="{ 'u-no-enddate': !task.endDate }">
+                  <button mat-button (click)="picker2.open()">
+                    <mat-icon class="u-margin-right-tiny">event</mat-icon>
+                    {{ (task.endDate | date:'dd/MM/yyyy') || 'Brak terminu' }}
+                  </button>
+                  <mat-form-field class="u-hidden-datepicker">
+                    <input matInput [matDatepicker]="picker2"
+                      (dateInput)="addEventEndDate($event, task)">
+                    <mat-datepicker #picker2></mat-datepicker>
+                  </mat-form-field>
+                </div>
+              </mat-card-footer>
+            </mat-card>
+          </div>
+        </div>
       </div>
-    </ng-container>
+    </div>
 
   </section>
 
@@ -93,28 +99,100 @@
 
 <main class="c-main u-padding-top" #main>
 
-  <div class="board">
-    <div class="board-wrapper">
+  <div class="c-board">
 
-      <div class="board-columns" cdkDropListGroup *ngIf="processBoards$ | async as boards">
-        <div class="board-column" *ngFor="let item of boards">
+    <div class="c-board__columns" cdkDropListGroup *ngIf="processBoards$ | async as boards">
+      
+      <div class="c-board__column" *ngFor="let item of boards">
+        <header class="u-margin-bottom">
+          <h6>{{ item.column.name }}</h6>
+        </header>
 
-          <div class="column-title">
-            {{ item.column.name }}
-          </div>
-
-          <div class="tasks-container"
+        <div class="c-board__tasks-container"
+          cdk-scrollable
+          [ngClass]="{ 'c-board__tasks-container--empty': item.tasks.length === 0 }"
           cdkDropList
           id="{{ item.column.key }}"
           [cdkDropListData]="item.tasks"
           (cdkDropListDropped)="drop($event, item.column)">
-          <div class="task" *ngFor="let task of item.tasks" id="{{ task.key }}"
-              cdkDrag>
-              {{ task.name }}
-            </div>
+
+          <div class="c-board__task" *ngFor="let task of item.tasks" id="{{ task.key }}"
+            cdkDrag>
+            <mat-card class="u-margin-bottom"
+              [ngClass]="{ 'u-is-completed': task.isCompleted}">
+              <mat-card-header>
+                <mat-card-title class="c-card-title">
+                  <div class="c-card-title__caption u-margin-right-small">
+                    <span>{{ task.name }}</span>
+                  </div>
+                  <div class="c-card-title__actions">
+                    <button mat-icon-button [matMenuTriggerFor]="menu">
+                      <mat-icon>more_vert</mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu" xPosition="before">
+                      <button mat-menu-item *ngIf="!task.isCompleted" (click)="onChangeIsCompleted({ task: task, isCompleted: true })">
+                        <mat-icon>check_circle_outline</mat-icon>
+                        Jest wykonane
+                      </button>
+                      <button mat-menu-item *ngIf="task.isCompleted" (click)="onChangeIsCompleted({ task: task, isCompleted: false })">
+                        <mat-icon>block</mat-icon>
+                        Jest niewykonane
+                      </button>
+                    </mat-menu>
+                  </div>
+                </mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+              </mat-card-content>
+              <mat-card-footer>
+                <div class="c-task-assignee u-margin-bottom-small"
+                  [ngClass]="{ 'u-no-assignee': !task.assignee }">
+                  <button mat-button [matMenuTriggerFor]="assigneeMenu">
+                    <mat-icon class="u-margin-right-tiny">account_circle</mat-icon>
+                    {{ task.assignee?.name || 'Nieprzypisane' }}
+                  </button>
+                  <mat-menu #assigneeMenu="matMenu">
+                    <button mat-menu-item (click)="onChangeAssignee({ task: task, user: '' })">
+                      <mat-icon>account_circle</mat-icon>
+                      Nieprzypisane
+                    </button>
+                    <mat-divider></mat-divider>
+                    <ng-container *ngFor="let user of users$ | async">
+                      <button mat-menu-item (click)="onChangeAssignee({ task: task, user: user })">
+                        <mat-icon>account_circle</mat-icon>
+                        {{ user.name }}
+                      </button>
+                    </ng-container>
+                  </mat-menu>
+                </div>
+                <div class="c-task-enddate"
+                  [ngClass]="{ 'u-no-enddate': !task.endDate }">
+                  <button mat-button (click)="picker1.open()">
+                    <mat-icon class="u-margin-right-tiny">event</mat-icon>
+                    {{ (task.startDate | date:'dd/MM/yyyy') || 'Brak terminu' }}
+                  </button>
+                  <mat-form-field class="u-hidden-datepicker">
+                    <input matInput [matDatepicker]="picker1"
+                      (dateInput)="addEventStartDate($event, task)">
+                    <mat-datepicker #picker1></mat-datepicker>
+                  </mat-form-field>
+                </div>
+                <div class="c-task-enddate"
+                  [ngClass]="{ 'u-no-enddate': !task.endDate }">
+                  <button mat-button (click)="picker2.open()">
+                    <mat-icon class="u-margin-right-tiny">event</mat-icon>
+                    {{ (task.endDate | date:'dd/MM/yyyy') || 'Brak terminu' }}
+                  </button>
+                  <mat-form-field class="u-hidden-datepicker">
+                    <input matInput [matDatepicker]="picker2"
+                      (dateInput)="addEventEndDate($event, task)">
+                    <mat-datepicker #picker2></mat-datepicker>
+                  </mat-form-field>
+                </div>
+              </mat-card-footer>
+            </mat-card>
           </div>
         </div>
-
       </div>
 
     </div>
