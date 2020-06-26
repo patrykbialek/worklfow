@@ -29,6 +29,7 @@ export class ProcessesHttpService {
     tasks.forEach((task: any) => {
       const today = new Date();
       const newTask = {
+        board: task.board,
         created: today.toISOString(),
         isCompleted: false,
         name: task.name,

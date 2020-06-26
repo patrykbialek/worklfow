@@ -4,6 +4,7 @@ import { tap, map, filter } from 'rxjs/operators';
 
 import { ProcessesHttpService } from '../services/processes-http.service';
 import * as fromModels from '../models';
+import { BoardsHttpService } from '@processes/services/boards-http.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,9 @@ export class ProcessesStoreService {
 
   private processSubject = new BehaviorSubject(null);
   process$ = this.processSubject.asObservable();
+
+  private processBoardsSubject = new BehaviorSubject([]);
+  processBoards$ = this.processBoardsSubject.asObservable();
 
   private processSectionsSubject = new BehaviorSubject([]);
   processSections$ = this.processSectionsSubject.asObservable();
@@ -25,9 +29,19 @@ export class ProcessesStoreService {
   private tasksSubject = new BehaviorSubject([]);
   tasks$ = this.tasksSubject.asObservable();
 
+  boards = [];
+
   constructor(
+    private boardHttpService: BoardsHttpService,
     private processesHttpService: ProcessesHttpService,
   ) { }
+
+  setBoards() {
+    this.boardHttpService
+      .getBoards()
+      .pipe(
+      ).subscribe(boards => this.boards = boards);
+  }
 
   setProcess(id: string) {
     this.processesHttpService
@@ -44,6 +58,36 @@ export class ProcessesStoreService {
 
   getTaskTemplates() {
     return this.processesHttpService.getTaskTemplates();
+  }
+
+  getTasksByBoard() {
+    this.process$
+      .pipe(
+        filter(process => Boolean(process)),
+        tap(process => {
+          let boards = this.boards
+          boards = boards.map(board => {
+            return {
+              column: {
+                name: board.name,
+                key: board.key,
+                order: board.order,
+              },
+              tasks: [],
+            }
+          });
+
+          process.tasks.forEach(task => {
+            boards.forEach(board => {
+              if (board.column.name === task.board.name) {
+                board.tasks.push(task);
+              }
+            });
+          });
+
+          this.processBoardsSubject.next(boards);
+        }),
+      ).subscribe();
   }
 
   getTasksBySection() {

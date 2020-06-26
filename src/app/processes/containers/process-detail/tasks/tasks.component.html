@@ -224,6 +224,20 @@
                 <mat-datepicker #picker></mat-datepicker>
               </mat-form-field>
             </div>
+
+            <div class="o-grid__cell u-1/2" *ngIf="boards$ | async as boards">
+              <mat-form-field appearance="outline" style="width: 100%;">
+                <mat-label>Tablica</mat-label>
+                <mat-select
+                  formControlName="board"
+                  (selectionChange)="onChangeBoard()"
+                  [attr.data-name]="'board'">
+                  <mat-option *ngFor="let board of boards" [value]="board">
+                    {{ board.name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
   
             <!-- <div class="o-grid__cell u-1/1">
               <mat-form-field appearance="outline" style="width: 100%;">

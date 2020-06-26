@@ -1,4 +1,4 @@
-<main class="c-main u-padding-top" *ngIf="processSections$ | async as processSections" #main>
+<!-- <main class="c-main u-padding-top" *ngIf="processSections$ | async as processSections" #main>
 
   <section class="c-board">
 
@@ -88,5 +88,37 @@
     </ng-container>
 
   </section>
+
+</main> -->
+
+<main class="c-main u-padding-top" #main>
+
+  <div class="board">
+    <div class="board-wrapper">
+
+      <div class="board-columns" cdkDropListGroup *ngIf="processBoards$ | async as boards">
+        <div class="board-column" *ngFor="let item of boards">
+
+          <div class="column-title">
+            {{ item.column.name }}
+          </div>
+
+          <div class="tasks-container"
+          cdkDropList
+          id="{{ item.column.key }}"
+          [cdkDropListData]="item.tasks"
+          (cdkDropListDropped)="drop($event, item.column)">
+          <div class="task" *ngFor="let task of item.tasks" id="{{ task.key }}"
+              cdkDrag>
+              {{ task.name }}
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
 
 </main>

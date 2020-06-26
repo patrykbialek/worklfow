@@ -7,6 +7,12 @@ import { ProcessesStoreService } from 'src/app/processes/store/processes-store.s
 import { UsersHttpService } from '@shared/services';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
+import { CdkDragDrop, moveItemInArray, transferArrayItem, CdkDragEnd, CdkDragMove } from '@angular/cdk/drag-drop';
+import { tap } from 'rxjs/operators';
+
+import { BoardsHttpService } from '@processes/services/boards-http.service';
+import { Task } from 'src/app/processes/models';
+
 @Component({
   selector: 'app-board',
   templateUrl: './board.component.html',
@@ -17,14 +23,18 @@ export class BoardComponent implements AfterViewInit, OnInit {
   userId: string;
 
   tasks$ = this.processesStore.process$;
-  processSections$ = this.processesStore.processSections$
+  processSections$ = this.processesStore.processSections$;
+  processBoards$ = this.processesStore.processBoards$.pipe(tap(console.log))
 
   users$ = this.userService.users$;
+
+  // boards$ = this.boardsService.getBoards().pipe(tap(console.log));
 
   @ViewChild('main') mainHTML: ElementRef;
 
   constructor(
     private authService: fromAuthService.AuthService,
+    private boardsService: BoardsHttpService,
     private processesStore: ProcessesStoreService,
     private snackBar: MatSnackBar,
     private userService: UsersHttpService,
@@ -77,5 +87,26 @@ export class BoardComponent implements AfterViewInit, OnInit {
     this.snackBar.open(message, action, {
       duration: 3000,
     });
+  }
+
+  drop(event: CdkDragDrop<string[]>, column: any) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data,
+        event.previousIndex,
+        event.currentIndex);
+    } else {
+      transferArrayItem(event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex);
+
+      event.container.data.forEach((item: any) => {
+        const task = {
+          ...item,
+          board: column,
+        };
+        this.updateTask(task);
+      })
+    }
   }
 }

@@ -10,6 +10,7 @@ import * as fromModels from 'src/app/processes/models';
 import { UsersHttpService } from '@shared/services';
 import { MatSelectChange } from '@angular/material/select';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { BoardsHttpService } from '@processes/services/boards-http.service';
 
 @Component({
   selector: 'app-tasks',
@@ -27,6 +28,9 @@ export class TasksComponent implements OnInit {
 
   taskForm: FormGroup;
 
+  boards = [];
+  boards$ = this.boardsService.getBoards().pipe(tap(response => this.boards = response));
+
   allTasks$: Observable<fromModels.Task[]> = this.tasksHttpService.getAllTasks();
   processSections$: Observable<fromModels.Section[]> = this.processesStore.processSections$;
 
@@ -36,6 +40,7 @@ export class TasksComponent implements OnInit {
   @ViewChild('main') mainHTML: ElementRef;
 
   constructor(
+    private boardsService: BoardsHttpService,
     private formBuilder: FormBuilder,
     private processesStore: ProcessesStoreService,
     private snackBar: MatSnackBar,
@@ -55,12 +60,14 @@ export class TasksComponent implements OnInit {
   }
 
   get assignee() { return this.taskForm.get('assignee'); }
+  get board() { return this.taskForm.get('board'); }
   get description() { return this.taskForm.get('description'); }
 
   ngOnInit() {
     this.taskForm = this.formBuilder.group({
       name: [''],
       assignee: [''],
+      board: [''],
       endDate: [''],
       description: [''],
       processes: [null],
@@ -73,9 +80,15 @@ export class TasksComponent implements OnInit {
     this.updateTask(task);
   }
 
+  onChangeBoard() {
+    let task = this.selectedTask;
+    task.board = this.board.value;
+    this.updateTask(task);
+  }
+
   onChangeEndDate(event: MatDatepickerInputEvent<Date>) {
     let task = this.selectedTask;
-    task.endDate = event.value.toISOString();
+    task.endDate = event.value;
     this.updateTask(task);
   }
 
@@ -86,6 +99,9 @@ export class TasksComponent implements OnInit {
     if (this.selectedTask) {
       const assignee = task.assignee ? this.users.find(user => user.key === task.assignee.key) : null;
       this.taskForm.get('assignee').setValue(assignee);
+      
+      const board = task.board ? this.boards.find(board => board.key === task.board.key) : null;
+      this.taskForm.get('board').setValue(board);
 
       this.taskForm.get('name').setValue(this.selectedTask.name);
       this.taskForm.get('endDate').setValue(this.selectedTask.endDate);

@@ -1,14 +1,18 @@
 export interface Task {
   id: string;
-  assignee: string;
-  endDate: string;
-  startDate: string;
-  processes: string[];
-  priority: string;
+  assignee: any;
+  board: any;
   description: string;
+  // endDate: string;
+  endDate: Date;
   isCompleted: boolean;
-  subtasks: string[];
-  name: string;
-  section: string;
   key: string;
+  name: string;
+  priority: string;
+  processes: string[];
+  section: any;
+  startDate: Date;
+  subtasks: string[];
+  dependencies?: string;
+  userId?: string;
 }

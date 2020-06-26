@@ -1,11 +1,11 @@
 export interface Process {
   description: string;
-  endDate: string;
+  endDate: Date;
   id: string;
   key: string;
   name: string;
   owner: string;
-  startDate: string;
+  startDate: Date;
   team: string;
   tasks: any;
 }

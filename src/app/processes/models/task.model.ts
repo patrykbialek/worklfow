@@ -1,6 +1,7 @@
 export interface Task {
   id: string;
   assignee: any;
+  board: any;
   description: string;
   // endDate: string;
   endDate: Date;

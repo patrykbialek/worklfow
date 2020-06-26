@@ -5,6 +5,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import * as fromModels from '../../../../processes/models';
 import { ProcessesStoreService } from 'src/app/processes/store/processes-store.service';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-detail',
@@ -30,6 +31,7 @@ export class DetailComponent implements OnInit {
     this.processesStore.getProcessTemplates()
       .subscribe(response => this.processTemplates = response);
     this.processesStore.getTaskTemplates()
+      // .pipe(tap(console.log))
       .subscribe(response => this.taskTemplates = response);
 
     this.processForm = this.formBuilder.group({
@@ -54,6 +56,7 @@ export class DetailComponent implements OnInit {
     });
     templateTasks.forEach((task: any) => {
       tasks.push(this.formBuilder.group({
+        board: task.board,
         name: task.name,
         section: task.section,
       }))
@@ -65,9 +68,9 @@ export class DetailComponent implements OnInit {
   }
 
   onSave(): void {
-    const today = new Date().toISOString();
+    const today = new Date();
     const endDate = this.processForm.get('endDate').value;
-    this.processForm.get('endDate').setValue(endDate.toISOString());
+    this.processForm.get('endDate').setValue(endDate);
     this.processForm.get('startDate').setValue(today);
 
     this.newProcess = {

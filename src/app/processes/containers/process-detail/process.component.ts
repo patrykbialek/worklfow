@@ -49,6 +49,8 @@ export class ProcessComponent extends CommonWithAnimationComponent implements On
     private processesStore: ProcessesStoreService,
   ) {
     super();
+    this.processesStore.setBoards();
+    this.processesStore.getTasksByBoard();
     this.processesStore.getTasksBySection();
   }
 
