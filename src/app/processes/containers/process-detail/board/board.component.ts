@@ -52,8 +52,13 @@ export class BoardComponent implements AfterViewInit, OnInit {
     this.updateTask(request.task);
   }
 
-  addEvent(event: MatDatepickerInputEvent<Date>, task: fromModels.Task) {
-    task.endDate = event.value.toISOString();
+  addEventStartDate(event: MatDatepickerInputEvent<Date>, task: fromModels.Task) {
+    task.startDate = event.value; //.toISOString();
+    this.updateTask(task);
+  }
+
+  addEventEndDate(event: MatDatepickerInputEvent<Date>, task: fromModels.Task) {
+    task.endDate = event.value; //.toISOString();
     this.updateTask(task);
   }
 

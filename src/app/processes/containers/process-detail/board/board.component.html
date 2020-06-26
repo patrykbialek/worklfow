@@ -59,14 +59,26 @@
               </div>
               <div class="c-task-enddate"
                 [ngClass]="{ 'u-no-enddate': !task.endDate }">
-                <button mat-button (click)="picker.open()">
+                <button mat-button (click)="picker1.open()">
+                  <mat-icon class="u-margin-right-tiny">event</mat-icon>
+                  {{ (task.startDate | date:'dd/MM/yyyy') || 'Brak terminu' }}
+                </button>
+                <mat-form-field class="u-hidden-datepicker">
+                  <input matInput [matDatepicker]="picker1"
+                    (dateInput)="addEventStartDate($event, task)">
+                  <mat-datepicker #picker1></mat-datepicker>
+                </mat-form-field>
+              </div>
+              <div class="c-task-enddate"
+                [ngClass]="{ 'u-no-enddate': !task.endDate }">
+                <button mat-button (click)="picker2.open()">
                   <mat-icon class="u-margin-right-tiny">event</mat-icon>
                   {{ (task.endDate | date:'dd/MM/yyyy') || 'Brak terminu' }}
                 </button>
                 <mat-form-field class="u-hidden-datepicker">
-                  <input matInput [matDatepicker]="picker"
-                    (dateInput)="addEvent($event, task)">
-                  <mat-datepicker #picker></mat-datepicker>
+                  <input matInput [matDatepicker]="picker2"
+                    (dateInput)="addEventEndDate($event, task)">
+                  <mat-datepicker #picker2></mat-datepicker>
                 </mat-form-field>
               </div>
             </mat-card-footer>
