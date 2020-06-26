@@ -1,18 +1,20 @@
 <app-main-component *ngIf="processes$ | async as processes">
 
-  <header class="c-title u-margin-bottom">
-    <h4 class="c-title__caption u-margin-right-small">Moje procesy</h4>
-    <button mat-icon-button color="accent" matTooltip="Nowy proces" (click)="onCreateProcess()" tabindex="-1">
-      <mat-icon>playlist_add</mat-icon>
-    </button>
+  <div class="c-section-header">
+    <header class="c-section-header__title">
+      <h4 class="c-section-header__caption u-margin-right-small">Moje procesy</h4>
+      <button mat-icon-button color="accent" matTooltip="Nowy proces" (click)="onCreateProcess()" tabindex="-1">
+        <mat-icon>playlist_add</mat-icon>
+      </button>
 
-    <!-- <div class="c-title__actions-right o-block o-block--right">
+      <!-- <div class="c-title__actions-right o-block o-block--right">
       <a mat-button color="accent" (click)="onCreateProcess()">
         <mat-icon class="u-margin-right-tiny">playlist_add</mat-icon>
         Nowy process
       </a>
     </div> -->
-  </header>
+    </header>
+  </div>
 
   <mat-nav-list class="u-margin-bottom-large">
     <h3 matSubheader>Aktualne procesy</h3>
