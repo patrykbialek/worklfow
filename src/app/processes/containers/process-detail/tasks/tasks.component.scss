@@ -72,6 +72,7 @@ th, td {
 
   &__body {
     flex-grow: 1;
+    overflow: auto;
   }
 
   &.u-is-open {
