@@ -17,18 +17,19 @@
           </a>
         </div>
       </header>
-    </div>
-  </div>
-
-  <div class="c-section-content">
-    <div class="o-wrapper">
+      
       <nav mat-tab-nav-bar>
         <a mat-tab-link *ngFor="let link of navLinks" [routerLink]="link.link" routerLinkActive #rla="routerLinkActive"
           [active]="rla.isActive">
           {{link.label}}
         </a>
       </nav>
+    </div>
+  </div>
 
+
+  <div class="c-section-content">
+    <div class="o-wrapper">
       <router-outlet></router-outlet>
     </div>
   </div>
