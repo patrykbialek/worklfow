@@ -24,11 +24,8 @@ export class BoardComponent implements AfterViewInit, OnInit {
 
   tasks$ = this.processesStore.process$;
   processSections$ = this.processesStore.processSections$;
-  processBoards$ = this.processesStore.processBoards$.pipe(tap(console.log))
-
+  processBoards$ = this.processesStore.processBoards$;
   users$ = this.userService.users$;
-
-  // boards$ = this.boardsService.getBoards().pipe(tap(console.log));
 
   @ViewChild('main') mainHTML: ElementRef;
 
