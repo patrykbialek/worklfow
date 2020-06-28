@@ -193,7 +193,7 @@
         <header class="u-margin-bottom">
           <h4 class="u-font-weight-medium">{{ selectedTask?.name }}</h4>
         </header>
-        <form [formGroup]="taskForm" class="u-text-normal" *ngIf="taskForm" (ngSubmit)="onSaveTaskDetail()">
+        <form [formGroup]="taskForm" class="u-text-normal" *ngIf="taskForm">
           <div class="o-grid">
             <div class="o-grid__cell u-1/2" *ngIf="users$ | async as users">
               <mat-form-field appearance="outline" style="width: 100%;">
