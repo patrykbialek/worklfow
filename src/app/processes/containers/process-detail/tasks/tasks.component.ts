@@ -4,11 +4,10 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { ProcessesStoreService } from 'src/app/processes/store/processes-store.service';
 import { Observable } from 'rxjs';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
-import { tap } from 'rxjs/internal/operators';
+import { tap, distinctUntilChanged, debounceTime } from 'rxjs/internal/operators';
 
 import * as fromModels from 'src/app/processes/models';
 import { UsersHttpService } from '@shared/services';
-import { MatSelectChange } from '@angular/material/select';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BoardsHttpService } from '@processes/services/boards-http.service';
 
@@ -72,6 +71,8 @@ export class TasksComponent implements OnInit {
       description: [''],
       processes: [null],
     });
+
+    this.setListenerOnDescriptionChange();
   }
 
   onChangeAssignee() {
@@ -99,13 +100,13 @@ export class TasksComponent implements OnInit {
     if (this.selectedTask) {
       const assignee = task.assignee ? this.users.find(user => user.key === task.assignee.key) : null;
       this.taskForm.get('assignee').setValue(assignee);
-      
+
       const board = task.board ? this.boards.find(board => board.key === task.board.key) : null;
       this.taskForm.get('board').setValue(board);
 
       this.taskForm.get('name').setValue(this.selectedTask.name);
       this.taskForm.get('endDate').setValue(this.selectedTask.endDate);
-      this.taskForm.get('description').setValue(this.selectedTask.description);
+      this.taskForm.get('description').setValue(this.selectedTask.description, { emitEvent: false });
     }
   }
 
@@ -114,18 +115,25 @@ export class TasksComponent implements OnInit {
     this.isDrawerOpen = false;
   }
 
-  onSaveTaskDetail() {
-    if (this.taskForm.valid) {
-      let task = this.selectedTask;
-      task.description = this.description.value;
-      this.updateTask(task);
-      this.selectedTask = null;
-      this.isDrawerOpen = false;
-    }
-  }
+  // TODO: to be removed
+  // onSaveTaskDetail() {
+  //   if (this.taskForm.valid) {
+  //     let task = this.selectedTask;
+  //     task.description = this.description.value;
+  //     this.updateTask(task);
+  //     this.selectedTask = null;
+  //     this.isDrawerOpen = false;
+  //   }
+  // }
 
   onToggleCompleted(task: fromModels.Task) {
     task.isCompleted = !task.isCompleted;
+    this.updateTask(task);
+  }
+
+  updateDescription() {
+    let task = this.selectedTask;
+    task.description = this.description.value;
     this.updateTask(task);
   }
 
@@ -133,6 +141,15 @@ export class TasksComponent implements OnInit {
     this.snackBar.open(message, action, {
       duration: 3000,
     });
+  }
+
+  private setListenerOnDescriptionChange() {
+    this.description.valueChanges
+      .pipe(
+        debounceTime(500),
+        distinctUntilChanged(),
+        tap(() => this.updateDescription()),
+      ).subscribe();
   }
 
   private updateTask(task: any) {
