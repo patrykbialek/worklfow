@@ -3,12 +3,21 @@ import { CommonModule } from '@angular/common';
 
 import { ReactiveFormsModule } from '@angular/forms';
 
+import { FullCalendarModule } from '@fullcalendar/angular'; // the main connector. must go first
+import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin
+import interactionPlugin from '@fullcalendar/interaction'; // a plugin
+
 import { ProcessesRoutingModule } from './processes-routing.module';
 import { SharedModule } from '@shared/shared.module';
 
 import * as fromContainers from './containers';
 
 import { GoogleChartsModule } from '@shared/google-charts/google-charts.module';
+
+FullCalendarModule.registerPlugins([ // register FullCalendar plugins
+  dayGridPlugin,
+  interactionPlugin
+]);
 
 @NgModule({
   declarations: [
@@ -22,6 +31,9 @@ import { GoogleChartsModule } from '@shared/google-charts/google-charts.module';
     SharedModule,
 
     GoogleChartsModule,
+
+    FullCalendarModule, // register FullCalendar with you app
+
   ],
   providers: [
   ],
