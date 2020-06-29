@@ -1,16 +1,17 @@
-import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Renderer2, Inject, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import * as fromAuthServices from '@authentication/services';
 import * as fromSharedServices from '@shared/services';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnDestroy, OnInit {
 
   errorMessage: string;
   errorMessages = {
@@ -24,12 +25,18 @@ export class LoginComponent implements OnInit {
   @ViewChild('email') emailHTML: ElementRef;
 
   constructor(
+    @Inject(DOCUMENT) private document: Document,
+
     private authService: fromAuthServices.AuthService,
     private formBuilder: FormBuilder,
     private renderer: Renderer2,
     private router: Router,
     private spinnerService: fromSharedServices.AppSpinnerService,
   ) { }
+
+  ngOnDestroy() {
+    this.document.body.classList.remove('is-login-page');
+  }
 
   ngOnInit(): void {
     this.authService.logout();
@@ -46,6 +53,8 @@ export class LoginComponent implements OnInit {
     this.loginForm.valueChanges.subscribe(() => {
       if (this.errorMessage) { this.errorMessage = null; }
     });
+
+    this.document.body.classList.add('is-login-page');
   }
 
   // onImageLoad(evt) {

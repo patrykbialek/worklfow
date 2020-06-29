@@ -7,7 +7,7 @@
   position: relative;
   overflow: hidden;
 
-  background-color: #EAEAEC;
+  background-color: #eaeaec;
 
   &__image {
     // background-image: url("../../../assets/images/register_background.svg");
@@ -25,10 +25,10 @@
     transform: translate(30%, 0);
 
     opacity: 0;
-    
+
     animation: fadeIn 450ms 0ms ease-in both, moveLeft 450ms 450ms ease-in-out both;
   }
-  &__form {
+  &__form-container {
     background-color: #fafafa;
 
     display: flex;
@@ -48,16 +48,23 @@
     min-height: 512px;
     width: 600px;
 
-    padding: 0 24px;
+    flex: 1 1 auto;
+    overflow: auto;
+    min-height: 0px;
+    height: 100%;
 
-    form {
-      width: 320px;
-      flex-grow: 1;
-    }
+    padding: 0 24px;
 
     transition: transform 250ms ease-in-out;
     transform: translate(100%, 0);
     animation: slide 450ms 600ms ease-in-out both;
+  }
+
+  &__form {
+    width: 320px;
+    flex: 1 1 auto;
+    overflow: auto;
+    min-height: 0px;
   }
 
   .c-login-button,
@@ -68,11 +75,11 @@
   }
 
   .c-forgot-password-button {
-    color: #BA68C8;
+    color: #ba68c8;
     font-size: 1.4rem;
   }
 
-  footer {
+  &__footer {
     .c-footer-nav {
       list-style: none;
       display: flex;
@@ -81,15 +88,14 @@
       align-items: center;
 
       height: 56px;
-  
+
       margin: 0;
-  
+
       &__spacer {
-        color: #BA68C8;
+        color: #ba68c8;
         font-size: 24px;
-        margin: 0 8px
+        margin: 0 8px;
       }
-  
     }
   }
 }
