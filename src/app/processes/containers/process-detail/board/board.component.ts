@@ -13,6 +13,9 @@ import { tap } from 'rxjs/operators';
 import { BoardsHttpService } from '@processes/services/boards-http.service';
 import { Task } from 'src/app/processes/models';
 
+import * as moment from 'moment';
+import { workingHours } from '@shared/services/app-config';
+
 @Component({
   selector: 'app-board',
   templateUrl: './board.component.html',
@@ -60,12 +63,12 @@ export class BoardComponent implements AfterViewInit, OnInit {
   }
 
   addEventStartDate(event: MatDatepickerInputEvent<Date>, task: fromModels.Task) {
-    task.startDate = event.value; //.toISOString();
+    task.startDate = `${moment(event.value).format('YYYY-MM-DD')}T${workingHours.start}`;
     this.updateTask(task);
   }
 
   addEventEndDate(event: MatDatepickerInputEvent<Date>, task: fromModels.Task) {
-    task.endDate = event.value; //.toISOString();
+    task.endDate = `${moment(event.value).format('YYYY-MM-DD')}T${workingHours.end}`;
     this.updateTask(task);
   }
 

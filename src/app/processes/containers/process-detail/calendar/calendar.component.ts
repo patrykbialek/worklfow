@@ -12,6 +12,7 @@ import { ProcessesStoreService } from '@processes/store/processes-store.service'
 import { tap, map } from 'rxjs/internal/operators';
 import { Task } from '@processes/models';
 import { EventInput } from '@fullcalendar/angular';
+import { workingHours } from '@shared/services/app-config';
 
 @Component({
   selector: 'app-calendar',
@@ -37,7 +38,8 @@ export class CalendarComponent implements AfterViewInit, OnInit {
     eventClick: this.handleEventClick.bind(this),
     eventsSet: this.handleEvents.bind(this),
     plugins: [dayGridPlugin, interactionPlugin, timeGridPlugin],   // buttonIcons: {
-
+    timeZone: 'local',
+    nextDayThreshold: `${workingHours.start}`,
     /* you can update a remote database when these fire:
     eventAdd:
     eventChange:
@@ -58,7 +60,8 @@ export class CalendarComponent implements AfterViewInit, OnInit {
           title: task.name,
           start: task.startDate,
           end: task.endDate,
-          allDay: true,
+          // allDay: true,
+          // backgroundColor: '#424242',
         };
         events.push(event);
       });

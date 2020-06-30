@@ -4,14 +4,14 @@ export interface Task {
   board: any;
   description: string;
   // endDate: string;
-  endDate: Date;
+  endDate: Date | string;
   isCompleted: boolean;
   key: string;
   name: string;
   priority: string;
   processes: string[];
   section: any;
-  startDate: Date;
+  startDate: Date | string;
   subtasks: string[];
   dependencies?: string;
   userId?: string;
