@@ -1,0 +1,86 @@
+<aside class="c-mat-drawer u-is-open">
+  <section class="c-mat-drawer__content">
+    <div class="c-mat-drawer__header u-border-bottom">
+      <div class="c-mat-drawer__header-actions--left">
+        <button mat-stroked-button [color]="selectedTask?.isCompleted ? 'green' : 'gray'"
+          (click)="onToggleCompleted(selectedTask)" z-index="-1">
+          <mat-icon class="u-margin-right-tiny" [color]="selectedTask?.isCompleted ? 'green' : 'gray'">
+            check_circle_outline</mat-icon>
+          {{ selectedTask?.isCompleted ? 'Jest wykonane' : 'Jest niewykonane' }}
+        </button>
+      </div>
+      <div class="o-block o-block--right c-mat-drawer__header-actions--right">
+        <button mat-icon-button (click)="onNoClick()">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+    </div>
+    <div class="c-mat-drawer__body">
+      <header class="u-margin-bottom">
+        <h4 class="u-font-weight-medium">{{ selectedTask?.name }}</h4>
+      </header>
+      <form [formGroup]="taskForm" class="u-text-normal" *ngIf="taskForm">
+        <div class="o-grid">
+          <div class="o-grid__cell u-1/2" *ngIf="users$ | async as users">
+            <mat-form-field appearance="outline" style="width: 100%;">
+              <mat-label>Osoba przypisana</mat-label>
+              <mat-select formControlName="assignee" (selectionChange)="onChangeAssignee()"
+                [attr.data-name]="'assignee'">
+                <mat-option [value]="null">
+                  {{ 'Nieprzypisane' }}
+                </mat-option>
+                <mat-divider></mat-divider>
+                <mat-option *ngFor="let user of users" [value]="user">
+                  {{ user.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="o-grid__cell u-1/2">
+            <mat-form-field appearance="outline" style="width: 100%;">
+              <mat-label>Termin</mat-label>
+              <input matInput [matDatepicker]="picker" formControlName="endDate" (dateInput)="onChangeEndDate($event)">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </div>
+
+          <div class="o-grid__cell u-1/2" *ngIf="boards$ | async as boards">
+            <mat-form-field appearance="outline" style="width: 100%;">
+              <mat-label>Tablica</mat-label>
+              <mat-select formControlName="board" (selectionChange)="onChangeBoard()" [attr.data-name]="'board'">
+                <mat-option *ngFor="let board of boards" [value]="board">
+                  {{ board.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <!-- <div class="o-grid__cell u-1/1">
+          <mat-form-field appearance="outline" style="width: 100%;">
+            <mat-label>Procesy</mat-label>
+            <mat-select formControlName="processes" multiple>
+              <mat-option *ngFor="let process of processList" [value]="process">{{ process.name }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div> -->
+
+          <div class="o-grid__cell u-1/1">
+            <mat-form-field appearance="outline" style="width: 100%;">
+              <mat-label>Opis</mat-label>
+              <textarea matInput formControlName="description" rows="5"></textarea>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+      </form>
+    </div>
+    <div class="c-mat-drawer__footer u-border-top">
+      <div class="o-block o-block--right c-mat-drawer__footer-actions--right">
+        <button mat-button color="default" (click)="onNoClick()">Zamknij</button>
+      </div>
+    </div>
+  </section>
+</aside>

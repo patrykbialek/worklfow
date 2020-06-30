@@ -1,0 +1,69 @@
+
+table {
+  width: 100%;
+  table-layout: fixed;
+}
+
+th, td {
+  overflow: hidden;
+  width: 200px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mat-column-index {
+  width: 32px;
+}
+
+.c-header-cell,
+.c-row-cell {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  // padding-right: 8px;
+}
+
+.mat-button-base.mat-green,
+.mat-icon.mat-green {
+  color: #4CAF50;
+}
+
+.mat-icon.mat-gray {
+  color: #616161;
+}
+
+::ng-deep .u-is-completed {
+  &.mat-column-name {
+    text-decoration: line-through !important;
+  }
+}
+
+
+.u-is-selected {
+  background-color: whitesmoke;
+}
+
+.u-is-open {
+  .c-mat-drawer__content {
+    transition: opacity 250ms ease-in-out;
+    transition-delay: 250ms;
+    opacity: 1;
+  }
+}
+
+
+
+.u-text {
+  &-bold {
+    font-weight: 600;
+  }
+}
+
+
+::ng-deep .u-hidden-datepicker {
+  width: 1px;
+  visibility: hidden;
+  position: absolute !important;
+  z-index: -1;
+}

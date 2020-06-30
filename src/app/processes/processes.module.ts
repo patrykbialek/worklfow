@@ -13,6 +13,7 @@ import { SharedModule } from '@shared/shared.module';
 import * as fromContainers from './containers';
 
 import { GoogleChartsModule } from '@shared/google-charts/google-charts.module';
+import { TaskDetailDialogComponent } from './containers/process-detail/task-detail-dialog/task-detail-dialog.component';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -22,6 +23,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
 @NgModule({
   declarations: [
     ...fromContainers.components,
+    TaskDetailDialogComponent,
   ],
   imports: [
     CommonModule,

@@ -13,6 +13,8 @@ import { tap, map } from 'rxjs/internal/operators';
 import { Task } from '@processes/models';
 import { EventInput } from '@fullcalendar/angular';
 import { workingHours } from '@shared/services/app-config';
+import { TaskDetailDialogComponent } from '../task-detail-dialog/task-detail-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-calendar',
@@ -21,11 +23,12 @@ import { workingHours } from '@shared/services/app-config';
 })
 export class CalendarComponent implements AfterViewInit, OnInit {
 
+  tasks = [];
   calendarVisible = true;
   calendarOptions: CalendarOptions = {
     headerToolbar: {
       start: 'title', // will normally be on the left. if RTL, will be on the right
-      end: 'dayGridMonth,timeGridWeek,timeGridDay today prev,next' // will normally be on the right. if RTL, will be on the left
+      end: 'today prev,next' // will normally be on the right. if RTL, will be on the left
     },
     initialView: 'dayGridMonth',
     locale: plLocale,
@@ -35,11 +38,12 @@ export class CalendarComponent implements AfterViewInit, OnInit {
     // selectMirror: true,
     // dayMaxEvents: true,
     select: this.handleDateSelect.bind(this),
-    eventClick: this.handleEventClick.bind(this),
+    eventClick: this.openDialog.bind(this),
     eventsSet: this.handleEvents.bind(this),
     plugins: [dayGridPlugin, interactionPlugin, timeGridPlugin],   // buttonIcons: {
     timeZone: 'local',
     nextDayThreshold: `${workingHours.start}`,
+    stickyHeaderDates: true,
     /* you can update a remote database when these fire:
     eventAdd:
     eventChange:
@@ -53,6 +57,7 @@ export class CalendarComponent implements AfterViewInit, OnInit {
       map((response: any) => response.tasks),
     )
     .subscribe((tasks: Task[]) => {
+      this.tasks = tasks;
       const events: EventInput[] = [];
       tasks.forEach(task => {
         const event: EventInput = {
@@ -72,6 +77,7 @@ export class CalendarComponent implements AfterViewInit, OnInit {
   @ViewChild('main') mainHTML: ElementRef;
 
   constructor(
+    public dialog: MatDialog,
     private processesStore: ProcessesStoreService,
   ) { }
 
@@ -110,14 +116,27 @@ export class CalendarComponent implements AfterViewInit, OnInit {
     }
   }
 
-  handleEventClick(clickInfo: EventClickArg) {
-    if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
-      clickInfo.event.remove();
-    }
+  handleEventClick(event: EventClickArg) {
+    // code here
   }
 
   handleEvents(events: EventApi[]) {
     this.currentEvents = events;
+  }
+
+  openDialog(data: any): void {
+    const task = this.tasks.find(task => task.key === data.event.id);
+    const dialogRef = this.dialog.open(TaskDetailDialogComponent, {
+      width: '600px',
+      data: {
+        task
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      // console.log('The dialog was closed');
+      // this.animal = result;
+    });
   }
 
 }
