@@ -1,9 +1,9 @@
 <div mat-dialog-title class="u-border-bottom1 u-padding-bottom-small">
-  <button mat-stroked-button [color]="selectedTask?.isCompleted ? 'green' : 'gray'"
-    (click)="onToggleCompleted($event)" tabindex="-1">
-    <mat-icon class="u-margin-right-tiny" [color]="selectedTask?.isCompleted ? 'green' : 'gray'">
+  <button mat-stroked-button [color]="task?.isCompleted ? 'green' : 'gray'"
+    (click)="onToggleCompleted()" tabindex="-1">
+    <mat-icon class="u-margin-right-tiny" [color]="task?.isCompleted ? 'green' : 'gray'">
       check_circle_outline</mat-icon>
-    {{ selectedTask?.isCompleted ? 'Jest wykonane' : 'Jest niewykonane' }}
+    {{ task?.isCompleted ? 'Jest wykonane' : 'Jest niewykonane' }}
   </button>
   <div class="o-block o-block--right c-mat-drawer__header-actions--right">
     <button mat-icon-button (click)="onClose()" tabindex="-1">
@@ -13,7 +13,7 @@
 </div>
 <mat-dialog-content class="mat-typography">
   <header class="u-margin-bottom">
-    <h2 class="u-font-weight-medium">{{ selectedTask?.name }}</h2>
+    <h2 class="u-font-weight-medium">{{ task?.name }}</h2>
   </header>
   <form [formGroup]="taskForm" class="u-text-normal" *ngIf="taskForm">
     <div class="o-grid">
@@ -21,7 +21,7 @@
       <div class="o-grid__cell u-1/2">
         <mat-form-field appearance="outline" style="width: 100%;">
           <mat-label>Termin od</mat-label>
-          <input matInput [matDatepicker]="picker1" formControlName="startDate" (dateInput)="onChangeStartDate($event)" tabindex="-1">
+          <input matInput [matDatepicker]="picker1" formControlName="startDate" tabindex="-1">
           <mat-datepicker-toggle matSuffix [for]="picker1" tabindex="-1"></mat-datepicker-toggle>
           <mat-datepicker #picker1></mat-datepicker>
         </mat-form-field>
@@ -30,7 +30,7 @@
       <div class="o-grid__cell u-1/2">
         <mat-form-field appearance="outline" style="width: 100%;">
           <mat-label>Termin do</mat-label>
-          <input matInput [matDatepicker]="picker2" formControlName="endDate" (dateInput)="onChangeEndDate($event)" tabindex="-1">
+          <input matInput [matDatepicker]="picker2" formControlName="endDate" tabindex="-1">
           <mat-datepicker-toggle matSuffix [for]="picker2" tabindex="-1"></mat-datepicker-toggle>
           <mat-datepicker #picker2></mat-datepicker>
         </mat-form-field>
@@ -39,7 +39,7 @@
       <div class="o-grid__cell u-1/2" *ngIf="users$ | async as users">
         <mat-form-field appearance="outline" style="width: 100%;">
           <mat-label>Osoba przypisana</mat-label>
-          <mat-select formControlName="assignee" (selectionChange)="onChangeAssignee()" [attr.data-name]="'assignee'" tabindex="-1">
+          <mat-select formControlName="assignee" [attr.data-name]="'assignee'" tabindex="-1">
             <mat-option [value]="null">
               {{ 'Nieprzypisane' }}
             </mat-option>
@@ -54,7 +54,7 @@
       <div class="o-grid__cell u-1/2" *ngIf="boards$ | async as boards">
         <mat-form-field appearance="outline" style="width: 100%;">
           <mat-label>Tablica</mat-label>
-          <mat-select formControlName="board" (selectionChange)="onChangeBoard()" [attr.data-name]="'board'" tabindex="-1">
+          <mat-select formControlName="board" [attr.data-name]="'board'" tabindex="-1">
             <mat-option *ngFor="let board of boards" [value]="board">
               {{ board.name }}
             </mat-option>
@@ -74,5 +74,5 @@
   </form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button mat-button color="default" (click)="onClose()">Zamknij</button>
+  <button mat-button color="default" (click)="onClose()" tabindex="-1">Zamknij</button>
 </mat-dialog-actions>

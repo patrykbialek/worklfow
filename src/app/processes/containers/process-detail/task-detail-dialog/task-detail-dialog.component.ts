@@ -1,33 +1,36 @@
-import { Component, OnInit, Input, Inject } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FormGroup, FormBuilder } from '@angular/forms';
-import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
-import { ProcessesStoreService } from '@processes/store/processes-store.service';
-import { MatDatepickerInputEvent } from '@angular/material/datepicker';
-
-
-import * as moment from 'moment';
-import { workingHours } from '@shared/services/app-config';
-
-import * as fromModels from 'src/app/processes/models';
-import { UsersHttpService } from '@shared/services';
 import { BoardsHttpService } from '@processes/services/boards-http.service';
+import { ProcessesStoreService } from '@processes/store/processes-store.service';
+import { UsersHttpService } from '@shared/services';
+import { workingHours } from '@shared/services/app-config';
+import * as moment from 'moment';
+import { Subscription } from 'rxjs';
+import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
+import * as fromModels from 'src/app/processes/models';
 
 @Component({
   selector: 'app-task-detail-dialog',
   templateUrl: './task-detail-dialog.component.html',
   styleUrls: ['./task-detail-dialog.component.scss']
 })
-export class TaskDetailDialogComponent implements OnInit {
+export class TaskDetailDialogComponent implements OnDestroy, OnInit {
 
-  selectedTask;
+  task: fromModels.Task;
   taskForm: FormGroup;
 
-  boards = [];
-  boards$ = this.boardsService.getBoards().pipe(tap(response => this.boards = response));
+  boards$ = this.boardsService.getBoards()
+    .pipe(
+      tap((boards: fromModels.Board[]) => this.fillFormWithBoardData(boards)),
+    );
 
-  users = [];
-  users$ = this.userService.users$.pipe(tap(response => this.users = response));
+  users$ = this.userService.users$
+    .pipe(
+      tap(users => this.fillFormWithAssigneeData(users)),
+    );
+
+  private subscription$ = new Subscription();
 
   constructor(
     public dialogRef: MatDialogRef<TaskDetailDialogComponent>,
@@ -37,16 +40,37 @@ export class TaskDetailDialogComponent implements OnInit {
     private formBuilder: FormBuilder,
     private processesStore: ProcessesStoreService,
     private userService: UsersHttpService,
-
   ) {
-    this.selectedTask = data.task;
+    this.task = data.task;
   }
 
   get assignee() { return this.taskForm.get('assignee'); }
   get board() { return this.taskForm.get('board'); }
   get description() { return this.taskForm.get('description'); }
+  get endDate() { return this.taskForm.get('endDate'); }
+  get startDate() { return this.taskForm.get('startDate'); }
+
+  ngOnDestroy() {
+    this.subscription$.unsubscribe();
+  }
 
   ngOnInit() {
+    this.createForm();
+    this.fillFormData();
+
+    this.setListenerOnDescriptionChange();
+    this.setListenerOnFormChange();
+  }
+
+  //#region OnChange
+
+  onToggleCompleted() { this.task.isCompleted = !this.task.isCompleted; }
+
+  updateDescription() { this.task.description = this.description.value; }
+
+  //#endregion
+
+  private createForm() {
     this.taskForm = this.formBuilder.group({
       assignee: [''],
       board: [''],
@@ -56,75 +80,54 @@ export class TaskDetailDialogComponent implements OnInit {
       processes: [null],
       startDate: [''],
     });
-
-    this.setListenerOnDescriptionChange();
-
-    setTimeout(() => {
-      const assignee = this.selectedTask.assignee ? this.users.find(user => user.key === this.selectedTask.assignee.key) : null;
-      this.taskForm.get('assignee').setValue(assignee);
-  
-      const board = this.selectedTask.board ? this.boards.find(board => board.key === this.selectedTask.board.key) : null;
-      this.taskForm.get('board').setValue(board);
-  
-      this.taskForm.get('name').setValue(this.selectedTask.name);
-      this.taskForm.get('endDate').setValue(this.selectedTask.endDate);
-      this.taskForm.get('startDate').setValue(this.selectedTask.startDate);
-      this.taskForm.get('description').setValue(this.selectedTask.description, { emitEvent: false });
-      
-    },100);
   }
 
-  onChangeAssignee() {
-    let task = this.selectedTask;
-    task.assignee = this.assignee.value;
-    this.updateTask(task);
+  private fillFormData() {
+    this.taskForm.get('description').setValue(this.task.description, { emitEvent: false });
+    this.taskForm.get('endDate').setValue(this.task.endDate, { emitEvent: false });
+    this.taskForm.get('name').setValue(this.task.name, { emitEvent: false });
+    this.taskForm.get('startDate').setValue(this.task.startDate, { emitEvent: false });
   }
 
-  onChangeBoard() {
-    let task = this.selectedTask;
-    task.board = this.board.value;
-    this.updateTask(task);
+  private fillFormWithBoardData(boards: any[]) {
+    const board = this.task.board ? boards.find(board => board.key === this.task.board.key) : null;
+    this.taskForm.get('board').setValue(board, { emitEvent: false });
   }
 
-  onChangeStartDate(event: MatDatepickerInputEvent<Date>) {
-    let task = this.selectedTask;
-    task.startDate = `${moment(event.value).format('YYYY-MM-DD')}T${workingHours.start}`;
-    this.updateTask(task);
-  }
-
-  onChangeEndDate(event: MatDatepickerInputEvent<Date>) {
-    let task = this.selectedTask;
-    task.endDate = `${moment(event.value).format('YYYY-MM-DD')}T${workingHours.end}`;
-    this.updateTask(task);
-  }
-
-  onToggleCompleted(task: fromModels.Task) {
-    task.isCompleted = !task.isCompleted;
-    this.updateTask(task);
-  }
-
-  updateDescription() {
-    let task = this.selectedTask;
-    task.description = this.description.value;
-    this.updateTask(task);
+  private fillFormWithAssigneeData(users: any[]) {
+    const assignee = this.task.assignee ? users.find(user => user.key === this.task.assignee.key) : null;
+    this.taskForm.get('assignee').setValue(assignee, { emitEvent: false });
   }
 
   private setListenerOnDescriptionChange() {
-    this.description.valueChanges
+    this.subscription$.add(this.description.valueChanges
       .pipe(
         debounceTime(500),
         distinctUntilChanged(),
         tap(() => this.updateDescription()),
-      ).subscribe();
+      ).subscribe());
   }
 
-  private updateTask(task: any) {
-    const section = task.section.key;
-    task = {
-      ...task,
+  private setListenerOnFormChange() {
+    this.subscription$.add(this.taskForm.valueChanges.pipe(
+      debounceTime(550),
+      distinctUntilChanged(),
+    ).subscribe(() => this.updateTask()));
+  }
+
+  private updateTask() {
+    this.task.assignee = this.assignee.value;
+    this.task.board = this.board.value;
+
+    this.task.endDate = `${moment(this.endDate.value).format('YYYY-MM-DD')}T${workingHours.start}`;
+    this.task.startDate = `${moment(this.startDate.value).format('YYYY-MM-DD')}T${workingHours.start}`;
+
+    const section = this.task.section.key ? this.task.section.key : this.task.section;
+    this.task = {
+      ...this.task,
       section,
     };
-    this.processesStore.updateTask(task.key, task);
+    this.processesStore.updateTask(this.task.key, this.task);
   }
 
   onClose(): void {
