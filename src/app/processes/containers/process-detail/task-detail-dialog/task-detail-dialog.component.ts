@@ -5,11 +5,13 @@ import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 import { ProcessesStoreService } from '@processes/store/processes-store.service';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
+
+import * as moment from 'moment';
+import { workingHours } from '@shared/services/app-config';
+
 import * as fromModels from 'src/app/processes/models';
 import { UsersHttpService } from '@shared/services';
 import { BoardsHttpService } from '@processes/services/boards-http.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { TasksHttpService } from '@tasks/services';
 
 @Component({
   selector: 'app-task-detail-dialog',
@@ -34,8 +36,6 @@ export class TaskDetailDialogComponent implements OnInit {
     private boardsService: BoardsHttpService,
     private formBuilder: FormBuilder,
     private processesStore: ProcessesStoreService,
-    private snackBar: MatSnackBar,
-    private tasksHttpService: TasksHttpService,
     private userService: UsersHttpService,
 
   ) {
@@ -48,12 +48,13 @@ export class TaskDetailDialogComponent implements OnInit {
 
   ngOnInit() {
     this.taskForm = this.formBuilder.group({
-      name: [''],
       assignee: [''],
       board: [''],
-      endDate: [''],
       description: [''],
+      endDate: [''],
+      name: [''],
       processes: [null],
+      startDate: [''],
     });
 
     this.setListenerOnDescriptionChange();
@@ -67,6 +68,7 @@ export class TaskDetailDialogComponent implements OnInit {
   
       this.taskForm.get('name').setValue(this.selectedTask.name);
       this.taskForm.get('endDate').setValue(this.selectedTask.endDate);
+      this.taskForm.get('startDate').setValue(this.selectedTask.startDate);
       this.taskForm.get('description').setValue(this.selectedTask.description, { emitEvent: false });
       
     },100);
@@ -84,27 +86,16 @@ export class TaskDetailDialogComponent implements OnInit {
     this.updateTask(task);
   }
 
-  onChangeEndDate(event: MatDatepickerInputEvent<Date>) {
+  onChangeStartDate(event: MatDatepickerInputEvent<Date>) {
     let task = this.selectedTask;
-    task.endDate = event.value;
+    task.startDate = `${moment(event.value).format('YYYY-MM-DD')}T${workingHours.start}`;
     this.updateTask(task);
   }
 
-  onDisplayTaskDetail(task: fromModels.Task) {
-    this.selectedTask = task;
-    // this.isDrawerOpen = true;
-
-    if (this.selectedTask) {
-      const assignee = task.assignee ? this.users.find(user => user.key === task.assignee.key) : null;
-      this.taskForm.get('assignee').setValue(assignee);
-
-      const board = task.board ? this.boards.find(board => board.key === task.board.key) : null;
-      this.taskForm.get('board').setValue(board);
-
-      this.taskForm.get('name').setValue(this.selectedTask.name);
-      this.taskForm.get('endDate').setValue(this.selectedTask.endDate);
-      this.taskForm.get('description').setValue(this.selectedTask.description, { emitEvent: false });
-    }
+  onChangeEndDate(event: MatDatepickerInputEvent<Date>) {
+    let task = this.selectedTask;
+    task.endDate = `${moment(event.value).format('YYYY-MM-DD')}T${workingHours.end}`;
+    this.updateTask(task);
   }
 
   onToggleCompleted(task: fromModels.Task) {
@@ -116,12 +107,6 @@ export class TaskDetailDialogComponent implements OnInit {
     let task = this.selectedTask;
     task.description = this.description.value;
     this.updateTask(task);
-  }
-
-  private openSnackBar(message: string, action: string) {
-    this.snackBar.open(message, action, {
-      duration: 3000,
-    });
   }
 
   private setListenerOnDescriptionChange() {
@@ -140,10 +125,9 @@ export class TaskDetailDialogComponent implements OnInit {
       section,
     };
     this.processesStore.updateTask(task.key, task);
-    this.openSnackBar('Dane zapisane.', 'Zamknij');
   }
 
-  onNoClick(): void {
+  onClose(): void {
     this.dialogRef.close();
   }
 }
