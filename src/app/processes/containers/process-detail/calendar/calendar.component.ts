@@ -34,16 +34,17 @@ export class CalendarComponent implements AfterViewInit, OnInit {
     locale: plLocale,
     weekends: true,
     editable: true,
-    // selectable: true,
-    // selectMirror: true,
+    selectable: true,
+    selectMirror: true,
     // dayMaxEvents: true,
-    select: this.handleDateSelect.bind(this),
+    // select: this.handleDateSelect.bind(this),
+    // eventsSet: this.handleEvents.bind(this),
     eventClick: this.openDialog.bind(this),
-    eventsSet: this.handleEvents.bind(this),
+    eventDrop: this.updateTaskOnDrop.bind(this),
+    eventResize: this.test.bind(this),
     plugins: [dayGridPlugin, interactionPlugin, timeGridPlugin],   // buttonIcons: {
     timeZone: 'local',
     nextDayThreshold: `${workingHours.start}`,
-    stickyHeaderDates: true,
     /* you can update a remote database when these fire:
     eventAdd:
     eventChange:
@@ -51,6 +52,10 @@ export class CalendarComponent implements AfterViewInit, OnInit {
     */
   };
   currentEvents: EventApi[] = [];
+
+  test(event: any) {
+    // console.log(event);
+  }
 
   tasks$ = this.processesStore.process$
     .pipe(
@@ -65,13 +70,13 @@ export class CalendarComponent implements AfterViewInit, OnInit {
           title: task.name,
           start: task.startDate,
           end: task.endDate,
+          extendedProps: task,
           // allDay: true,
           // backgroundColor: '#424242',
         };
         events.push(event);
       });
       this.calendarOptions.events = events;
-      // console.log(this.calendarOptions.events)
     });
 
   @ViewChild('main') mainHTML: ElementRef;
@@ -137,6 +142,18 @@ export class CalendarComponent implements AfterViewInit, OnInit {
       // console.log('The dialog was closed');
       // this.animal = result;
     });
+  }
+
+  updateTaskOnDrop(info: any) {
+    let task: Task = { ...info.event.extendedProps };
+    task.startDate = info.event.start;
+    task.endDate = info.event.end;
+    const section = task.section.key ? task.section.key : task.section;
+    task = {
+      ...task,
+      section,
+    };
+    this.processesStore.updateTask(task.key, task);
   }
 
 }
