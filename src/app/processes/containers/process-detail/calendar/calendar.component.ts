@@ -15,6 +15,7 @@ import { EventInput } from '@fullcalendar/angular';
 import { workingHours } from '@shared/services/app-config';
 import { TaskDetailDialogComponent } from '../task-detail-dialog/task-detail-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import * as fromServices from '@processes/store/services';
 
 @Component({
   selector: 'app-calendar',
@@ -57,33 +58,34 @@ export class CalendarComponent implements AfterViewInit, OnInit {
     // console.log(event);
   }
 
-  tasks$ = this.processesStore.process$
+  tasks$ = this.tasksService.tasks$
     .pipe(
-      map((response: any) => response.tasks),
-    )
-    .subscribe((tasks: Task[]) => {
-      this.tasks = tasks;
-      const events: EventInput[] = [];
-      tasks.forEach(task => {
-        const event: EventInput = {
-          id: task.key,
-          title: task.name,
-          start: task.startDate,
-          end: task.endDate,
-          extendedProps: task,
-          // allDay: true,
-          // backgroundColor: '#424242',
-        };
-        events.push(event);
-      });
-      this.calendarOptions.events = events;
-    });
+      tap((tasks: Task[]) => {
+        this.tasks = tasks;
+        const events: EventInput[] = [];
+        tasks.forEach(task => {
+          const event: EventInput = {
+            id: task.key,
+            title: task.name,
+            start: task.startDate,
+            end: task.endDate,
+            extendedProps: task,
+            // allDay: true,
+            // backgroundColor: '#424242',
+          };
+          events.push(event);
+        });
+        this.calendarOptions.events = events;
+      })
+    ).subscribe();
 
   @ViewChild('main') mainHTML: ElementRef;
 
   constructor(
     public dialog: MatDialog,
     private processesStore: ProcessesStoreService,
+    private tasksService: fromServices.TasksFacadeService,
+
   ) { }
 
   ngAfterViewInit() {

@@ -15,6 +15,7 @@ import { Task } from 'src/app/processes/models';
 
 import * as moment from 'moment';
 import { workingHours } from '@shared/services/app-config';
+import * as fromServices from '@processes/store/services';
 
 @Component({
   selector: 'app-board',
@@ -25,19 +26,18 @@ export class BoardComponent implements AfterViewInit, OnInit {
 
   userId: string;
 
-  tasks$ = this.processesStore.process$;
-  processSections$ = this.processesStore.processSections$;
-  processBoards$ = this.processesStore.processBoards$;
+  tasksByBoard$ = this.tasksService.tasksByBoard$;
   users$ = this.userService.users$;
 
   @ViewChild('main') mainHTML: ElementRef;
 
   constructor(
     private authService: fromAuthService.AuthService,
-    private boardsService: BoardsHttpService,
     private processesStore: ProcessesStoreService,
     private snackBar: MatSnackBar,
     private userService: UsersHttpService,
+    private tasksService: fromServices.TasksFacadeService,
+
   ) { 
     this.processesStore.getTasksByBoard();
     this.processesStore.getTasksBySection();

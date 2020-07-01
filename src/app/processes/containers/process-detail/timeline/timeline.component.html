@@ -1,7 +1,9 @@
 <main class="o-wrapper c-main u-padding-top" #main>
   <!-- <app-under-construction [size]="96"></app-under-construction> -->
 
-  <app-gantt-chart
-    [rows]="rows"></app-gantt-chart>
+  <ng-container *ngIf="rows.length">
+    <app-gantt-chart
+      [rows]="rows"></app-gantt-chart>
+  </ng-container>
 
 </main>

@@ -43,7 +43,7 @@ export class GanttChartComponent implements AfterViewInit {
     data.addRows(this.rows);
 
     let options = {
-      height: (this.rows.length * 50),
+      height: (this.rows.length * 50) + 50,
       legend: 'left',
       gantt: {
         criticalPathEnabled: true, // Critical path arrows will be the same as other arrows.

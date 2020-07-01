@@ -1,5 +1,6 @@
-export interface Process {
-  id: string;
+export interface ProcessOld {
+  // id: string;
+  key: string;
   name: string;
   startDate: string;
   endDate: string;

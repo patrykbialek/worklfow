@@ -1,23 +1,24 @@
-import { Component, OnInit, HostListener, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, HostListener, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { TasksHttpService } from 'src/app/tasks/services/tasks-http.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { ProcessesStoreService } from 'src/app/processes/store/processes-store.service';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
-import { tap, distinctUntilChanged, debounceTime } from 'rxjs/internal/operators';
+import { tap, distinctUntilChanged, debounceTime, flatMap, take } from 'rxjs/internal/operators';
 
 import * as fromModels from 'src/app/processes/models';
+import * as fromServices from '@processes/store/services';
+import * as fromStore from '../../../store';
 import { UsersHttpService } from '@shared/services';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BoardsHttpService } from '@processes/services/boards-http.service';
-import { ProcessFacadeService } from '@processes/store/services';
 
 @Component({
   selector: 'app-tasks',
   templateUrl: './tasks.component.html',
   styleUrls: ['./tasks.component.scss'],
 })
-export class TasksComponent implements OnInit {
+export class TasksComponent implements OnDestroy, OnInit {
 
   displayedColumns: string[] = ['index', 'name', 'assignee', 'endDate', 'priority'];
   dataSourceAllTasks: fromModels.Task[] = [];
@@ -32,13 +33,12 @@ export class TasksComponent implements OnInit {
   boards$ = this.boardsService.getBoards().pipe(tap(response => this.boards = response));
 
   allTasks$: Observable<fromModels.Task[]> = this.tasksHttpService.getAllTasks();
-  processSections$: Observable<fromModels.Section[]> = this.processesStore.processSections$;
+  tasksBySection$ = this.tasksService.tasksBySection$;
 
   users = [];
   users$ = this.userService.users$.pipe(tap(response => this.users = response));
 
-
-  process$ = this.processService.process$.subscribe(console.log);
+  private subscriptions$ = new Subscription();
 
   @ViewChild('main') mainHTML: ElementRef;
 
@@ -48,10 +48,8 @@ export class TasksComponent implements OnInit {
     private processesStore: ProcessesStoreService,
     private snackBar: MatSnackBar,
     private tasksHttpService: TasksHttpService,
+    private tasksService: fromServices.TasksFacadeService,
     private userService: UsersHttpService,
-
-    private processService: ProcessFacadeService,
-
   ) {
     this.processesStore.setBoards();
     this.processesStore.getTasksBySection();
@@ -71,6 +69,10 @@ export class TasksComponent implements OnInit {
   get assignee() { return this.taskForm.get('assignee'); }
   get board() { return this.taskForm.get('board'); }
   get description() { return this.taskForm.get('description'); }
+
+  ngOnDestroy() {
+    this.subscriptions$.unsubscribe();
+  }
 
   ngOnInit() {
     this.taskForm = this.formBuilder.group({

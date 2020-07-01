@@ -111,11 +111,11 @@
     </table>
   </section>
 
-  <ng-container *ngIf="processSections$ | async as processSections">
-    <ng-container *ngFor="let item of processSections">
+  <ng-container *ngIf="tasksBySection$ | async as tasksBySection">
+    <ng-container *ngFor="let item of tasksBySection">
       <section class="u-margin-bottom-large">
         <header class="u-margin-bottom-small">
-          <h5>{{ item.name }}</h5>
+          <h5>{{ item.name}}</h5>
         </header>
         <table mat-table [dataSource]="item.tasks">
           <ng-container matColumnDef="index">
