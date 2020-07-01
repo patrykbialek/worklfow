@@ -10,6 +10,7 @@ import * as fromModels from 'src/app/processes/models';
 import { UsersHttpService } from '@shared/services';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BoardsHttpService } from '@processes/services/boards-http.service';
+import { ProcessFacadeService } from '@processes/store/services';
 
 @Component({
   selector: 'app-tasks',
@@ -36,6 +37,9 @@ export class TasksComponent implements OnInit {
   users = [];
   users$ = this.userService.users$.pipe(tap(response => this.users = response));
 
+
+  process$ = this.processService.process$.subscribe(console.log);
+
   @ViewChild('main') mainHTML: ElementRef;
 
   constructor(
@@ -45,6 +49,9 @@ export class TasksComponent implements OnInit {
     private snackBar: MatSnackBar,
     private tasksHttpService: TasksHttpService,
     private userService: UsersHttpService,
+
+    private processService: ProcessFacadeService,
+
   ) {
     this.processesStore.setBoards();
     this.processesStore.getTasksBySection();

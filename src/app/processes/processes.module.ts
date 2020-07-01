@@ -18,10 +18,10 @@ import * as fromContainers from './containers';
 
 import { GoogleChartsModule } from '@shared/google-charts/google-charts.module';
 import { TaskDetailDialogComponent } from './containers/process-detail/task-detail-dialog/task-detail-dialog.component';
-import { StoreModule } from '@ngrx/store';
 
-import { reducers, effects } from './store';
+import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+import { reducers, effects } from './store';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,

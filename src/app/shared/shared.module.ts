@@ -5,11 +5,19 @@ import { AngularMaterialModule } from './modules/angular-material.module';
 
 import * as fromComponents from './components';
 
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { reducers, effects } from './store';
+
 @NgModule({
   imports: [
     CommonModule,
 
     AngularMaterialModule,
+
+    StoreModule.forFeature('settings', reducers),
+    EffectsModule.forFeature(effects),
+    
   ],
   declarations: [
     ...fromComponents.components,
