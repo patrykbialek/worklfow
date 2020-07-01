@@ -12,11 +12,11 @@ import * as fromSharedServices from '@shared/services';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
-  selector: 'app-processes',
-  templateUrl: './processes.component.html',
-  styleUrls: ['./processes.component.scss']
+  selector: 'app-process-list',
+  templateUrl: './process-list.component.html',
+  styleUrls: ['./process-list.component.scss']
 })
-export class ProcessesComponent extends CommonWithAnimationComponent implements OnInit {
+export class ProcessListComponent extends CommonWithAnimationComponent implements OnInit {
 
   processes$ = this.processesStore.processes$
     .pipe(

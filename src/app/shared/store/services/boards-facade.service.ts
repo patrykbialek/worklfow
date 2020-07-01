@@ -17,7 +17,7 @@ export class BoardsFacadeService {
   isSuccess$: Observable<boolean>;
 
   constructor(
-    private store: Store<fromReducers.SettingsState>,
+    private store: Store<fromReducers.MainState>,
   ) {
     this.boards$ = this.store.pipe(select(fromSelectors.getBoards));
   //   this.isFailed$ = this.store.pipe(select(fromSelectors.));

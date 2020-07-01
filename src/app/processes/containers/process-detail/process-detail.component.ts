@@ -10,11 +10,11 @@ import { ProcessFacadeService } from '@processes/store/services';
 import * as fromProcessStore from '../../store';
 
 @Component({
-  selector: 'app-process',
-  templateUrl: './process.component.html',
-  styleUrls: ['./process.component.scss']
+  selector: 'app-process-detail',
+  templateUrl: './process-detail.component.html',
+  styleUrls: ['./process-detail.component.scss']
 })
-export class ProcessComponent extends CommonWithAnimationComponent implements OnInit {
+export class ProcessDetailComponent extends CommonWithAnimationComponent implements OnInit {
 
   navLinks = [
     {

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ProcessComponent } from './process.component';
+import { ProcessDetailComponent } from './process-detail.component';
 
-describe('ProcessComponent', () => {
-  let component: ProcessComponent;
-  let fixture: ComponentFixture<ProcessComponent>;
+describe('ProcessDetailComponent', () => {
+  let component: ProcessDetailComponent;
+  let fixture: ComponentFixture<ProcessDetailComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ProcessComponent ]
+      declarations: [ ProcessDetailComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ProcessComponent);
+    fixture = TestBed.createComponent(ProcessDetailComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

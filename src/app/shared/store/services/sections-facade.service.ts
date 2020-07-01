@@ -17,7 +17,7 @@ export class SectionsFacadeService {
   isSuccess$: Observable<boolean>;
 
   constructor(
-    private store: Store<fromReducers.SettingsState>,
+    private store: Store<fromReducers.MainState>,
   ) {
     this.sections$ = this.store.pipe(select(fromSelectors.getSections));
   //   this.isFailed$ = this.store.pipe(select(fromSelectors.));
