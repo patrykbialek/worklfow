@@ -24,6 +24,7 @@ import { SharedModule } from '@shared/shared.module';
 import { environment } from 'src/environments/environment';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+import { reducers } from '@shared/store';
 
 export const MY_FORMATS = {
   parse: {
@@ -51,7 +52,14 @@ export const MY_FORMATS = {
     AngularFireDatabaseModule,
     AngularFireAuthModule,
 
-    StoreModule.forRoot({}),
+    StoreModule.forRoot(reducers, {
+      runtimeChecks: {
+        strictStateImmutability: false,
+        strictActionImmutability: false,
+        // disabled until https://github.com/ngrx/platform/issues/2109 is resolved
+        /* strictActionImmutability: true, */
+      },
+    }),
     EffectsModule.forRoot([]),
 
     HttpClientModule,
