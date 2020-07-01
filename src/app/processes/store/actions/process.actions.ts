@@ -23,7 +23,7 @@ export class LoadProcessFailure implements Action {
 
 
 // Reset
-export const RESET_PROCESS          = '[Main] Reset consultation';
+export const RESET_PROCESS          = '[Main] Reset process';
 
 export class ResetProcess implements Action {
   readonly type = RESET_PROCESS;

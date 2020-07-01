@@ -1,15 +1,18 @@
 import { ActionReducerMap, createFeatureSelector } from '@ngrx/store';
 
 import * as fromProcess from './process.reducer';
+import * as fromProcesses from './processes.reducer';
 
-export interface ProcessesState {
+export interface MyProcessesState {
   process: fromProcess.ProcessState;
+  processes: fromProcesses.ProcessesState;
 }
 
-export const reducers: ActionReducerMap<ProcessesState> = {
+export const reducers: ActionReducerMap<MyProcessesState> = {
   process: fromProcess.reducer,
+  processes: fromProcesses.reducer,
 };
 
-export const getProcessesState = createFeatureSelector<ProcessesState>(
-  'processes'
+export const getMyProcessesState = createFeatureSelector<MyProcessesState>(
+  'myProcesses'
 );

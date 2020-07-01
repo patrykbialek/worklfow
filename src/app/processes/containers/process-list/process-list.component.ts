@@ -10,6 +10,7 @@ import { CommonWithAnimationComponent } from '@shared/components/common-with-ani
 import { ProcessesStoreService } from '../../store/processes-store.service';
 import * as fromSharedServices from '@shared/services';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ProcessesFacadeService } from '@processes/store/services/processes-facade.service';
 
 @Component({
   selector: 'app-process-list',
@@ -18,7 +19,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class ProcessListComponent extends CommonWithAnimationComponent implements OnInit {
 
-  processes$ = this.processesStore.processes$
+  processes$ = this.processesService.processes$
     .pipe(
       filter(response => Boolean(response)),
       tap((response: any[]) => {
@@ -27,12 +28,14 @@ export class ProcessListComponent extends CommonWithAnimationComponent implement
         }
       })
     );
-
+    
   constructor(
     public dialog: MatDialog,
     private processesStore: ProcessesStoreService,
     private snackBar: MatSnackBar,
     private spinnerService: fromSharedServices.AppSpinnerService,
+
+    private processesService: ProcessesFacadeService
   ) {
     super();
     this.processesStore.getProcesses();

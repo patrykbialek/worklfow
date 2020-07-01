@@ -58,7 +58,7 @@ export const MY_FORMATS = {
 
     FullCalendarModule, // register FullCalendar with you app
 
-    StoreModule.forFeature('processes', reducers),
+    StoreModule.forFeature('myProcesses', reducers),
     EffectsModule.forFeature(effects),
 
   ],
