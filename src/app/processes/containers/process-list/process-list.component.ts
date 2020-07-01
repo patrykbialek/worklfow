@@ -12,6 +12,8 @@ import * as fromSharedServices from '@shared/services';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ProcessesFacadeService } from '@processes/store/services/processes-facade.service';
 
+import * as fromStore from '../../store';
+
 @Component({
   selector: 'app-process-list',
   templateUrl: './process-list.component.html',
@@ -56,7 +58,8 @@ export class ProcessListComponent extends CommonWithAnimationComponent implement
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.processesStore.createProcess(result);
+        // this.processesStore.createProcess(result);
+        this.processesService.dispatch(new fromStore.CreateProcess(result));
         this.openSnackBar('Dane zapisane.', 'Zamknij');
       }
     });

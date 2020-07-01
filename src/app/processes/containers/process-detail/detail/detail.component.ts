@@ -1,11 +1,13 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import * as fromModels from '../../../../processes/models';
 import { ProcessesStoreService } from 'src/app/processes/store/processes-store.service';
 import { tap } from 'rxjs/operators';
+import * as moment from 'moment';
+import { workingHours } from '@shared/services/app-config';
 
 @Component({
   selector: 'app-detail',
@@ -31,11 +33,11 @@ export class DetailComponent implements OnInit {
     this.processesStore.getProcessTemplates()
       .subscribe(response => this.processTemplates = response);
     this.processesStore.getTaskTemplates()
-      // .pipe(tap(console.log))
       .subscribe(response => this.taskTemplates = response);
 
     this.processForm = this.formBuilder.group({
-      description: ['', Validators.required],
+      created: ['', Validators.required],
+      description: [''],
       endDate: ['', Validators.required],
       name: ['', Validators.required],
       startDate: ['', Validators.required],
@@ -43,6 +45,16 @@ export class DetailComponent implements OnInit {
       owner: ['', Validators.required],
       tasks: this.formBuilder.array([]),
     });
+  }
+
+  get created() {
+    return this.processForm.get('created') as FormControl;
+  }
+  get endDate() {
+    return this.processForm.get('endDate') as FormControl;
+  }
+  get startDate() {
+    return this.processForm.get('startDate') as FormControl;
   }
 
   onSelectProcessTemplate(template: any) {
@@ -69,12 +81,13 @@ export class DetailComponent implements OnInit {
 
   onSave(): void {
     const today = new Date();
-    const endDate = this.processForm.get('endDate').value;
-    this.processForm.get('endDate').setValue(endDate);
-    this.processForm.get('startDate').setValue(today);
+    this.created.setValue(`${moment(today).format('YYYY-MM-DDTHH:MM:SS')}`);
+    this.endDate.setValue(`${moment(this.endDate.value).format('YYYY-MM-DD')}T${workingHours.end}`);
+    this.startDate.setValue(`${moment(today).format('YYYY-MM-DD')}T${workingHours.start}`);
 
     this.newProcess = {
       ...this.newProcess,
+      created: this.processForm.get('created').value,
       description: this.processForm.get('description').value,
       endDate: this.processForm.get('endDate').value,
       name: this.processForm.get('name').value,
@@ -84,7 +97,10 @@ export class DetailComponent implements OnInit {
     }
 
     delete this.newProcess.key;
-    this.dialogRef.close(this.newProcess);
+
+    if (this.processForm.valid) {
+      this.dialogRef.close(this.newProcess);
+    }
   }
 
   onGoBackToTemplates() {

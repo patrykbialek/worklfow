@@ -24,8 +24,6 @@ export class AppComponent implements OnInit {
         }
       }),
     );
-  boards$ = this.boardService.boards$.subscribe(console.log);
-  sections$ = this.sectionsService.sections$.subscribe(console.log);
 
   public getRouterOutletState(outlet) {
     return outlet.isActivated ? outlet.activatedRoute : '';

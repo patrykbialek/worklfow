@@ -1,11 +1,13 @@
 export interface Process {
+  created: Date;
   description: string;
   endDate: Date;
-  id: string;
-  key: string;
+  image: string;
   name: string;
-  owner: string;
-  startDate: Date;
-  team: string;
-  tasks: any;
+  id?: string;
+  key?: string;
+  owner?: string;
+  startDate?: Date;
+  team?: string;
+  tasks?: any;
 }

@@ -13,7 +13,6 @@ export class LoadProcess implements Action {
 export class LoadProcessSuccess implements Action {
   readonly type = LOAD_PROCESS_SUCCESS;
   constructor(public payload: any, ) { }
-  
 }
 
 export class LoadProcessFailure implements Action {

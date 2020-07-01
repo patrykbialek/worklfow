@@ -48,6 +48,12 @@ export function reducer(
       };
     }
 
+    case fromProcesses.CREATE_PROCESS_SUCCESS: {
+      return {
+        ...state,
+      };
+    }
+
     case fromProcesses.RESET_PROCESSES: {
       return {
         ...state,

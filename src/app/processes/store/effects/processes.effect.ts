@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { Effect, Actions, ofType } from '@ngrx/effects';
 import { of ,  EMPTY } from 'rxjs';
-import { map, switchMap, catchError, } from 'rxjs/operators';
+import { map, switchMap, catchError, mergeMap, } from 'rxjs/operators';
 
 
 import * as processesActions from '../actions/processes.actions';
@@ -19,7 +19,7 @@ export class ProcessesEffects {
   @Effect()
   loadProcesses$ = this.actions$.pipe(ofType(processesActions.LOAD_PROCESSES),
     // map((action: processesActions.LoadProcesses) => action.payload),
-    switchMap(params => {
+    mergeMap(params => {
       return this.processesService
         .getProcesses()
         .pipe(
@@ -28,6 +28,23 @@ export class ProcessesEffects {
           }),
           catchError((error) => {
             return of(new processesActions.LoadProcessesFailure(error));
+          })
+        );
+    })
+  );
+
+  @Effect()
+  createProcess$ = this.actions$.pipe(ofType(processesActions.CREATE_PROCESS),
+    map((action: processesActions.CreateProcess) => action.payload),
+    mergeMap(process => {
+      return this.processesService
+        .createProcess(process)
+        .pipe(
+          map(() => {
+            return new processesActions.CreateProcessSuccess();
+          }),
+          catchError((error) => {
+            return of(new processesActions.CreateProcessFailure(error));
           })
         );
     })

@@ -7,6 +7,7 @@ import {
   AngularFireList,
 } from '@angular/fire/database';
 import { map, delay } from 'rxjs/operators';
+import { of, Observable, from } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -19,27 +20,58 @@ export class ProcessesHttpService {
 
   // Create
 
-  createProcess(newProcess: Process): Promise<any> {
+  // createProcess(newProcess: Process): Promise<any> {
+  //   const db: AngularFireList<Process> = this.db.list(`/processes`);
+  //   const tasks = Object.values(newProcess.tasks);
+  //   delete newProcess.tasks;
+  //   const newRef = db.push(newProcess);
+
+  //   tasks.forEach((task: any) => {
+  //     const today = new Date();
+  //     const newTask = {
+  //       board: task.board,
+  //       created: today.toISOString(),
+  //       isCompleted: false,
+  //       name: task.name,
+  //       section: task.section,
+  //       startDate: today.toISOString(),
+  //     };
+  //     this.createTask(newTask, newRef.key)
+  //   });
+
+  //   return newRef;
+  // }
+
+  createProcess(newProcess: Process) {
     const db: AngularFireList<Process> = this.db.list(`/processes`);
     const tasks = Object.values(newProcess.tasks);
-    delete newProcess.tasks;
-    const newRef = db.push(newProcess);
+    
+     const process: Process = {
+      created: newProcess.created,
+      description: newProcess.description,
+      endDate: newProcess.endDate,
+      image: newProcess.image,
+      name: newProcess.name,
+      startDate: newProcess.startDate,
+      tasks: null,
+    };
+    const newRef = db.push(process);
 
-    // console.log(newProcess.tasks);
     tasks.forEach((task: any) => {
       const today = new Date();
       const newTask = {
         board: task.board,
-        created: today.toISOString(),
+        created: today,
         isCompleted: false,
         name: task.name,
+        process: newRef.key,
         section: task.section,
-        startDate: today.toISOString(),
+        startDate: today,
       };
       this.createTask(newTask, newRef.key)
     });
 
-    return newRef;
+    return from(newRef);
   }
 
   createSection(newSection: any): Promise<any> {
@@ -51,8 +83,8 @@ export class ProcessesHttpService {
     const db: AngularFireList<any> = this.db.list(`/tasks`);
     const taskRef = db.push(newTask);
 
-    const tasks: AngularFireList<any> = this.db.list(`/processes/${processKey}/tasks`);
-    tasks.push(taskRef.key);
+    // const tasks: AngularFireList<any> = this.db.list(`/processes/${processKey}/tasks`);
+    // tasks.push(taskRef.key);
 
     return taskRef;
   }
