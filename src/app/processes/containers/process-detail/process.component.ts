@@ -4,6 +4,10 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ProcessesStoreService } from '../../store/processes-store.service';
 import { tap } from 'rxjs/operators';
 import { CommonWithAnimationComponent } from 'src/app/shared/components/common-with-animation.component';
+import { ProcessFacadeService } from '@processes/store/services';
+
+// Store
+import * as fromProcessStore from '../../store';
 
 @Component({
   selector: 'app-process',
@@ -41,14 +45,15 @@ export class ProcessComponent extends CommonWithAnimationComponent implements On
   ];
   activeLinkIndex = -1;
 
-  process$ = this.processesStore.process$
+  process$ = this.processService.process$;
 
   constructor(
     private activatedRoute: ActivatedRoute,
+    private processService: ProcessFacadeService,
     private router: Router,
-    private processesStore: ProcessesStoreService,
   ) {
-    super();  }
+    super();
+  }
 
   ngOnInit(): void {
     this.router.events.subscribe((res) => {
@@ -57,7 +62,7 @@ export class ProcessComponent extends CommonWithAnimationComponent implements On
 
     this.activatedRoute.params
       .subscribe(params => {
-        this.processesStore.getProcess(params.id);
+        this.processService.dispatch(new fromProcessStore.LoadProcess(params.id));
       });
   }
 }

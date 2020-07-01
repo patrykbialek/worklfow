@@ -22,6 +22,8 @@ import { AppComponent } from './app.component';
 import { SharedModule } from '@shared/shared.module';
 
 import { environment } from 'src/environments/environment';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
 
 export const MY_FORMATS = {
   parse: {
@@ -48,6 +50,9 @@ export const MY_FORMATS = {
     AngularFireModule.initializeApp(environment.firebase, 'workflow'),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
+
+    StoreModule.forRoot({}),
+    EffectsModule.forRoot([]),
 
     HttpClientModule,
 
