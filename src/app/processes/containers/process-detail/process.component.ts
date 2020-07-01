@@ -48,11 +48,7 @@ export class ProcessComponent extends CommonWithAnimationComponent implements On
     private router: Router,
     private processesStore: ProcessesStoreService,
   ) {
-    super();
-    this.processesStore.setBoards();
-    this.processesStore.getTasksByBoard();
-    this.processesStore.getTasksBySection();
-  }
+    super();  }
 
   ngOnInit(): void {
     this.router.events.subscribe((res) => {

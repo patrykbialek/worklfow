@@ -45,7 +45,10 @@ export class TasksComponent implements OnInit {
     private snackBar: MatSnackBar,
     private tasksHttpService: TasksHttpService,
     private userService: UsersHttpService,
-  ) { }
+  ) {
+    this.processesStore.setBoards();
+    this.processesStore.getTasksBySection();
+  }
 
   @HostListener('document:keydown.escape', ['$event'])
   onKeydownHandler(evt: KeyboardEvent) {

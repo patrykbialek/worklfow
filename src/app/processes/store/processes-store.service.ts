@@ -127,6 +127,7 @@ export class ProcessesStoreService {
     const data$ = combineLatest([process$, sections$, tasks$]);
 
     data$.pipe(
+      tap(console.log),
       map(([process, sections, tasks]) => {
         const processTasks = [];
 

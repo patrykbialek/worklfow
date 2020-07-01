@@ -38,7 +38,10 @@ export class BoardComponent implements AfterViewInit, OnInit {
     private processesStore: ProcessesStoreService,
     private snackBar: MatSnackBar,
     private userService: UsersHttpService,
-  ) { }
+  ) { 
+    this.processesStore.getTasksByBoard();
+    this.processesStore.getTasksBySection();
+  }
 
   ngAfterViewInit() {
     setTimeout(() => {

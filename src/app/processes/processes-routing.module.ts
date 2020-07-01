@@ -9,15 +9,15 @@ const processTitle = 'Mój proces';
 
 const routes: Routes = [
   {
+    path: ':id',
+    redirectTo: ':id/diagram',
+    pathMatch: 'full'
+  },
+  {
     path: '',
     component: fromContainers.ProcessesComponent,
     data: { title: `Moje procesy | ${appTitle}` },
     resolve: { title: fromSharedServices.TitleResolverService },
-  },
-  {
-    path: ':id',
-    redirectTo: ':id/diagram',
-    pathMatch: 'full'
   },
   {
     path: ':id',
