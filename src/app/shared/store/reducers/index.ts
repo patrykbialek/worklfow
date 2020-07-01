@@ -1,13 +1,16 @@
 import { ActionReducerMap, createFeatureSelector } from '@ngrx/store';
 
-import * as bromBoards from './boards.reducer';
+import * as fromBoards from './boards.reducer';
+import * as fromSections from './sections.reducer';
 
 export interface SettingsState {
-  boards: bromBoards.BoardsState;
+  boards: fromBoards.BoardsState;
+  sections: fromSections.SectionsState;
 }
 
 export const reducers: ActionReducerMap<SettingsState> = {
-  boards: bromBoards.reducer,
+  boards: fromBoards.reducer,
+  sections: fromSections.reducer,
 };
 
 export const getSettingsState = createFeatureSelector<SettingsState>(

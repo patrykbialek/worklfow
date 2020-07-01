@@ -10,7 +10,7 @@ import { ProcessesHttpService } from '@processes/services';
 import { BoardsHttpService } from '../../services/board-http.service';
 
 @Injectable()
-export class ProcessEffects {
+export class BoardsEffects {
 
   constructor(
     private actions$: Actions,

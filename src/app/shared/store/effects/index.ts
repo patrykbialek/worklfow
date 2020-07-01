@@ -1,6 +1,8 @@
-import { ProcessEffects } from './process.effect';
+import { BoardsEffects } from './boards.effect';
+import { SectionsEffects } from './sections.effect';
 
-export const effects: any[] = [ProcessEffects,];
+export const effects: any[] = [BoardsEffects,SectionsEffects,];
 
-export * from './process.effect';
+export * from './boards.effect';
+export * from './sections.effect';
 
