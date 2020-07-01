@@ -15,7 +15,7 @@ import { reducers, effects } from './store';
 
     AngularMaterialModule,
 
-    StoreModule.forFeature('settings', reducers),
+    StoreModule.forFeature('main', reducers),
     EffectsModule.forFeature(effects),
     
   ],
