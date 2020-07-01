@@ -17,7 +17,7 @@
           </a>
         </div>
       </header>
-      
+
       <nav mat-tab-nav-bar>
         <a mat-tab-link *ngFor="let link of navLinks" [routerLink]="link.link" routerLinkActive #rla="routerLinkActive"
           [active]="rla.isActive">
@@ -29,9 +29,7 @@
 
 
   <div class="c-section-content">
-    <div class="o-wrapper">
-      <router-outlet></router-outlet>
-    </div>
+    <router-outlet></router-outlet>
   </div>
 
 </app-main-component>

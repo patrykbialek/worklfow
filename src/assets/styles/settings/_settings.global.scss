@@ -159,8 +159,9 @@ $mq-breakpoints: (
 }
 
 .c-section-content {
-  position: absolute;
-  top: 144px;
-  left: 0;
+  position: relative;
+  top: auto;
+  left: auto;
   width: 100%;
+  padding-top: 144px;
 }

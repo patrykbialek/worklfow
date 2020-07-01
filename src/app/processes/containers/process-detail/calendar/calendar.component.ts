@@ -35,7 +35,7 @@ export class CalendarComponent implements AfterViewInit, OnInit {
     weekends: true,
     editable: true,
     selectable: true,
-    selectMirror: true,
+    // selectMirror: true,
     // dayMaxEvents: true,
     // select: this.handleDateSelect.bind(this),
     // eventsSet: this.handleEvents.bind(this),
